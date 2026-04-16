@@ -36,10 +36,10 @@ export function Modulos() {
           className="text-center max-w-2xl mx-auto mb-16 md:mb-24"
         >
           <span className="inline-block text-[11px] font-bold tracking-widest uppercase text-muted-foreground mb-4">
-            Plataforma Modular
+            Possibilidades de uso
           </span>
           <h2 className="text-3xl md:text-5xl font-serif font-medium text-foreground mb-4">
-            Oito módulos. Um sistema só.
+            Oito formas de transformar sua operação.
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
             Ative o que você precisa hoje. Expanda quando sua operação exigir. Tudo integrado nativamente desde o primeiro dia.

@@ -1,3 +1,84 @@
+export const coreModules = [
+  {
+    id: "auto-dados",
+    label: "Automação de Dados",
+    desc: "Extração automática de informações essenciais.",
+    category: "IA Estratégica",
+    accent: "#2D5BE3",
+    bg: "#EEF2FD",
+  },
+  {
+    id: "gestao-contratos",
+    label: "Gestão de Contratos",
+    desc: "Organize, monitore e automatize contratos.",
+    category: "IA Estratégica",
+    accent: "#7B3FD4",
+    bg: "#F2ECFC",
+  },
+  {
+    id: "compliance",
+    label: "Compliance & Segurança",
+    desc: "Proteção total e conformidade LGPD.",
+    category: "IA Estratégica",
+    accent: "#1A8A5A",
+    bg: "#E8F7F1",
+  },
+  {
+    id: "workflows",
+    label: "Workflows Inteligentes",
+    desc: "Automatize tarefas e reduza erros.",
+    category: "Automação de Processos",
+    accent: "#C0651A",
+    bg: "#FDF3E7",
+  },
+  {
+    id: "gestao-docs",
+    label: "Gestão de Documentos",
+    desc: "Centralize e acesse arquivos facilmente.",
+    category: "Automação de Processos",
+    accent: "#1A6B8A",
+    bg: "#E8F4F9",
+  },
+  {
+    id: "integracoes",
+    label: "Integrações",
+    desc: "Conecte sistemas e otimize fluxos.",
+    category: "Automação de Processos",
+    accent: "#8A5A1A",
+    bg: "#F9F3E8",
+  },
+  {
+    id: "ocr",
+    label: "OCR Inteligente",
+    desc: "Digitalize documentos físicos com precisão.",
+    category: "Recursos Avançados",
+    accent: "#C0392B",
+    bg: "#FDECEB",
+  },
+  {
+    id: "analytics",
+    label: "Analytics",
+    desc: "Relatórios detalhados e insights rápidos.",
+    category: "Recursos Avançados",
+    accent: "#444441",
+    bg: "#F1EFE8",
+  },
+  {
+    id: "seg-avancada",
+    label: "Segurança Avançada",
+    desc: "Criptografia e controle de acesso robustos.",
+    category: "Recursos Avançados",
+    accent: "#2D5BE3",
+    bg: "#EEF2FD",
+  },
+];
+
+export const coreModuleCategories = [
+  "IA Estratégica",
+  "Automação de Processos",
+  "Recursos Avançados",
+];
+
 export const modules = [
   { 
     id: "ged",   

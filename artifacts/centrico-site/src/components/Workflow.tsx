@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { modules } from "@/lib/data";
+import { coreModules, coreModuleCategories } from "@/lib/data";
 
 export function Workflow() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -30,6 +30,7 @@ export function Workflow() {
       const rect = parent.getBoundingClientRect();
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
@@ -59,7 +60,7 @@ export function Workflow() {
       ctx.stroke();
 
       const hubX = w / 2;
-      const hubY = 60;
+      const hubY = 50;
       const hubW = 120;
       const hubH = 36;
       const hubRadius = hubH / 2;
@@ -76,22 +77,21 @@ export function Workflow() {
       ctx.textBaseline = "middle";
       ctx.fillText("Seu sistema", hubX, hubY + hubH / 2);
 
-      const activeModules = modules.filter(m => selectedIds.includes(m.id));
+      const activeModules = coreModules.filter(m => selectedIds.includes(m.id));
 
       if (activeModules.length > 0) {
-        const columns = Math.min(activeModules.length, 4);
-        const startY = hubY + 120;
-        const rowH = 140;
-        const modW = 92;
-        const modH = 80;
-        const gapX = 20;
+        const perRow = activeModules.length <= 3 ? activeModules.length : 3;
+        const startY = hubY + 110;
+        const rowH = 110;
+        const modW = 168;
+        const modH = 84;
+        const gapX = 18;
 
         activeModules.forEach((mod, index) => {
-          const row = Math.floor(index / columns);
-          const col = index % columns;
-          
-          // Calculate center offset for this row
-          const rowItems = Math.min(columns, activeModules.length - row * columns);
+          const row = Math.floor(index / perRow);
+          const col = index % perRow;
+
+          const rowItems = Math.min(perRow, activeModules.length - row * perRow);
           const rowWidth = rowItems * modW + (rowItems - 1) * gapX;
           const startX = w / 2 - rowWidth / 2;
 
@@ -101,11 +101,10 @@ export function Workflow() {
           // Draw connection line
           ctx.beginPath();
           ctx.moveTo(hubX, hubY + hubH);
-          
-          // curve to module top center
+
           const endX = modX + modW / 2;
           const endY = modY - 5;
-          
+
           ctx.bezierCurveTo(
             hubX, hubY + hubH + 40,
             endX, endY - 40,
@@ -134,30 +133,43 @@ export function Workflow() {
           ctx.roundRect(modX, modY, modW, modH, 8);
           ctx.fill();
 
-          // Icon block
+          // Accent strip on left
           ctx.fillStyle = mod.bg;
           ctx.beginPath();
-          ctx.roundRect(modX + modW/2 - 12, modY + 12, 24, 24, 4);
+          ctx.roundRect(modX + 10, modY + 14, 6, modH - 28, 3);
           ctx.fill();
 
-          ctx.fillStyle = mod.accent;
-          ctx.font = "bold 12px sans-serif";
-          ctx.fillText(mod.label.charAt(0), modX + modW/2, modY + 24);
-
-          // Labels
+          // Label (truncate if needed)
           ctx.fillStyle = "#FFFFFF";
-          ctx.font = "500 11px 'DM Sans', sans-serif";
-          ctx.fillText(mod.label, modX + modW/2, modY + 52);
+          ctx.font = "600 12px 'DM Sans', sans-serif";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          let label = mod.label;
+          const maxLabelW = modW - 32;
+          while (ctx.measureText(label).width > maxLabelW && label.length > 3) {
+            label = label.slice(0, -1);
+          }
+          if (label !== mod.label) label = label.slice(0, -1) + "…";
+          ctx.fillText(label, modX + 24, modY + 32);
 
-          ctx.fillStyle = "rgba(255,255,255,0.5)";
-          ctx.font = "10px 'DM Sans', sans-serif";
-          ctx.fillText(mod.area, modX + modW/2, modY + 68);
+          // Category subtitle
+          ctx.fillStyle = mod.accent;
+          ctx.font = "500 9.5px 'DM Sans', sans-serif";
+          let cat = mod.category.toUpperCase();
+          while (ctx.measureText(cat).width > maxLabelW && cat.length > 3) {
+            cat = cat.slice(0, -1);
+          }
+          if (cat !== mod.category.toUpperCase()) cat = cat.slice(0, -1) + "…";
+          ctx.fillText(cat, modX + 24, modY + 54);
+
+          ctx.textAlign = "center";
         });
       } else {
         // Empty state hint
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
         ctx.fillStyle = "rgba(100, 98, 92, 0.4)";
         ctx.font = "400 14px 'DM Sans', sans-serif";
-        ctx.textAlign = "center";
         ctx.fillText("Selecione os módulos acima para montar", w / 2, hubY + 120);
       }
 
@@ -173,7 +185,13 @@ export function Workflow() {
     };
   }, [selectedIds]);
 
-  const activeAreas = new Set(modules.filter(m => selectedIds.includes(m.id)).map(m => m.area)).size;
+  const activeAreas = new Set(
+    coreModules.filter((m) => selectedIds.includes(m.id)).map((m) => m.category)
+  ).size;
+
+  // Compute canvas height based on selection (3 rows of 3 max)
+  const rowsNeeded = Math.max(1, Math.ceil(selectedIds.length / 3));
+  const canvasHeight = 220 + rowsNeeded * 110;
 
   return (
     <section id="workflow" className="py-24 bg-background">
@@ -193,45 +211,66 @@ export function Workflow() {
           </h2>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-10 max-w-3xl mx-auto">
-          {modules.map((mod) => {
-            const isActive = selectedIds.includes(mod.id);
+        <div className="space-y-6 mb-10 max-w-3xl mx-auto">
+          {coreModuleCategories.map((category) => {
+            const items = coreModules.filter((m) => m.category === category);
             return (
-              <button
-                key={mod.id}
-                onClick={() => toggleModule(mod.id)}
-                className={`
-                  flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border
-                  ${isActive 
-                    ? "bg-primary border-primary text-white shadow-md transform -translate-y-0.5" 
-                    : "bg-white border-border text-foreground hover:border-primary/40 hover:bg-secondary/30"}
-                `}
-              >
-                {isActive && <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#6EE7B7" }}></span>}
-                {mod.label}
-              </button>
+              <div key={category} className="text-center">
+                <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground mb-3">
+                  {category}
+                </div>
+                <div className="flex flex-wrap justify-center gap-2.5">
+                  {items.map((mod) => {
+                    const isActive = selectedIds.includes(mod.id);
+                    return (
+                      <button
+                        key={mod.id}
+                        onClick={() => toggleModule(mod.id)}
+                        className={`
+                          flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border
+                          ${isActive
+                            ? "bg-primary border-primary text-white shadow-md transform -translate-y-0.5"
+                            : "bg-white border-border text-foreground hover:border-primary/40 hover:bg-secondary/30"}
+                        `}
+                      >
+                        {isActive && (
+                          <span
+                            className="w-1.5 h-1.5 rounded-full"
+                            style={{ backgroundColor: "#6EE7B7" }}
+                          ></span>
+                        )}
+                        {mod.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
         </div>
 
-        <div className="relative rounded-2xl overflow-hidden border border-border shadow-sm bg-[#F8F6F1] h-[500px]">
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full block"
-          />
-          
+        <div
+          className="relative rounded-2xl overflow-hidden border border-border shadow-sm bg-[#F8F6F1] transition-all duration-500"
+          style={{ height: `${canvasHeight}px` }}
+        >
+          <canvas ref={canvasRef} className="w-full h-full block" />
+
           {selectedIds.length > 0 && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-4"
             >
               <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-full text-sm font-medium text-foreground shadow-sm border border-border/50">
-                {selectedIds.length} módulo{selectedIds.length !== 1 ? 's' : ''} · {activeAreas} área{activeAreas !== 1 ? 's' : ''} coberta{activeAreas !== 1 ? 's' : ''}
+                {selectedIds.length} módulo{selectedIds.length !== 1 ? "s" : ""} ·{" "}
+                {activeAreas} área{activeAreas !== 1 ? "s" : ""} coberta
+                {activeAreas !== 1 ? "s" : ""}
               </div>
-              <Button 
+              <Button
                 className="shadow-lg px-8"
-                onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() =>
+                  document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 Solicitar demo com esse sistema &rarr;
               </Button>
