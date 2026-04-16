@@ -21,7 +21,7 @@ export function Seguranca() {
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-medium text-foreground mb-6 leading-tight">
-                Seus dados ficam na Europa. E ficam seguros.
+                Seus documentos nunca saem da Europa.
               </h2>
               <p className="text-lg text-muted-foreground mb-12 max-w-lg">
                 Infraestrutura hospedada em servidores europeus, com conformidade total às regulamentações LGPD e GDPR. Seus documentos nunca deixam a UE.
