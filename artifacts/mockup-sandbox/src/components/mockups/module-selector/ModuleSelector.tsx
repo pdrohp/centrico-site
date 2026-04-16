@@ -248,24 +248,7 @@ export function ModuleSelector() {
         </div>
 
         {/* Main content */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "300px 1fr",
-          gap: 20,
-          alignItems: "start",
-        }}>
-          {/* Module list */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {MODULES.map(m => (
-              <ModuleCard
-                key={m.id}
-                module={m}
-                selected={selected.includes(m.id)}
-                onClick={() => toggle(m.id)}
-              />
-            ))}
-          </div>
-
+        <div>
           {/* Diagram */}
           <div
             style={{
