@@ -8,7 +8,7 @@ export function Footer() {
               Céntrico
             </span>
             <p className="text-muted-foreground text-sm max-w-xs">
-              SaaS de gestão documental hospedado na Europa. Seguro, escalável e pronto para o formato whitelabel.
+              Plataforma SaaS de gestão documental alojada na Europa. Segura, escalável e disponível em formato whitelabel.
             </p>
           </div>
           
@@ -22,10 +22,10 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-foreground text-sm mb-4">Contato</h4>
+            <h4 className="font-bold text-foreground text-sm mb-4">Contacto</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Falar com vendas</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Suporte</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Falar com a equipa comercial</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Apoio ao cliente</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">LinkedIn</a></li>
             </ul>
           </div>
@@ -33,9 +33,9 @@ export function Footer() {
 
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-4 font-medium">
-            <span>Hospedado na Europa</span>
+            <span>Alojado na Europa</span>
             <span>·</span>
-            <span>LGPD & GDPR</span>
+            <span>Conformidade RGPD</span>
           </div>
           <p>© 2026 Céntrico. Todos os direitos reservados.</p>
         </div>

@@ -54,7 +54,7 @@ export function Navbar() {
             onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
             className="hidden sm:inline-flex"
           >
-            Solicitar demo
+            Agendar demonstração
           </Button>
           <button
             className="md:hidden p-2 text-foreground"
@@ -85,7 +85,7 @@ export function Navbar() {
             }}
             className="w-full mt-2"
           >
-            Solicitar demo
+            Agendar demonstração
           </Button>
         </div>
       )}

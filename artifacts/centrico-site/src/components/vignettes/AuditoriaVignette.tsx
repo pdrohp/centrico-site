@@ -11,15 +11,15 @@ export function AuditoriaVignette({ accent, bg }: { accent: string; bg: string }
   };
 
   const logs = [
-    { time: "10:42", user: "maria.silva", action: "Visualizou documento", doc: "Contrato_Social.pdf" },
-    { time: "10:45", user: "joao.santos", action: "Baixou anexo", doc: "Relatório_Q3.xlsx" },
+    { time: "10:42", user: "maria.silva", action: "Consultou documento", doc: "Contrato_Social.pdf" },
+    { time: "10:45", user: "joao.santos", action: "Descarregou anexo", doc: "Relatório_Q3.xlsx" },
     { time: "10:48", user: "ana.costa", action: "Alterou permissões", doc: "Pasta_Financeiro", alert: true },
     { time: "10:51", user: "carlos.m", action: "Assinou documento", doc: "Aditivo_01.pdf" },
     { time: "10:55", user: "maria.silva", action: "Restaurou versão", doc: "Apresentação.pptx" },
     { time: "10:58", user: "sistema", action: "Backup automático", doc: "Repositório" },
     // Duplicate for seamless loop
-    { time: "10:42", user: "maria.silva", action: "Visualizou documento", doc: "Contrato_Social.pdf" },
-    { time: "10:45", user: "joao.santos", action: "Baixou anexo", doc: "Relatório_Q3.xlsx" },
+    { time: "10:42", user: "maria.silva", action: "Consultou documento", doc: "Contrato_Social.pdf" },
+    { time: "10:45", user: "joao.santos", action: "Descarregou anexo", doc: "Relatório_Q3.xlsx" },
     { time: "10:48", user: "ana.costa", action: "Alterou permissões", doc: "Pasta_Financeiro", alert: true },
   ];
 

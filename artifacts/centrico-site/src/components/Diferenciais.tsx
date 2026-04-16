@@ -4,23 +4,23 @@ import { Link2, Layers, ShieldCheck, Paintbrush } from "lucide-react";
 export function Diferenciais() {
   const cards = [
     {
-      title: "Conecta com o que você já usa",
-      desc: "Simples de implementar, escalável e com suporte contínuo.",
+      title: "Integra-se com o que já utilizam",
+      desc: "Implementação ágil, totalmente escalável e com acompanhamento dedicado a cada fase.",
       icon: Link2
     },
     {
-      title: "Um sistema, não quatro",
-      desc: "Substitui o conjunto de ferramentas que seus concorrentes precisam usar.",
+      title: "Uma plataforma, não quatro",
+      desc: "Consolida num único sistema o conjunto de ferramentas dispersas que a concorrência ainda mantém em paralelo.",
       icon: Layers
     },
     {
-      title: "Seus dados ficam na Europa",
-      desc: "Conformidade total com LGPD e GDPR. Zero riscos legais.",
+      title: "Os vossos dados permanecem na Europa",
+      desc: "Total conformidade com o RGPD e a legislação europeia de proteção de dados. Sem riscos jurídicos.",
       icon: ShieldCheck
     },
     {
-      title: "Sua marca, sua plataforma",
-      desc: "Personalize domínio, logo e identidade. Seus clientes nem percebem que é Céntrico.",
+      title: "A vossa marca, a vossa plataforma",
+      desc: "Personalizem o domínio, o logótipo e toda a identidade visual. Os vossos clientes nunca saberão que é Céntrico por trás.",
       icon: Paintbrush
     }
   ];

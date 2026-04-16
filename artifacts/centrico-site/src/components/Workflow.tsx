@@ -99,12 +99,12 @@ export function Workflow() {
       ctx.font = "500 13px 'DM Sans', sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("Seu sistema", hubX, hubY + hubH / 2);
+      ctx.fillText("A vossa plataforma", hubX, hubY + hubH / 2);
 
       if (groupedActive.length === 0) {
         ctx.fillStyle = "rgba(100, 98, 92, 0.4)";
         ctx.font = "400 14px 'DM Sans', sans-serif";
-        ctx.fillText("Selecione os módulos acima para montar", hubX, hubY + 120);
+        ctx.fillText("Selecione os módulos acima para configurar", hubX, hubY + 120);
         dashOffset += 0.45;
         frame += 1;
         animationFrameId = requestAnimationFrame(draw);
@@ -227,10 +227,10 @@ export function Workflow() {
           className="text-center mb-12"
         >
           <span className="inline-block text-[11px] font-bold tracking-widest uppercase text-muted-foreground mb-4">
-            Monte seu sistema
+            Configure a vossa plataforma
           </span>
           <h2 className="text-3xl md:text-4xl font-serif font-medium text-foreground">
-            Escolha os módulos que a sua empresa precisa
+            Selecione os módulos de que a vossa empresa necessita
           </h2>
         </motion.div>
 
@@ -274,8 +274,7 @@ export function Workflow() {
             >
               <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-full text-sm font-medium text-foreground shadow-sm border border-border/50">
                 {selectedIds.length} módulo{selectedIds.length !== 1 ? "s" : ""} ·{" "}
-                {activeAreas} área{activeAreas !== 1 ? "s" : ""} coberta
-                {activeAreas !== 1 ? "s" : ""}
+                {activeAreas} área{activeAreas !== 1 ? "s" : ""} coberta{activeAreas !== 1 ? "s" : ""}
               </div>
               <Button
                 className="shadow-lg px-8"
@@ -283,7 +282,7 @@ export function Workflow() {
                   document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })
                 }
               >
-                Solicitar demo com esse sistema &rarr;
+                Agendar demonstração com esta configuração &rarr;
               </Button>
             </motion.div>
           )}

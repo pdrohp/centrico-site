@@ -8,10 +8,10 @@ export function Integracoes() {
     <section id="integracoes" className="py-24 bg-background overflow-hidden">
       <div className="container max-w-5xl mx-auto px-6 md:px-8 text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-serif font-medium text-foreground mb-4">
-          Conecta com o que você já usa
+          Integra-se com os sistemas que já utilizam
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Sem necessidade de substituir seus sistemas atuais. Simples de implementar e totalmente escalável via API.
+          Não é necessário substituir as ferramentas em vigor. Implementação simples e totalmente escalável através de API.
         </p>
       </div>
 
@@ -29,7 +29,7 @@ export function Integracoes() {
 
       <div className="container max-w-5xl mx-auto px-6 md:px-8 text-center mt-12">
         <p className="text-sm text-muted-foreground">
-          Não encontrou sua ferramenta? <a href="#cta" className="text-primary underline underline-offset-4 hover:text-primary/80">Fale com a gente.</a>
+          Não encontram a vossa ferramenta? <a href="#cta" className="text-primary underline underline-offset-4 hover:text-primary/80">Falem connosco.</a>
         </p>
       </div>
     </section>

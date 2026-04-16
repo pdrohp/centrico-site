@@ -3,16 +3,16 @@ import { motion } from "framer-motion";
 export function SocialProof() {
   const testimonials = [
     {
-      quote: "Automatizamos o fluxo de aprovação de contratos em 3 semanas. Nosso jurídico parou de ser gargalo para a operação.",
+      quote: "Automatizámos o circuito de aprovação de contratos em três semanas. O nosso departamento jurídico deixou de ser um entrave à operação.",
       name: "Mariana Costa",
       role: "Diretora Jurídica",
-      company: "Rede Varejista"
+      company: "Grupo de Distribuição"
     },
     {
-      quote: "O módulo de RH digitalizou todo nosso processo de admissão. Zero papel, zero perda de documentos e 100% aderente à LGPD.",
+      quote: "O módulo de Recursos Humanos digitalizou por completo o processo de admissão. Zero papel, zero documentos extraviados e total conformidade com o RGPD.",
       name: "Ricardo Silva",
-      role: "Head de Operações",
-      company: "Construtora Nova"
+      role: "Diretor de Operações",
+      company: "Construtora Atlântico"
     }
   ];
 

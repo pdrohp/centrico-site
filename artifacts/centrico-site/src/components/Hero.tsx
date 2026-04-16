@@ -17,7 +17,7 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <span className="inline-block text-[11px] font-bold tracking-widest uppercase text-muted-foreground mb-6">
-            Gestão documental inteligente
+            Gestão documental inteligente para empresas exigentes
           </span>
         </motion.div>
 
@@ -27,7 +27,7 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
           className="text-5xl md:text-7xl font-serif text-foreground font-medium leading-[1.1] mb-8"
         >
-          Sua empresa ainda usa 4 ferramentas para gerir documentos?
+          A sua empresa continua a depender de quatro sistemas para gerir documentos?
         </motion.h1>
 
         <motion.p
@@ -36,7 +36,7 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.16 }}
           className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto"
         >
-          Céntrico centraliza tudo. Um sistema. Sua marca. Seus módulos.
+          A Céntrico unifica tudo numa só plataforma. Um sistema. A vossa marca. Os módulos que a vossa operação exige.
         </motion.p>
 
         <motion.div
@@ -50,13 +50,13 @@ export function Hero() {
             className="w-full sm:w-auto h-14 px-8 text-base font-medium shadow-md"
             onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
           >
-            Solicitar demo
+            Agendar demonstração
           </Button>
           <button
             onClick={() => document.getElementById("workflow")?.scrollIntoView({ behavior: "smooth" })}
             className="text-primary font-medium hover:text-primary/80 transition-colors h-14 px-6 flex items-center justify-center"
           >
-            Ver como funciona &rarr;
+            Conhecer a plataforma &rarr;
           </button>
         </motion.div>
       </div>

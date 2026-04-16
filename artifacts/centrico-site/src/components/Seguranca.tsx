@@ -4,10 +4,10 @@ import globeImage from "@assets/20018_1776367127367.png";
 
 export function Seguranca() {
   const trusts = [
-    { title: "Hospedado na Europa", icon: Globe2 },
-    { title: "LGPD & GDPR conformes", icon: Shield },
+    { title: "Alojado na Europa", icon: Globe2 },
+    { title: "Conformidade RGPD", icon: Shield },
     { title: "Dados nunca saem da UE", icon: CheckCircle2 },
-    { title: "Suporte contínuo incluso", icon: LifeBuoy },
+    { title: "Acompanhamento permanente", icon: LifeBuoy },
   ];
 
   return (
@@ -22,10 +22,10 @@ export function Seguranca() {
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-medium text-foreground mb-6 leading-tight">
-                Seus documentos nunca saem da Europa.
+                Os vossos documentos nunca saem da Europa.
               </h2>
               <p className="text-lg text-muted-foreground mb-12 max-w-lg">
-                Infraestrutura hospedada em servidores europeus, com conformidade total às regulamentações LGPD e GDPR. Seus documentos nunca deixam a UE.
+                Infraestrutura alojada em centros de dados europeus, com total conformidade ao RGPD e à legislação europeia de proteção de dados. Os vossos documentos permanecem sempre dentro do território da UE.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

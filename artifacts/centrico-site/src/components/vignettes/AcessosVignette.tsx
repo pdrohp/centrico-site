@@ -29,7 +29,7 @@ export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) 
       <div className="relative bg-white rounded-xl shadow-md border border-border p-4 w-64">
         {/* Header Row */}
         <div className="flex items-center mb-4 pb-2 border-b border-border/50">
-          <div className="w-20 text-[9px] uppercase tracking-wider text-muted-foreground">Usuário</div>
+          <div className="w-20 text-[9px] uppercase tracking-wider text-muted-foreground">Utilizador</div>
           <div className="flex-1 flex justify-around">
             <div className="text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

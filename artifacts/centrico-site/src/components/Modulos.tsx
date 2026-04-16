@@ -39,10 +39,10 @@ export function Modulos() {
             Possibilidades de uso
           </span>
           <h2 className="text-3xl md:text-5xl font-serif font-medium text-foreground mb-4">
-            Oito formas de transformar sua operação.
+            Oito formas de transformar a vossa operação.
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            Ative o que você precisa hoje. Expanda quando sua operação exigir. Tudo integrado nativamente desde o primeiro dia.
+            Ative os módulos de que necessitam hoje e expanda à medida que a operação cresce. Tudo integrado de forma nativa desde o primeiro dia.
           </p>
         </motion.div>
 
@@ -102,7 +102,7 @@ export function Modulos() {
                         e.currentTarget.style.backgroundColor = "transparent";
                       }}
                     >
-                      Conheça {mod.label} 
+                      Conhecer {mod.label} 
                       <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                     </button>
                   </div>
