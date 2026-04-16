@@ -80,12 +80,19 @@ export function Workflow() {
       const activeModules = coreModules.filter(m => selectedIds.includes(m.id));
 
       if (activeModules.length > 0) {
-        const perRow = activeModules.length <= 3 ? activeModules.length : 3;
         const startY = hubY + 110;
         const rowH = 110;
-        const modW = 168;
         const modH = 84;
         const gapX = 18;
+        const idealW = 168;
+        const minW = 130;
+        // Fit as many columns as the canvas can hold; cap at 3 for visual rhythm
+        const maxFit = Math.max(1, Math.floor((w - 24 + gapX) / (minW + gapX)));
+        const perRow = Math.min(3, activeModules.length, maxFit);
+        const modW = Math.min(
+          idealW,
+          Math.max(minW, (w - 24 - (perRow - 1) * gapX) / perRow)
+        );
 
         activeModules.forEach((mod, index) => {
           const row = Math.floor(index / perRow);
