@@ -61,13 +61,12 @@ function DottedGlobe() {
   ];
 
   return (
-    <div className="absolute inset-0 bg-[#F8F7F5] rounded-3xl border border-border overflow-hidden flex items-center justify-center">
+    <div className="absolute inset-0 rounded-3xl border border-border overflow-hidden flex items-center justify-center bg-[#ffffff]">
       {/* Slowly rotating dotted globe artwork */}
       <div
         className="w-[88%] h-[88%] bg-no-repeat bg-center bg-contain"
         style={{ backgroundImage: `url(${globeImage})` }}
       />
-
       {/* Europe pulsing dots overlay (positioned in container space, not on the spinning globe) */}
       <div className="absolute inset-0 pointer-events-none">
         {europeDots.map((d, i) => (
@@ -93,7 +92,6 @@ function DottedGlobe() {
           </span>
         ))}
       </div>
-
       {/* Bottom info: location pin + GDPR */}
       <div className="absolute bottom-6 left-6 bg-white border border-border px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-2">
         <MapPin size={14} className="text-[#1D9E75]" />
@@ -103,7 +101,6 @@ function DottedGlobe() {
         <Shield size={14} className="text-[#1D9E75]" />
         <span className="text-xs font-bold text-foreground">GDPR</span>
       </div>
-
       <style>{`
         @keyframes centricoGlobeSpin {
           from { transform: rotate(0deg); }
