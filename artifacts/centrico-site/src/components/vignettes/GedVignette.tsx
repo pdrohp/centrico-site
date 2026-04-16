@@ -37,14 +37,14 @@ export function GedVignette({ accent, bg }: { accent: string; bg: string }) {
         {/* Background Card */}
         <motion.div 
           className="absolute top-4 left-4 right-[-1rem] bottom-[-1rem] bg-white/40 rounded-xl border border-white/60 shadow-sm"
-          variants={cardVariants}
+          variants={!shouldReduceMotion ? cardVariants : undefined}
           style={{ transformOrigin: "bottom right" }}
         />
         
         {/* Main Card */}
         <motion.div 
           className="absolute inset-0 bg-white rounded-xl border border-border shadow-md p-4 flex flex-col gap-3"
-          variants={cardVariants}
+          variants={!shouldReduceMotion ? cardVariants : undefined}
         >
           {/* Faux Header */}
           <div className="flex items-center justify-between mb-2">
