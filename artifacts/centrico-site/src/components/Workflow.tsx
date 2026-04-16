@@ -113,16 +113,16 @@ export function Workflow() {
 
       const numCols = groupedActive.length;
       const idealCardW = 200;
-      const minCardW = 150;
-      const colGap = 32;
+      const minCardW = 110;
+      const sidePad = 16;
+      // Adapt the column gap to available width so things never clip
+      const colGap = numCols > 1 ? Math.max(10, Math.min(32, (w - sidePad * 2 - numCols * minCardW) / Math.max(1, numCols - 1))) : 0;
 
-      const availW = w - 32;
-      const cardW = Math.max(
-        minCardW,
-        Math.min(idealCardW, (availW - (numCols - 1) * colGap) / numCols)
-      );
+      const availW = w - sidePad * 2;
+      const rawCardW = (availW - (numCols - 1) * colGap) / numCols;
+      const cardW = Math.max(72, Math.min(idealCardW, rawCardW));
       const totalW = numCols * cardW + (numCols - 1) * colGap;
-      const startX = (w - totalW) / 2;
+      const startX = Math.max(sidePad, (w - totalW) / 2);
 
       const firstCardY = hubY + hubH + 110;
 
