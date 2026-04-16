@@ -32,7 +32,7 @@ export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }
         i === 3 ? accent : "var(--muted-foreground)",
         "var(--muted-foreground)"
       ],
-      transition: { duration: 5, repeat: Infinity, times: [0, 0.2, 0.4, 0.6, 0.8, 1], ease: "easeInOut" }
+      transition: { duration: 5, repeat: Infinity, times: [0, 0.2, 0.4, 0.6, 0.8, 1], ease: "easeInOut" as const }
     })
   };
 
@@ -55,7 +55,7 @@ export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }
         i === 3 ? 0 : 5,
         5
       ],
-      transition: { duration: 5, repeat: Infinity, times: [0, 0.2, 0.4, 0.6, 0.8, 1], ease: "easeInOut" }
+      transition: { duration: 5, repeat: Infinity, times: [0, 0.2, 0.4, 0.6, 0.8, 1], ease: "easeInOut" as const }
     })
   };
 

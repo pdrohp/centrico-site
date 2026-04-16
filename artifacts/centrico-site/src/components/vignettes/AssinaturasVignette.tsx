@@ -8,7 +8,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
     animate: {
       pathLength: [0, 1, 1, 0],
       opacity: [0, 1, 1, 0],
-      transition: { duration: 4, times: [0, 0.3, 0.8, 1], repeat: Infinity, ease: "easeInOut" }
+      transition: { duration: 4, times: [0, 0.3, 0.8, 1], repeat: Infinity, ease: "easeInOut" as const }
     }
   };
 
@@ -17,7 +17,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
     animate: {
       scale: [0, 1, 1, 0],
       opacity: [0, 1, 1, 0],
-      transition: { duration: 4, times: [0, 0.4, 0.8, 1], repeat: Infinity, ease: "backOut" }
+      transition: { duration: 4, times: [0, 0.4, 0.8, 1], repeat: Infinity, ease: "backOut" as const }
     }
   };
 
@@ -27,7 +27,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
       x: [-20, 60, 60, -20],
       y: [10, -10, -10, 10],
       opacity: [0, 1, 0, 0],
-      transition: { duration: 4, times: [0, 0.3, 0.4, 1], repeat: Infinity, ease: "easeInOut" }
+      transition: { duration: 4, times: [0, 0.3, 0.4, 1], repeat: Infinity, ease: "easeInOut" as const }
     }
   };
 

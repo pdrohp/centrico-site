@@ -13,7 +13,7 @@ export function GedVignette({ accent, bg }: { accent: string; bg: string }) {
     initial: { y: 0, scale: 1 },
     animate: {
       y: [0, -4, 0],
-      transition: { duration: 4, ease: "easeInOut", repeat: Infinity }
+      transition: { duration: 4, ease: "easeInOut" as const, repeat: Infinity }
     }
   };
 

@@ -6,7 +6,7 @@ export function AuditoriaVignette({ accent, bg }: { accent: string; bg: string }
   const scrollVariants = {
     animate: {
       y: [0, -120],
-      transition: { duration: 8, ease: "linear", repeat: Infinity }
+      transition: { duration: 8, ease: "linear" as const, repeat: Infinity }
     }
   };
 

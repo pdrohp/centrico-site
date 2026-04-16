@@ -8,7 +8,7 @@ export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) 
     animate: (delay: number) => ({
       x: [2, 14, 14, 2],
       backgroundColor: ["var(--muted)", accent, accent, "var(--muted)"],
-      transition: { duration: 4, delay, repeat: Infinity, times: [0, 0.2, 0.8, 1], ease: "easeInOut" }
+      transition: { duration: 4, delay, repeat: Infinity, times: [0, 0.2, 0.8, 1], ease: "easeInOut" as const }
     })
   };
 
@@ -17,7 +17,7 @@ export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) 
     animate: {
       y: [0, 36, 72, 0],
       opacity: [0, 1, 1, 0],
-      transition: { duration: 4, repeat: Infinity, times: [0, 0.2, 0.8, 1], ease: "easeInOut" }
+      transition: { duration: 4, repeat: Infinity, times: [0, 0.2, 0.8, 1], ease: "easeInOut" as const }
     }
   };
 

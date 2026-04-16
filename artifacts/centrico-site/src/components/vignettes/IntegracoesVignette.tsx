@@ -6,21 +6,21 @@ export function IntegracoesVignette({ accent, bg }: { accent: string; bg: string
   const orbitVariants = {
     animate: {
       rotate: 360,
-      transition: { duration: 20, ease: "linear", repeat: Infinity }
+      transition: { duration: 20, ease: "linear" as const, repeat: Infinity }
     }
   };
 
   const reverseOrbitVariants = {
     animate: {
       rotate: -360,
-      transition: { duration: 20, ease: "linear", repeat: Infinity }
+      transition: { duration: 20, ease: "linear" as const, repeat: Infinity }
     }
   };
 
   const lineVariants = {
     animate: {
       strokeDashoffset: [0, -20],
-      transition: { duration: 1, ease: "linear", repeat: Infinity }
+      transition: { duration: 1, ease: "linear" as const, repeat: Infinity }
     }
   };
 

@@ -23,7 +23,7 @@ export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
     initial: { width: "0%" },
     animate: {
       width: ["0%", "25%", "50%", "75%", "100%", "0%"],
-      transition: { duration: 6, repeat: Infinity, times: [0, 0.15, 0.3, 0.45, 0.8, 1], ease: "easeInOut" }
+      transition: { duration: 6, repeat: Infinity, times: [0, 0.15, 0.3, 0.45, 0.8, 1], ease: "easeInOut" as const }
     }
   };
 

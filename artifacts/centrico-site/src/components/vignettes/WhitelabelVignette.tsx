@@ -6,7 +6,7 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
   const brandVariants = {
     animate: {
       backgroundColor: ["#1A2E4A", "#1D9E75", "#1A2E4A"], // Navy to Teal to Navy
-      transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+      transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const }
     }
   };
 
@@ -14,7 +14,7 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
     animate: {
       opacity: [1, 0, 1, 0, 1],
       y: [0, -5, 0, -5, 0],
-      transition: { duration: 6, repeat: Infinity, times: [0, 0.45, 0.5, 0.95, 1], ease: "easeInOut" }
+      transition: { duration: 6, repeat: Infinity, times: [0, 0.45, 0.5, 0.95, 1], ease: "easeInOut" as const }
     }
   };
 
@@ -37,14 +37,14 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
                 <motion.span 
                   className="absolute"
                   animate={{ opacity: [1, 0, 1], y: [0, -10, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, times: [0, 0.5, 1], ease: "easeInOut" }}
+                  transition={{ duration: 6, repeat: Infinity, times: [0, 0.5, 1], ease: "easeInOut" as const }}
                 >
                   app.centrico.com
                 </motion.span>
                 <motion.span 
                   className="absolute"
                   animate={{ opacity: [0, 1, 0], y: [10, 0, 10] }}
-                  transition={{ duration: 6, repeat: Infinity, times: [0, 0.5, 1], ease: "easeInOut" }}
+                  transition={{ duration: 6, repeat: Infinity, times: [0, 0.5, 1], ease: "easeInOut" as const }}
                 >
                   docs.empresa.com.br
                 </motion.span>
