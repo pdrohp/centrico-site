@@ -25,9 +25,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
           className="md:text-7xl font-serif text-foreground font-medium mb-8 text-[64px]"
-        >
-          A sua empresa continua a depender de quatro sistemas para gerir documentos?
-        </motion.h1>
+        >A sua empresa continua a depender de muitos sistemas para gerir documentos?</motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 24 }}
