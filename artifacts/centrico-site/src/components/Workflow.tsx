@@ -13,6 +13,29 @@ export function Workflow() {
     );
   };
 
+  // Group selected modules by category, preserving the canonical category order
+  const groupedActive = coreModuleCategories
+    .map((cat) => ({
+      category: cat,
+      items: coreModules.filter(
+        (m) => m.category === cat && selectedIds.includes(m.id)
+      ),
+    }))
+    .filter((g) => g.items.length > 0);
+
+  const activeAreas = groupedActive.length;
+  const maxRows = groupedActive.reduce((acc, g) => Math.max(acc, g.items.length), 0);
+
+  // Layout constants (must match canvas drawing)
+  const CARD_H = 56;
+  const ROW_GAP = 22;
+  const TOP_OFFSET = 200; // hub area + connector down to first card
+  const BOTTOM_PAD = selectedIds.length > 0 ? 130 : 60;
+  const canvasHeight = Math.max(
+    340,
+    TOP_OFFSET + Math.max(1, maxRows) * CARD_H + Math.max(0, maxRows - 1) * ROW_GAP + BOTTOM_PAD
+  );
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -22,6 +45,7 @@ export function Workflow() {
 
     let animationFrameId: number;
     let dashOffset = 0;
+    let frame = 0;
 
     const resize = () => {
       const parent = canvas.parentElement;
@@ -45,7 +69,7 @@ export function Workflow() {
 
       ctx.clearRect(0, 0, w, h);
 
-      // Draw grid
+      // Grid background
       ctx.beginPath();
       for (let x = 0; x <= w; x += 22) {
         ctx.moveTo(x, 0);
@@ -65,7 +89,7 @@ export function Workflow() {
       const hubH = 36;
       const hubRadius = hubH / 2;
 
-      // Draw hub pill
+      // Hub pill
       ctx.fillStyle = "#1A2E4A";
       ctx.beginPath();
       ctx.roundRect(hubX - hubW / 2, hubY, hubW, hubH, hubRadius);
@@ -77,110 +101,109 @@ export function Workflow() {
       ctx.textBaseline = "middle";
       ctx.fillText("Seu sistema", hubX, hubY + hubH / 2);
 
-      const activeModules = coreModules.filter(m => selectedIds.includes(m.id));
+      if (groupedActive.length === 0) {
+        ctx.fillStyle = "rgba(100, 98, 92, 0.4)";
+        ctx.font = "400 14px 'DM Sans', sans-serif";
+        ctx.fillText("Selecione os módulos acima para montar", hubX, hubY + 120);
+        dashOffset += 0.45;
+        frame += 1;
+        animationFrameId = requestAnimationFrame(draw);
+        return;
+      }
 
-      if (activeModules.length > 0) {
-        const startY = hubY + 110;
-        const rowH = 110;
-        const modH = 84;
-        const gapX = 18;
-        const idealW = 168;
-        const minW = 130;
-        // Fit as many columns as the canvas can hold; cap at 3 for visual rhythm
-        const maxFit = Math.max(1, Math.floor((w - 24 + gapX) / (minW + gapX)));
-        const perRow = Math.min(3, activeModules.length, maxFit);
-        const modW = Math.min(
-          idealW,
-          Math.max(minW, (w - 24 - (perRow - 1) * gapX) / perRow)
+      const numCols = groupedActive.length;
+      const idealCardW = 200;
+      const minCardW = 150;
+      const colGap = 32;
+
+      const availW = w - 32;
+      const cardW = Math.max(
+        minCardW,
+        Math.min(idealCardW, (availW - (numCols - 1) * colGap) / numCols)
+      );
+      const totalW = numCols * cardW + (numCols - 1) * colGap;
+      const startX = (w - totalW) / 2;
+
+      const firstCardY = hubY + hubH + 110;
+
+      // Pulse opacity for "active" indicator (~1.5s cycle)
+      const pulse = 0.45 + 0.55 * (Math.sin(frame * 0.08) * 0.5 + 0.5);
+
+      groupedActive.forEach((group, colIdx) => {
+        const colX = startX + colIdx * (cardW + colGap);
+        const cardCenterX = colX + cardW / 2;
+
+        // Connector from hub to first card top (curved bezier)
+        const firstTopY = firstCardY;
+        ctx.beginPath();
+        ctx.moveTo(hubX, hubY + hubH);
+        ctx.bezierCurveTo(
+          hubX, hubY + hubH + 50,
+          cardCenterX, firstTopY - 50,
+          cardCenterX, firstTopY
         );
+        ctx.strokeStyle = "rgba(100, 98, 92, 0.5)";
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([5, 5]);
+        ctx.lineDashOffset = -dashOffset;
+        ctx.stroke();
+        ctx.setLineDash([]);
 
-        activeModules.forEach((mod, index) => {
-          const row = Math.floor(index / perRow);
-          const col = index % perRow;
+        group.items.forEach((mod, rowIdx) => {
+          const cardY = firstCardY + rowIdx * (CARD_H + ROW_GAP);
 
-          const rowItems = Math.min(perRow, activeModules.length - row * perRow);
-          const rowWidth = rowItems * modW + (rowItems - 1) * gapX;
-          const startX = w / 2 - rowWidth / 2;
+          // Vertical chain line between previous card bottom and this card top
+          if (rowIdx > 0) {
+            const prevBottomY = firstCardY + (rowIdx - 1) * (CARD_H + ROW_GAP) + CARD_H;
+            ctx.beginPath();
+            ctx.moveTo(cardCenterX, prevBottomY);
+            ctx.lineTo(cardCenterX, cardY);
+            ctx.strokeStyle = "rgba(100, 98, 92, 0.5)";
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 5]);
+            ctx.lineDashOffset = -dashOffset;
+            ctx.stroke();
+            ctx.setLineDash([]);
+          }
 
-          const modX = startX + col * (modW + gapX);
-          const modY = startY + row * rowH;
-
-          // Draw connection line
-          ctx.beginPath();
-          ctx.moveTo(hubX, hubY + hubH);
-
-          const endX = modX + modW / 2;
-          const endY = modY - 5;
-
-          ctx.bezierCurveTo(
-            hubX, hubY + hubH + 40,
-            endX, endY - 40,
-            endX, endY
-          );
-
-          ctx.strokeStyle = "rgba(100, 98, 92, 0.5)";
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([5, 5]);
-          ctx.lineDashOffset = -dashOffset;
-          ctx.stroke();
-
-          // Arrow head
-          ctx.beginPath();
-          ctx.moveTo(endX, endY + 5);
-          ctx.lineTo(endX - 4, endY - 3);
-          ctx.lineTo(endX + 4, endY - 3);
-          ctx.fillStyle = "rgba(100, 98, 92, 0.6)";
-          ctx.fill();
-
-          ctx.setLineDash([]);
-
-          // Draw module card
+          // Minimal card
           ctx.fillStyle = "#2C2C2A";
           ctx.beginPath();
-          ctx.roundRect(modX, modY, modW, modH, 8);
+          ctx.roundRect(colX, cardY, cardW, CARD_H, 10);
           ctx.fill();
 
-          // Accent strip on left
-          ctx.fillStyle = mod.bg;
+          // Pulsing green dot
+          const dotX = colX + 18;
+          const dotY = cardY + CARD_H / 2;
+          // Soft halo
+          ctx.fillStyle = `rgba(110, 231, 183, ${0.18 * pulse})`;
           ctx.beginPath();
-          ctx.roundRect(modX + 10, modY + 14, 6, modH - 28, 3);
+          ctx.arc(dotX, dotY, 9, 0, Math.PI * 2);
+          ctx.fill();
+          // Core dot
+          ctx.fillStyle = `rgba(110, 231, 183, ${pulse})`;
+          ctx.beginPath();
+          ctx.arc(dotX, dotY, 4, 0, Math.PI * 2);
           ctx.fill();
 
-          // Label (truncate if needed)
+          // Label (truncate gracefully)
           ctx.fillStyle = "#FFFFFF";
-          ctx.font = "600 12px 'DM Sans', sans-serif";
+          ctx.font = "500 13px 'DM Sans', sans-serif";
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
           let label = mod.label;
-          const maxLabelW = modW - 32;
+          const maxLabelW = cardW - 44;
           while (ctx.measureText(label).width > maxLabelW && label.length > 3) {
             label = label.slice(0, -1);
           }
           if (label !== mod.label) label = label.slice(0, -1) + "…";
-          ctx.fillText(label, modX + 24, modY + 32);
-
-          // Category subtitle
-          ctx.fillStyle = mod.accent;
-          ctx.font = "500 9.5px 'DM Sans', sans-serif";
-          let cat = mod.category.toUpperCase();
-          while (ctx.measureText(cat).width > maxLabelW && cat.length > 3) {
-            cat = cat.slice(0, -1);
-          }
-          if (cat !== mod.category.toUpperCase()) cat = cat.slice(0, -1) + "…";
-          ctx.fillText(cat, modX + 24, modY + 54);
-
+          ctx.fillText(label, colX + 34, dotY);
           ctx.textAlign = "center";
         });
-      } else {
-        // Empty state hint
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillStyle = "rgba(100, 98, 92, 0.4)";
-        ctx.font = "400 14px 'DM Sans', sans-serif";
-        ctx.fillText("Selecione os módulos acima para montar", w / 2, hubY + 120);
-      }
+      });
 
       dashOffset += 0.45;
+      frame += 1;
       animationFrameId = requestAnimationFrame(draw);
     };
 
@@ -190,15 +213,8 @@ export function Workflow() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIds]);
-
-  const activeAreas = new Set(
-    coreModules.filter((m) => selectedIds.includes(m.id)).map((m) => m.category)
-  ).size;
-
-  // Compute canvas height based on selection (3 rows of 3 max)
-  const rowsNeeded = Math.max(1, Math.ceil(selectedIds.length / 3));
-  const canvasHeight = 220 + rowsNeeded * 110;
 
   return (
     <section id="workflow" className="py-24 bg-background">
@@ -218,40 +234,28 @@ export function Workflow() {
           </h2>
         </motion.div>
 
-        <div className="space-y-6 mb-10 max-w-3xl mx-auto">
-          {coreModuleCategories.map((category) => {
-            const items = coreModules.filter((m) => m.category === category);
+        <div className="flex flex-wrap justify-center gap-2.5 mb-10 max-w-3xl mx-auto">
+          {coreModules.map((mod) => {
+            const isActive = selectedIds.includes(mod.id);
             return (
-              <div key={category} className="text-center">
-                <div className="text-[10px] font-bold tracking-widest uppercase text-muted-foreground mb-3">
-                  {category}
-                </div>
-                <div className="flex flex-wrap justify-center gap-2.5">
-                  {items.map((mod) => {
-                    const isActive = selectedIds.includes(mod.id);
-                    return (
-                      <button
-                        key={mod.id}
-                        onClick={() => toggleModule(mod.id)}
-                        className={`
-                          flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border
-                          ${isActive
-                            ? "bg-primary border-primary text-white shadow-md transform -translate-y-0.5"
-                            : "bg-white border-border text-foreground hover:border-primary/40 hover:bg-secondary/30"}
-                        `}
-                      >
-                        {isActive && (
-                          <span
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{ backgroundColor: "#6EE7B7" }}
-                          ></span>
-                        )}
-                        {mod.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              <button
+                key={mod.id}
+                onClick={() => toggleModule(mod.id)}
+                className={`
+                  flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border
+                  ${isActive
+                    ? "bg-primary border-primary text-white shadow-md transform -translate-y-0.5"
+                    : "bg-white border-border text-foreground hover:border-primary/40 hover:bg-secondary/30"}
+                `}
+              >
+                {isActive && (
+                  <span
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: "#6EE7B7" }}
+                  ></span>
+                )}
+                {mod.label}
+              </button>
             );
           })}
         </div>
