@@ -9,7 +9,6 @@ export function Hero() {
         backgroundImage: "linear-gradient(rgba(180, 178, 169, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(180, 178, 169, 0.4) 1px, transparent 1px)",
         backgroundSize: "40px 40px"
       }}></div>
-
       <div className="container max-w-4xl mx-auto px-6 md:px-8 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -25,7 +24,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
-          className="text-5xl md:text-7xl font-serif text-foreground font-medium leading-[1.1] mb-8"
+          className="md:text-7xl font-serif text-foreground font-medium mb-8 text-[64px]"
         >
           A sua empresa continua a depender de quatro sistemas para gerir documentos?
         </motion.h1>
