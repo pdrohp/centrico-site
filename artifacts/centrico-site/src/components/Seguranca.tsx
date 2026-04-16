@@ -65,10 +65,7 @@ function DottedGlobe() {
       {/* Slowly rotating dotted globe artwork */}
       <div
         className="w-[88%] h-[88%] bg-no-repeat bg-center bg-contain"
-        style={{
-          backgroundImage: `url(${globeImage})`,
-          animation: "centricoGlobeSpin 40s linear infinite",
-        }}
+        style={{ backgroundImage: `url(${globeImage})` }}
       />
 
       {/* Europe pulsing dots overlay (positioned in container space, not on the spinning globe) */}
