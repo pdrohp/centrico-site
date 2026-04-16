@@ -64,8 +64,8 @@ export function Modulos() {
               >
                 {/* Text Side */}
                 <div 
-                  className={`p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 ${
-                    isMediaLeft ? "lg:order-last" : ""
+                  className={`p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 order-2 ${
+                    isMediaLeft ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
                   <span 
@@ -109,7 +109,9 @@ export function Modulos() {
                 </div>
 
                 {/* Media Side (Vignette) */}
-                <div className="lg:w-1/2 p-6 md:p-12 flex items-center justify-center min-h-[340px] md:min-h-[400px]">
+                <div className={`lg:w-1/2 p-6 md:p-12 flex items-center justify-center min-h-[340px] md:min-h-[400px] order-1 ${
+                  isMediaLeft ? "lg:order-1" : "lg:order-2"
+                }`}>
                   <div className="w-full max-w-[560px] aspect-[4/3] relative rounded-2xl shadow-xl overflow-hidden border border-border/50">
                     {/* Faux Browser Chrome */}
                     <div className="absolute top-0 inset-x-0 h-12 bg-white/80 backdrop-blur border-b border-border/50 flex items-center px-4 gap-2 z-20">
