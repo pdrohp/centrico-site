@@ -5,11 +5,32 @@ import { modules } from "@/lib/data";
 import { hasModuleContent } from "@/lib/modulesContent";
 import { Button } from "./ui/button";
 
-const MODULE_GROUPS: { title: string; ids: string[] }[] = [
-  { title: "Gestão Documental", ids: ["ged", "ass", "rh"] },
-  { title: "Operação & Compliance", ids: ["proc", "audit", "ctrl"] },
-  { title: "Plataforma", ids: ["integ", "wl"] },
+// Map each module's `area` (from data.ts) to one of three navbar buckets.
+// Every area in the catalog must be mapped here — modules with an unmapped
+// area appear in the fallback "Plataforma" bucket so nothing is ever hidden.
+const AREA_TO_BUCKET: Record<string, string> = {
+  Core: "Gestão Documental",
+  Jurídico: "Gestão Documental",
+  "Recursos Humanos": "Gestão Documental",
+  Operações: "Operação & Compliance",
+  Compliance: "Operação & Compliance",
+  Segurança: "Operação & Compliance",
+  API: "Plataforma",
+  Marca: "Plataforma",
+};
+
+const BUCKET_ORDER = [
+  "Gestão Documental",
+  "Operação & Compliance",
+  "Plataforma",
 ];
+
+const MODULE_GROUPS = BUCKET_ORDER.map((title) => ({
+  title,
+  modules: modules.filter(
+    (m) => (AREA_TO_BUCKET[m.area] ?? "Plataforma") === title,
+  ),
+})).filter((g) => g.modules.length > 0);
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -104,6 +125,7 @@ export function Navbar() {
             onClick={() => setModulosOpen((o) => !o)}
             aria-haspopup="true"
             aria-expanded={modulosOpen}
+            aria-controls="modulos-mega-menu"
             className={`flex items-center gap-1 text-[11px] font-display font-semibold uppercase tracking-[0.18em] transition-colors ${
               modulosOpen
                 ? "text-foreground"
@@ -166,6 +188,9 @@ export function Navbar() {
       {modulosOpen && (
         <div
           ref={dropdownRef}
+          id="modulos-mega-menu"
+          role="region"
+          aria-label="Menu de módulos"
           className="hidden lg:block absolute top-full left-0 right-0 bg-background border-y border-border shadow-xl animate-in fade-in duration-150"
         >
           <div className="container max-w-7xl mx-auto px-6 md:px-8 py-10">
@@ -177,9 +202,7 @@ export function Navbar() {
                       {group.title}
                     </h4>
                     <ul className="space-y-4">
-                      {group.ids.map((id) => {
-                        const mod = modules.find((m) => m.id === id);
-                        if (!mod) return null;
+                      {group.modules.map((mod) => {
                         const enabled = hasModuleContent(mod.id);
                         const inner = (
                           <>
@@ -267,9 +290,7 @@ export function Navbar() {
                     {group.title}
                   </div>
                   <ul className="space-y-1">
-                    {group.ids.map((id) => {
-                      const mod = modules.find((m) => m.id === id);
-                      if (!mod) return null;
+                    {group.modules.map((mod) => {
                       const enabled = hasModuleContent(mod.id);
                       return (
                         <li key={mod.id}>
