@@ -1,17 +1,10 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, Globe2, Shield, LifeBuoy, MapPin } from "lucide-react";
+import { Shield, MapPin } from "lucide-react";
 import globeImage from "@assets/20018_1776367127367.png";
 
 const NAVY = "#1A2E4A";
 
 export function Seguranca() {
-  const trusts = [
-    { title: "Alojado na Europa", icon: Globe2 },
-    { title: "Conformidade RGPD", icon: Shield },
-    { title: "Dados nunca saem da UE", icon: CheckCircle2 },
-    { title: "Acompanhamento permanente", icon: LifeBuoy },
-  ];
-
   return (
     <section id="seguranca" className="py-24 md:py-32 bg-white border-y border-border">
       <div className="container max-w-6xl mx-auto px-6 md:px-8">
@@ -32,15 +25,6 @@ export function Seguranca() {
               <p className="text-base md:text-lg text-muted-foreground mb-10 max-w-lg">
                 Infraestrutura alojada em centros de dados europeus, com total conformidade ao RGPD e à legislação europeia de proteção de dados. Os vossos documentos permanecem sempre dentro do território da UE.
               </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
-                {trusts.map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-foreground"></span>
-                    <span className="font-display font-semibold uppercase tracking-[0.12em] text-[12px] text-foreground">{item.title}</span>
-                  </div>
-                ))}
-              </div>
 
               <div>
                 <span className="display-eyebrow inline-block text-[10px] text-foreground/55 mb-3">Certificações</span>
