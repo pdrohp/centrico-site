@@ -16,7 +16,6 @@ const AREA_TO_BUCKET: Record<string, string> = {
   Compliance: "Operação & Compliance",
   Segurança: "Operação & Compliance",
   API: "Plataforma",
-  Marca: "Plataforma",
 };
 
 const BUCKET_ORDER = [

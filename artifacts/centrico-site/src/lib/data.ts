@@ -155,14 +155,4 @@ export const modules = [
     headline: "Burocracia reduzida ao mínimo na gestão de pessoas.",
     body: "Digitalize todo o ciclo de vida do colaborador, da admissão à cessação do contrato. Recolha documentos, emita contratos e faça a gestão dos processos do departamento de forma centralizada."
   },
-  {
-    id: "wl",
-    label: "Whitelabel",
-    desc: "Plataforma com a vossa marca, domínio e identidade visual",
-    area: "Marca",
-    accent: NAVY,
-    bg: STONE_DEEP,
-    headline: "A plataforma é nossa, mas a marca é vossa.",
-    body: "Disponibilize um portal com o vosso logótipo e domínio próprio. Os vossos clientes interagem com uma interface profissional que reflete fielmente a identidade e os valores da empresa."
-  },
 ];

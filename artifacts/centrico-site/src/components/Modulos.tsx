@@ -11,7 +11,6 @@ import { AcessosVignette } from "./vignettes/AcessosVignette";
 import { AuditoriaVignette } from "./vignettes/AuditoriaVignette";
 import { IntegracoesVignette } from "./vignettes/IntegracoesVignette";
 import { RhVignette } from "./vignettes/RhVignette";
-import { WhitelabelVignette } from "./vignettes/WhitelabelVignette";
 
 const vignetteComponents: Record<string, React.ElementType> = {
   ged: GedVignette,
@@ -21,7 +20,6 @@ const vignetteComponents: Record<string, React.ElementType> = {
   audit: AuditoriaVignette,
   integ: IntegracoesVignette,
   rh: RhVignette,
-  wl: WhitelabelVignette,
 };
 
 export function Modulos() {
@@ -39,7 +37,7 @@ export function Modulos() {
             Possibilidades de uso
           </span>
           <h2 className="display-title text-foreground text-[32px] md:text-[48px] mb-6">
-            Oito formas de transformar a vossa operação
+            Sete formas de transformar a vossa operação
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
             Ative os módulos de que necessitam hoje e expanda à medida que a operação cresce. Tudo integrado de forma nativa desde o primeiro dia.
