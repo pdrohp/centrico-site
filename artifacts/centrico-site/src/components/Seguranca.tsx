@@ -61,7 +61,7 @@ function DottedGlobe() {
   ];
 
   return (
-    <div className="absolute inset-0 rounded-3xl border border-border overflow-hidden flex items-center justify-center bg-background">
+    <div className="absolute inset-0 rounded-3xl border border-border overflow-hidden flex items-center justify-center bg-[#ffffff]">
       <div
         className="w-[88%] h-[88%] bg-no-repeat bg-center bg-contain"
         style={{ backgroundImage: `url(${globeImage})` }}
