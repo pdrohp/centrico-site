@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 import { modules } from "@/lib/data";
+import { hasModuleContent } from "@/lib/modulesContent";
 import { Button } from "./ui/button";
 
 import { GedVignette } from "./vignettes/GedVignette";
@@ -84,14 +86,29 @@ export function Modulos() {
                   </p>
 
                   <div className="mt-auto">
-                    <Button
-                      variant="pillOutline"
-                      size="pillSm"
-                      className="group"
-                    >
-                      Conhecer {mod.label}
-                      <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-                    </Button>
+                    {hasModuleContent(mod.id) ? (
+                      <Button
+                        asChild
+                        variant="pillOutline"
+                        size="pillSm"
+                        className="group"
+                      >
+                        <Link href={`/modulos/${mod.id}`}>
+                          Conhecer {mod.label}
+                          <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                        </Link>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="pillOutline"
+                        size="pillSm"
+                        disabled
+                        className="opacity-60 cursor-not-allowed"
+                        title="Página detalhada em breve"
+                      >
+                        Em breve
+                      </Button>
+                    )}
                   </div>
                 </div>
 
