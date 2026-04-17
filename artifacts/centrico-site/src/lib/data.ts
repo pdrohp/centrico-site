@@ -80,9 +80,9 @@ export const coreModuleCategories = [
 ];
 
 const NAVY = "#1A2E4A";
-const STONE_LIGHT = "#EEEBE4";
-const STONE_MID = "#E4E0D7";
-const STONE_DEEP = "#D9D5CB";
+const STONE_LIGHT = "#EAEDF1";
+const STONE_MID = "#DBE0E8";
+const STONE_DEEP = "#C9D0DA";
 
 export const modules = [
   {

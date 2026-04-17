@@ -88,7 +88,7 @@ export function Workflow() {
       const hubRadius = hubH / 2;
 
       // Hub pill (light on dark)
-      ctx.fillStyle = "#F4F2EE";
+      ctx.fillStyle = "#F1F3F6";
       ctx.beginPath();
       ctx.roundRect(hubX - hubW / 2, hubY, hubW, hubH, hubRadius);
       ctx.fill();
@@ -184,7 +184,7 @@ export function Workflow() {
           ctx.fill();
 
           // Label
-          ctx.fillStyle = "#F4F2EE";
+          ctx.fillStyle = "#F1F3F6";
           ctx.font = "600 11px 'Archivo Narrow', sans-serif";
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";

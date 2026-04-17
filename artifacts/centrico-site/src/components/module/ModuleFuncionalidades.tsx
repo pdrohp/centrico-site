@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { ModuleContent } from "@/lib/modulesContent";
 
-const FEATURE_BG = ["#EEEBE4", "#E4E0D7", "#D9D5CB"] as const;
+const FEATURE_BG = ["#EAEDF1", "#DBE0E8", "#C9D0DA"] as const;
 const FEATURE_ACCENT = "#1A2E4A";
 
 export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
@@ -74,9 +74,9 @@ export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
                     {/* browser chrome */}
                     <div className="absolute top-0 inset-x-0 h-10 bg-white/90 backdrop-blur border-b border-border/50 flex items-center px-4 gap-2 z-20">
                       <div className="flex gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-[#D9D5CB]" />
-                        <div className="w-2 h-2 rounded-full bg-[#D9D5CB]" />
-                        <div className="w-2 h-2 rounded-full bg-[#D9D5CB]" />
+                        <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
+                        <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
+                        <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
                       </div>
                     </div>
 
@@ -122,7 +122,7 @@ function FeatureIllustration({ Icon, accent, bg }: IllustrationProps) {
         {/* icon badge */}
         <div
           className="w-12 h-12 rounded-full flex items-center justify-center"
-          style={{ backgroundColor: accent, color: "#F4F2EE" }}
+          style={{ backgroundColor: accent, color: "#F1F3F6" }}
         >
           <Icon size={20} strokeWidth={1.5} />
         </div>
