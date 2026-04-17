@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
 import { coreModules, coreModuleCategories } from "@/lib/data";
 
 export function Workflow() {
@@ -13,7 +12,6 @@ export function Workflow() {
     );
   };
 
-  // Group selected modules by category, preserving the canonical category order
   const groupedActive = coreModuleCategories
     .map((cat) => ({
       category: cat,
@@ -26,10 +24,9 @@ export function Workflow() {
   const activeAreas = groupedActive.length;
   const maxRows = groupedActive.reduce((acc, g) => Math.max(acc, g.items.length), 0);
 
-  // Layout constants (must match canvas drawing)
   const CARD_H = 56;
   const ROW_GAP = 22;
-  const TOP_OFFSET = 200; // hub area + connector down to first card
+  const TOP_OFFSET = 200;
   const BOTTOM_PAD = selectedIds.length > 0 ? 130 : 60;
   const canvasHeight = Math.max(
     340,
@@ -69,7 +66,7 @@ export function Workflow() {
 
       ctx.clearRect(0, 0, w, h);
 
-      // Grid background
+      // Grid background (subtle, on dark)
       ctx.beginPath();
       for (let x = 0; x <= w; x += 22) {
         ctx.moveTo(x, 0);
@@ -79,30 +76,31 @@ export function Workflow() {
         ctx.moveTo(0, y);
         ctx.lineTo(w, y);
       }
-      ctx.strokeStyle = "rgba(180, 178, 169, 0.22)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
       ctx.lineWidth = 1;
       ctx.stroke();
 
       const hubX = w / 2;
       const hubY = 50;
-      const hubW = 120;
-      const hubH = 36;
+      const hubW = 160;
+      const hubH = 38;
       const hubRadius = hubH / 2;
 
-      // Hub pill
-      ctx.fillStyle = "#1A2E4A";
+      // Hub pill (light on dark)
+      ctx.fillStyle = "#F4F2EE";
       ctx.beginPath();
       ctx.roundRect(hubX - hubW / 2, hubY, hubW, hubH, hubRadius);
       ctx.fill();
 
-      ctx.fillStyle = "#FFFFFF";
-      ctx.font = "500 13px 'DM Sans', sans-serif";
+      ctx.fillStyle = "#0E1622";
+      ctx.font = "600 11px 'Archivo Narrow', sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("A vossa plataforma", hubX, hubY + hubH / 2);
+      const hubLabel = "A VOSSA PLATAFORMA";
+      ctx.fillText(hubLabel, hubX, hubY + hubH / 2);
 
       if (groupedActive.length === 0) {
-        ctx.fillStyle = "rgba(100, 98, 92, 0.4)";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
         ctx.font = "400 14px 'DM Sans', sans-serif";
         ctx.fillText("Selecione os módulos acima para configurar", hubX, hubY + 120);
         dashOffset += 0.45;
@@ -115,7 +113,6 @@ export function Workflow() {
       const idealCardW = 200;
       const minCardW = 110;
       const sidePad = 16;
-      // Adapt the column gap to available width so things never clip
       const colGap = numCols > 1 ? Math.max(10, Math.min(32, (w - sidePad * 2 - numCols * minCardW) / Math.max(1, numCols - 1))) : 0;
 
       const availW = w - sidePad * 2;
@@ -126,14 +123,13 @@ export function Workflow() {
 
       const firstCardY = hubY + hubH + 110;
 
-      // Pulse opacity for "active" indicator (~1.5s cycle)
       const pulse = 0.45 + 0.55 * (Math.sin(frame * 0.08) * 0.5 + 0.5);
 
       groupedActive.forEach((group, colIdx) => {
         const colX = startX + colIdx * (cardW + colGap);
         const cardCenterX = colX + cardW / 2;
 
-        // Connector from hub to first card top (curved bezier)
+        // Connector from hub
         const firstTopY = firstCardY;
         ctx.beginPath();
         ctx.moveTo(hubX, hubY + hubH);
@@ -142,9 +138,9 @@ export function Workflow() {
           cardCenterX, firstTopY - 50,
           cardCenterX, firstTopY
         );
-        ctx.strokeStyle = "rgba(100, 98, 92, 0.5)";
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([5, 5]);
+        ctx.strokeStyle = "rgba(244, 242, 238, 0.35)";
+        ctx.lineWidth = 1.25;
+        ctx.setLineDash([4, 6]);
         ctx.lineDashOffset = -dashOffset;
         ctx.stroke();
         ctx.setLineDash([]);
@@ -152,51 +148,51 @@ export function Workflow() {
         group.items.forEach((mod, rowIdx) => {
           const cardY = firstCardY + rowIdx * (CARD_H + ROW_GAP);
 
-          // Vertical chain line between previous card bottom and this card top
           if (rowIdx > 0) {
             const prevBottomY = firstCardY + (rowIdx - 1) * (CARD_H + ROW_GAP) + CARD_H;
             ctx.beginPath();
             ctx.moveTo(cardCenterX, prevBottomY);
             ctx.lineTo(cardCenterX, cardY);
-            ctx.strokeStyle = "rgba(100, 98, 92, 0.5)";
-            ctx.lineWidth = 1.5;
-            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = "rgba(244, 242, 238, 0.35)";
+            ctx.lineWidth = 1.25;
+            ctx.setLineDash([4, 6]);
             ctx.lineDashOffset = -dashOffset;
             ctx.stroke();
             ctx.setLineDash([]);
           }
 
-          // Minimal card
-          ctx.fillStyle = "#2C2C2A";
+          // Card — outlined on dark
+          ctx.fillStyle = "rgba(244, 242, 238, 0.04)";
+          ctx.strokeStyle = "rgba(244, 242, 238, 0.3)";
+          ctx.lineWidth = 1;
           ctx.beginPath();
-          ctx.roundRect(colX, cardY, cardW, CARD_H, 10);
+          ctx.roundRect(colX, cardY, cardW, CARD_H, 28);
           ctx.fill();
+          ctx.stroke();
 
-          // Pulsing green dot
+          // Pulsing dot — single warm off-white tone
           const dotX = colX + 18;
           const dotY = cardY + CARD_H / 2;
-          // Soft halo
-          ctx.fillStyle = `rgba(110, 231, 183, ${0.18 * pulse})`;
+          ctx.fillStyle = `rgba(244, 242, 238, ${0.16 * pulse})`;
           ctx.beginPath();
           ctx.arc(dotX, dotY, 9, 0, Math.PI * 2);
           ctx.fill();
-          // Core dot
-          ctx.fillStyle = `rgba(110, 231, 183, ${pulse})`;
+          ctx.fillStyle = `rgba(244, 242, 238, ${pulse})`;
           ctx.beginPath();
-          ctx.arc(dotX, dotY, 4, 0, Math.PI * 2);
+          ctx.arc(dotX, dotY, 3.5, 0, Math.PI * 2);
           ctx.fill();
 
-          // Label (truncate gracefully)
-          ctx.fillStyle = "#FFFFFF";
-          ctx.font = "500 13px 'DM Sans', sans-serif";
+          // Label
+          ctx.fillStyle = "#F4F2EE";
+          ctx.font = "600 11px 'Archivo Narrow', sans-serif";
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
-          let label = mod.label;
+          let label = mod.label.toUpperCase();
           const maxLabelW = cardW - 44;
           while (ctx.measureText(label).width > maxLabelW && label.length > 3) {
             label = label.slice(0, -1);
           }
-          if (label !== mod.label) label = label.slice(0, -1) + "…";
+          if (label !== mod.label.toUpperCase()) label = label.slice(0, -1) + "…";
           ctx.fillText(label, colX + 34, dotY);
           ctx.textAlign = "center";
         });
@@ -217,7 +213,7 @@ export function Workflow() {
   }, [selectedIds]);
 
   return (
-    <section id="workflow" className="py-24 bg-background">
+    <section id="workflow" className="py-24 md:py-32 bg-[#0E1622] text-white">
       <div className="container max-w-5xl mx-auto px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -226,15 +222,15 @@ export function Workflow() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-12"
         >
-          <span className="inline-block text-[11px] font-bold tracking-widest uppercase text-muted-foreground mb-4">
+          <span className="display-eyebrow inline-block text-[11px] text-white/50 mb-6">
             Configure a vossa plataforma
           </span>
-          <h2 className="text-3xl md:text-4xl font-serif font-medium text-foreground">
-            Selecione os módulos de que a vossa empresa necessita
+          <h2 className="display-title text-white text-[36px] md:text-[56px] max-w-3xl mx-auto">
+            Selecione os módulos<br className="hidden md:block" /> de que necessitam.
           </h2>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-2.5 mb-10 max-w-3xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-2 mb-10 max-w-3xl mx-auto">
           {coreModules.map((mod) => {
             const isActive = selectedIds.includes(mod.id);
             return (
@@ -242,17 +238,14 @@ export function Workflow() {
                 key={mod.id}
                 onClick={() => toggleModule(mod.id)}
                 className={`
-                  flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border
+                  flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] font-display font-semibold uppercase tracking-[0.14em] transition-all duration-300 border
                   ${isActive
-                    ? "bg-primary border-primary text-white shadow-md transform -translate-y-0.5"
-                    : "bg-white border-border text-foreground hover:border-primary/40 hover:bg-secondary/30"}
+                    ? "bg-white text-[#0E1622] border-white"
+                    : "bg-transparent border-white/30 text-white/80 hover:border-white/70 hover:text-white"}
                 `}
               >
                 {isActive && (
-                  <span
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ backgroundColor: "#6EE7B7" }}
-                  ></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0E1622]"></span>
                 )}
                 {mod.label}
               </button>
@@ -261,7 +254,7 @@ export function Workflow() {
         </div>
 
         <div
-          className="relative rounded-2xl overflow-hidden border border-border shadow-sm bg-[#F8F6F1] transition-all duration-500"
+          className="relative rounded-3xl overflow-hidden border border-white/10 bg-[#131c2a] transition-all duration-500"
           style={{ height: `${canvasHeight}px` }}
         >
           <canvas ref={canvasRef} className="w-full h-full block" />
@@ -272,18 +265,16 @@ export function Workflow() {
               animate={{ opacity: 1, y: 0 }}
               className="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-4"
             >
-              <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-full text-sm font-medium text-foreground shadow-sm border border-border/50">
+              <div className="bg-white/10 backdrop-blur px-4 py-2 rounded-full text-[11px] font-display font-semibold uppercase tracking-[0.14em] text-white border border-white/20">
                 {selectedIds.length} módulo{selectedIds.length !== 1 ? "s" : ""} ·{" "}
                 {activeAreas} área{activeAreas !== 1 ? "s" : ""} coberta{activeAreas !== 1 ? "s" : ""}
               </div>
-              <Button
-                className="shadow-lg px-8"
-                onClick={() =>
-                  document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })
-                }
+              <button
+                onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-white text-[#0E1622] text-[12px] font-display font-semibold uppercase tracking-[0.18em] hover:bg-white/90 transition-colors"
               >
-                Agendar demonstração com esta configuração &rarr;
-              </Button>
+                Agendar com esta configuração
+              </button>
             </motion.div>
           )}
         </div>

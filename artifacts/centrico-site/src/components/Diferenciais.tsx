@@ -26,25 +26,32 @@ export function Diferenciais() {
   ];
 
   return (
-    <section className="py-24 bg-white border-y border-border">
-      <div className="container max-w-5xl mx-auto px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section className="py-24 md:py-32 bg-white border-y border-border">
+      <div className="container max-w-6xl mx-auto px-6 md:px-8">
+        <div className="text-center mb-14 md:mb-20">
+          <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">Por que Céntrico</span>
+          <h2 className="display-title text-foreground text-[36px] md:text-[56px] max-w-3xl mx-auto">
+            Quatro razões para consolidar tudo num só lugar
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
           {cards.map((card, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.08 }}
-              className="group p-8 md:p-10 rounded-2xl border border-border bg-background hover:bg-white hover:border-primary/20 hover:shadow-sm transition-all duration-300"
+              transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.06 }}
+              className="group p-10 md:p-14 bg-white hover:bg-background transition-colors duration-300"
             >
-              <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:bg-primary/5 transition-all duration-300">
-                <card.icon size={24} strokeWidth={1.5} />
+              <div className="w-14 h-14 rounded-full border border-foreground/30 flex items-center justify-center text-foreground mb-8 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
+                <card.icon size={22} strokeWidth={1.5} />
               </div>
-              <h3 className="text-xl font-serif font-medium text-foreground mb-3">
+              <h3 className="display-title text-[26px] md:text-[32px] text-foreground mb-4 leading-[1] max-w-sm">
                 {card.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed text-[15px] max-w-md">
                 {card.desc}
               </p>
             </motion.div>

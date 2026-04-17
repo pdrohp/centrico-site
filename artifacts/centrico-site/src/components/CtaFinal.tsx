@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -10,8 +9,6 @@ export function CtaFinal() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    
-    // Simulate API call
     setTimeout(() => {
       setLoading(false);
       const form = e.target as HTMLFormElement;
@@ -24,60 +21,74 @@ export function CtaFinal() {
   };
 
   return (
-    <section id="cta" className="py-24 bg-primary text-white">
-      <div className="container max-w-4xl mx-auto px-6 md:px-8 text-center">
-        <h2 className="text-4xl md:text-5xl font-serif font-medium mb-6">
-          Pronto para configurar a plataforma da vossa empresa?
+    <section id="cta" className="relative py-32 md:py-48 bg-[#0E1622] text-white overflow-hidden">
+      {/* Faint grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{
+        backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+        backgroundSize: "48px 48px"
+      }} />
+
+      <div className="container max-w-5xl mx-auto px-6 md:px-8 text-center relative z-10">
+        <span className="display-eyebrow inline-block text-[11px] text-white/50 mb-8">
+          Próximo passo
+        </span>
+
+        {/* vertical connector */}
+        <div className="mx-auto h-16 w-px bg-white/25 mb-8" aria-hidden />
+
+        <h2 className="display-title text-white text-[56px] sm:text-[88px] md:text-[120px] lg:text-[140px] leading-[0.9] mb-10">
+          Configure<br /> a vossa<br /> plataforma.
         </h2>
-        <p className="text-lg md:text-xl text-white/80 mb-12 max-w-2xl mx-auto">
+
+        <p className="text-base md:text-lg text-white/70 mb-16 max-w-xl mx-auto">
           Demonstração sem custo, sem compromisso. Trinta minutos com a vossa equipa.
         </p>
 
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white/5 p-8 rounded-2xl backdrop-blur border border-white/10 mb-12">
-          <div className="space-y-4">
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto text-left mb-16">
+          <div className="space-y-3">
             <Input 
               required 
               type="text" 
               placeholder="Nome completo" 
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-12"
+              className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-full px-5 focus-visible:border-white"
             />
             <Input 
               required 
               type="email" 
               placeholder="E-mail profissional" 
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-12"
+              className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-full px-5 focus-visible:border-white"
             />
             <Input 
               required 
               type="text" 
               placeholder="Empresa" 
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/40 h-12"
+              className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-full px-5 focus-visible:border-white"
             />
-            <Button 
+            <button 
               type="submit" 
               disabled={loading}
-              className="w-full h-12 text-base font-bold bg-[#1D9E75] hover:bg-[#157a5a] text-white border-none mt-2"
+              className="w-full h-12 rounded-full bg-white text-[#0E1622] text-[12px] font-display font-semibold uppercase tracking-[0.18em] hover:bg-white/90 disabled:opacity-60 transition-colors mt-2"
             >
               {loading ? "A enviar..." : "Agendar demonstração →"}
-            </Button>
+            </button>
           </div>
         </form>
 
-        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-medium text-white/70">
+        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-white/55">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6EE7B7]"></span>
+            <span className="w-1 h-1 rounded-full bg-white/60"></span>
             Alojado na Europa
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6EE7B7]"></span>
+            <span className="w-1 h-1 rounded-full bg-white/60"></span>
             Conformidade RGPD
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6EE7B7]"></span>
+            <span className="w-1 h-1 rounded-full bg-white/60"></span>
             Dados nunca saem da UE
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6EE7B7]"></span>
+            <span className="w-1 h-1 rounded-full bg-white/60"></span>
             Acompanhamento permanente
           </div>
         </div>

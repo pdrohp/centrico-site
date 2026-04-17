@@ -51,7 +51,7 @@ export function AuditoriaVignette({ accent, bg }: { accent: string; bg: string }
                   <span>[{log.time}]</span>
                   <span className="font-sans font-medium text-foreground">{log.user}</span>
                   {log.alert && (
-                    <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-700 text-[8px] uppercase tracking-wide">Alerta</span>
+                    <span className="px-1.5 py-0.5 rounded bg-foreground text-background text-[8px] uppercase tracking-wider">Alerta</span>
                   )}
                 </div>
                 <div className="text-[10px] text-foreground">

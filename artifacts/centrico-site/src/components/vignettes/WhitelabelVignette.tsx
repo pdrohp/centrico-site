@@ -5,7 +5,7 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
 
   const brandVariants = {
     animate: {
-      backgroundColor: ["#1A2E4A", "#1D9E75", "#1A2E4A"], // Navy to Teal to Navy
+      backgroundColor: ["#1A2E4A", "#0E1622", "#1A2E4A"],
       transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const }
     }
   };
@@ -25,9 +25,9 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
         {/* Browser Chrome */}
         <div className="h-8 bg-secondary/30 border-b border-border flex items-center px-3 gap-2">
           <div className="flex gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-foreground/20" />
+            <div className="w-2.5 h-2.5 rounded-full bg-foreground/20" />
+            <div className="w-2.5 h-2.5 rounded-full bg-foreground/20" />
           </div>
           <div className="mx-auto bg-white/60 border border-border/50 rounded px-4 py-0.5 text-[8px] font-mono text-muted-foreground flex relative overflow-hidden w-32 justify-center">
             {shouldReduceMotion ? (

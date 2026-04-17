@@ -1,37 +1,42 @@
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
 
 export function Hero() {
   return (
     <section id="hero" className="relative pt-40 pb-20 md:pt-52 md:pb-32 overflow-hidden flex items-center min-h-[90dvh]">
       {/* Subtle background grid pattern */}
       <div className="absolute inset-0 pointer-events-none opacity-20" style={{
-        backgroundImage: "linear-gradient(rgba(180, 178, 169, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(180, 178, 169, 0.4) 1px, transparent 1px)",
-        backgroundSize: "40px 40px"
+        backgroundImage: "linear-gradient(rgba(120, 118, 109, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 118, 109, 0.35) 1px, transparent 1px)",
+        backgroundSize: "48px 48px"
       }}></div>
-      <div className="container max-w-4xl mx-auto px-6 md:px-8 relative z-10 text-center">
+
+      <div className="container max-w-6xl mx-auto px-6 md:px-8 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <span className="inline-block text-[11px] font-bold tracking-widest uppercase text-muted-foreground mb-6">
-            Gestão documental inteligente para empresas exigentes
+          <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-8">
+            Gestão documental inteligente · Empresas exigentes
           </span>
         </motion.div>
+
+        {/* Top connector line */}
+        <div className="mx-auto h-12 w-px bg-foreground/20 mb-2" aria-hidden />
 
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
-          className="font-serif text-foreground font-medium leading-[1.1] mb-8 text-[64px]"
-        >A sua empresa continua a depender de muitos sistemas para gerir documentos?</motion.h1>
+          className="display-title text-foreground text-[40px] sm:text-[56px] md:text-[76px] lg:text-[88px] leading-[0.95] mb-10"
+        >
+          A vossa empresa ainda depende de quatro sistemas para gerir documentos?
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.16 }}
-          className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto"
+          className="text-base md:text-lg text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed"
         >
           A Céntrico unifica tudo numa só plataforma. Um sistema. A vossa marca. Os módulos que a vossa operação exige.
         </motion.p>
@@ -40,20 +45,19 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.24 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5"
         >
-          <Button
-            size="lg"
-            className="w-full sm:w-auto h-14 px-8 text-base font-medium shadow-md"
+          <button
             onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-foreground text-background text-[12px] font-display font-semibold uppercase tracking-[0.18em] hover:bg-foreground/85 transition-colors"
           >
             Agendar demonstração
-          </Button>
+          </button>
           <button
             onClick={() => document.getElementById("workflow")?.scrollIntoView({ behavior: "smooth" })}
-            className="text-primary font-medium hover:text-primary/80 transition-colors h-14 px-6 flex items-center justify-center"
+            className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-foreground/40 text-foreground text-[12px] font-display font-semibold uppercase tracking-[0.18em] hover:border-foreground hover:bg-foreground/5 transition-colors"
           >
-            Conhecer a plataforma &rarr;
+            Conhecer a plataforma
           </button>
         </motion.div>
       </div>
