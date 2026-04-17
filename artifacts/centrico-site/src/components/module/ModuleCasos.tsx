@@ -32,7 +32,7 @@ export function ModuleCasos({ content }: { content: ModuleContent }) {
               </span>
 
               <div className="mb-5">
-                <span className="display-eyebrow text-[10px] text-foreground/55 mb-2 block">
+                <span className="display-eyebrow text-[10px] mb-2 block" style={{ color: "#7A1F1F" }}>
                   Hoje
                 </span>
                 <p className="text-[14px] md:text-[15px] text-muted-foreground leading-relaxed">
@@ -41,7 +41,7 @@ export function ModuleCasos({ content }: { content: ModuleContent }) {
               </div>
 
               <div className="pt-5 border-t border-border">
-                <span className="display-eyebrow text-[10px] text-foreground/55 mb-2 block">
+                <span className="display-eyebrow text-[10px] mb-2 block" style={{ color: "#1F4D2B" }}>
                   Com a Céntrico
                 </span>
                 <p className="text-[14px] md:text-[15px] text-foreground leading-relaxed">
