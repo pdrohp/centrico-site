@@ -27,22 +27,23 @@ export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
           </p>
         </motion.div>
 
-        <div className="space-y-10 md:space-y-16">
+        <div className="relative">
           {content.features.map((f, i) => {
             const isMediaLeft = i % 2 === 0;
             const bg = FEATURE_BG[i % FEATURE_BG.length];
             const Icon = f.icon;
             const num = String(i + 1).padStart(2, "0");
+            const stickyTop = 88 + i * 8;
 
             return (
               <motion.article
                 key={i}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
+                viewport={{ once: true, margin: "-15%" }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="rounded-[28px] overflow-hidden flex flex-col lg:flex-row border border-border"
-                style={{ backgroundColor: bg }}
+                className="rounded-[28px] overflow-hidden flex flex-col lg:flex-row border border-border sticky shadow-[0_-12px_40px_-24px_rgba(0,0,0,0.18)] mb-16 md:mb-24"
+                style={{ backgroundColor: bg, top: `${stickyTop}px` }}
               >
                 {/* TEXT */}
                 <div
