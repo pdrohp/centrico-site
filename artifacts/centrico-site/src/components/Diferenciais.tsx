@@ -22,7 +22,8 @@ export function Diferenciais() {
     {
       title: "A vossa marca, a vossa plataforma",
       desc: "Personalizem o domínio, o logótipo e toda a identidade visual. Os vossos clientes nunca saberão que é Céntrico por trás.",
-      icon: Paintbrush
+      icon: Paintbrush,
+      badge: "Whitelabel"
     }
   ];
 
