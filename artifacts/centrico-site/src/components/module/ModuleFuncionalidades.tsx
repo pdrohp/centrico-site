@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import type { ModuleContent } from "@/lib/modulesContent";
 
+const FEATURE_BG = ["#EEEBE4", "#E4E0D7", "#D9D5CB"] as const;
+const FEATURE_ACCENT = "#1A2E4A";
+
 export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
   return (
     <section className="py-24 md:py-32 bg-background border-y border-border">
@@ -10,7 +13,7 @@ export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center max-w-3xl mx-auto mb-16 md:mb-20"
+          className="text-center max-w-3xl mx-auto mb-16 md:mb-24"
         >
           <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">
             Funcionalidades
@@ -19,33 +22,133 @@ export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
             O que está incluído neste módulo
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            Tudo o que a vossa equipa precisa para operar de forma centralizada, segura e auditável desde o primeiro dia.
+            Tudo o que a vossa equipa precisa para operar de forma centralizada,
+            segura e auditável desde o primeiro dia.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border rounded-2xl overflow-hidden">
-          {content.features.map((f, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: (i % 3) * 0.06 }}
-              className="bg-white p-10 group hover:bg-background transition-colors duration-300"
-            >
-              <div className="w-12 h-12 rounded-full border border-foreground/30 flex items-center justify-center text-foreground mb-6 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
-                <f.icon size={20} strokeWidth={1.5} />
-              </div>
-              <h3 className="display-title text-foreground text-[22px] md:text-[26px] mb-3 leading-[1.05]">
-                {f.title}
-              </h3>
-              <p className="text-[14px] md:text-[15px] text-muted-foreground leading-relaxed">
-                {f.desc}
-              </p>
-            </motion.div>
-          ))}
+        <div className="space-y-10 md:space-y-16">
+          {content.features.map((f, i) => {
+            const isMediaLeft = i % 2 === 0;
+            const bg = FEATURE_BG[i % FEATURE_BG.length];
+            const Icon = f.icon;
+            const num = String(i + 1).padStart(2, "0");
+
+            return (
+              <motion.article
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="rounded-[28px] overflow-hidden flex flex-col lg:flex-row border border-border"
+                style={{ backgroundColor: bg }}
+              >
+                {/* TEXT */}
+                <div
+                  className={`p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 order-2 ${
+                    isMediaLeft ? "lg:order-2" : "lg:order-1"
+                  }`}
+                >
+                  <span className="display-eyebrow text-[10px] text-foreground/60 mb-4">
+                    Funcionalidade · {num}
+                  </span>
+
+                  <h3 className="display-title text-foreground text-[28px] md:text-[40px] mb-6 leading-[1]">
+                    {f.title}
+                  </h3>
+
+                  <p className="text-[15px] md:text-base text-muted-foreground leading-relaxed max-w-lg">
+                    {f.desc}
+                  </p>
+                </div>
+
+                {/* MEDIA */}
+                <div
+                  className={`lg:w-1/2 p-6 md:p-12 flex items-center justify-center min-h-[300px] md:min-h-[380px] order-1 ${
+                    isMediaLeft ? "lg:order-1" : "lg:order-2"
+                  }`}
+                >
+                  <div className="w-full max-w-[520px] aspect-[4/3] relative rounded-2xl shadow-xl overflow-hidden border border-border/60 bg-white">
+                    {/* browser chrome */}
+                    <div className="absolute top-0 inset-x-0 h-10 bg-white/90 backdrop-blur border-b border-border/50 flex items-center px-4 gap-2 z-20">
+                      <div className="flex gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#D9D5CB]" />
+                        <div className="w-2 h-2 rounded-full bg-[#D9D5CB]" />
+                        <div className="w-2 h-2 rounded-full bg-[#D9D5CB]" />
+                      </div>
+                    </div>
+
+                    <div className="absolute inset-0 pt-10 z-10 flex items-center justify-center">
+                      <FeatureIllustration Icon={Icon} accent={FEATURE_ACCENT} bg={bg} />
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
+  );
+}
+
+type IllustrationProps = {
+  Icon: React.ElementType;
+  accent: string;
+  bg: string;
+};
+
+function FeatureIllustration({ Icon, accent, bg }: IllustrationProps) {
+  return (
+    <div className="relative w-full h-full flex items-center justify-center px-8 py-6">
+      {/* faint grid */}
+      <div
+        className="absolute inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #0E1622 1px, transparent 1px), linear-gradient(to bottom, #0E1622 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+        aria-hidden
+      />
+
+      {/* card frame */}
+      <div
+        className="relative w-[78%] max-w-[300px] rounded-xl border border-border/70 shadow-md p-5 flex flex-col gap-4"
+        style={{ backgroundColor: bg }}
+      >
+        {/* icon badge */}
+        <div
+          className="w-12 h-12 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: accent, color: "#F4F2EE" }}
+        >
+          <Icon size={20} strokeWidth={1.5} />
+        </div>
+
+        {/* skeleton lines */}
+        <div className="space-y-2">
+          <div className="h-2 rounded-full bg-foreground/15 w-[85%]" />
+          <div className="h-2 rounded-full bg-foreground/12 w-[65%]" />
+          <div className="h-2 rounded-full bg-foreground/10 w-[75%]" />
+        </div>
+
+        <div className="pt-2 flex items-center gap-2">
+          <div className="h-6 px-3 rounded-full bg-foreground/10 flex items-center">
+            <div className="h-1.5 w-10 rounded-full bg-foreground/30" />
+          </div>
+          <div className="h-6 px-3 rounded-full border border-foreground/15 flex items-center">
+            <div className="h-1.5 w-8 rounded-full bg-foreground/25" />
+          </div>
+        </div>
+      </div>
+
+      {/* floating accent dot */}
+      <div
+        className="absolute top-5 right-5 w-3 h-3 rounded-full"
+        style={{ backgroundColor: accent }}
+        aria-hidden
+      />
+    </div>
   );
 }
