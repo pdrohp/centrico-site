@@ -1,17 +1,19 @@
 import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 import type { ModuleContent } from "@/lib/modulesContent";
+import { GridPulseBackground } from "./GridPulseBackground";
 
 export function ModuleSeguranca({ content }: { content: ModuleContent }) {
   return (
-    <section className="py-24 md:py-32 bg-white border-y border-border">
-      <div className="container max-w-5xl mx-auto px-6 md:px-8">
+    <section className="relative py-24 md:py-32 bg-background border-y border-border overflow-hidden">
+      <GridPulseBackground />
+      <div className="container max-w-5xl mx-auto px-6 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-3xl border border-border bg-background p-10 md:p-14 lg:p-16"
+          className="rounded-3xl border border-border bg-white shadow-sm p-10 md:p-14 lg:p-16"
         >
           <div className="flex flex-col md:flex-row gap-10 items-start">
             <div className="w-14 h-14 rounded-full border border-foreground/30 flex items-center justify-center text-foreground flex-shrink-0">
