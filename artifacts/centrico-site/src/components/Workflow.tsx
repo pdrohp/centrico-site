@@ -28,7 +28,7 @@ export function Workflow() {
   const CARD_H = 56;
   const ROW_GAP = 22;
   const TOP_OFFSET = 200;
-  const BOTTOM_PAD = selectedIds.length > 0 ? 130 : 60;
+  const BOTTOM_PAD = selectedIds.length > 0 ? 210 : 60;
   const canvasHeight = Math.max(
     340,
     TOP_OFFSET + Math.max(1, maxRows) * CARD_H + Math.max(0, maxRows - 1) * ROW_GAP + BOTTOM_PAD
