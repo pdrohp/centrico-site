@@ -17,6 +17,14 @@ const PALETTES: Palette[] = [
 
 const PILLS = ["Domínio próprio", "Logótipo", "Identidade visual"];
 
+function hexToRgba(hex: string, alpha: number) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 export function Whitelabel() {
   const [selectedId, setSelectedId] = useState(PALETTES[0].id);
   const selected = PALETTES.find((p) => p.id === selectedId) ?? PALETTES[0];
@@ -77,11 +85,14 @@ export function Whitelabel() {
               </div>
 
               {/* Vignette */}
-              <div className="absolute inset-0 pt-10 z-10 bg-white">
+              <div
+                className="absolute inset-0 pt-10 z-10 bg-white transition-colors duration-[350ms]"
+                style={{ backgroundColor: hexToRgba(selected.color, 0.08) }}
+              >
                 <WhitelabelVignette
                   brandColor={selected.color}
                   displayUrl={selected.url}
-                  bg="#F1F3F6"
+                  bg="transparent"
                 />
               </div>
 
