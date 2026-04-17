@@ -5,7 +5,7 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
 
   const brandVariants = {
     animate: {
-      backgroundColor: ["#1A2E4A", "#0E1622", "#1A2E4A"],
+      backgroundColor: ["#2E5AAB", "#0E1622", "#2E5AAB"],
       transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const }
     }
   };

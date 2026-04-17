@@ -4,7 +4,7 @@ export const coreModules = [
     label: "Automação de Dados",
     desc: "Extração automática das informações essenciais.",
     category: "IA Estratégica",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -12,7 +12,7 @@ export const coreModules = [
     label: "Gestão de Contratos",
     desc: "Organize, acompanhe e automatize contratos.",
     category: "IA Estratégica",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -20,7 +20,7 @@ export const coreModules = [
     label: "Compliance & Segurança",
     desc: "Proteção integral e conformidade RGPD.",
     category: "IA Estratégica",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -28,7 +28,7 @@ export const coreModules = [
     label: "Workflows Inteligentes",
     desc: "Automatize tarefas e reduza erros operacionais.",
     category: "Automação de Processos",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -36,7 +36,7 @@ export const coreModules = [
     label: "Gestão de Documentos",
     desc: "Centralize e aceda aos ficheiros com facilidade.",
     category: "Automação de Processos",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -44,7 +44,7 @@ export const coreModules = [
     label: "Integrações",
     desc: "Ligue sistemas e otimize fluxos de trabalho.",
     category: "Automação de Processos",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -52,7 +52,7 @@ export const coreModules = [
     label: "OCR Inteligente",
     desc: "Digitalize documentos físicos com elevada precisão.",
     category: "Recursos Avançados",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -60,7 +60,7 @@ export const coreModules = [
     label: "Analytics",
     desc: "Relatórios detalhados e indicadores em tempo útil.",
     category: "Recursos Avançados",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
   {
@@ -68,7 +68,7 @@ export const coreModules = [
     label: "Segurança Avançada",
     desc: "Encriptação e controlo de acesso ao mais alto nível.",
     category: "Recursos Avançados",
-    accent: "#1A2E4A",
+    accent: "#2E5AAB",
     bg: "#ECEAE4",
   },
 ];
@@ -79,7 +79,7 @@ export const coreModuleCategories = [
   "Recursos Avançados",
 ];
 
-const NAVY = "#1A2E4A";
+const NAVY = "#2E5AAB";
 const STONE_LIGHT = "#EAEDF1";
 const STONE_MID = "#DBE0E8";
 const STONE_DEEP = "#C9D0DA";

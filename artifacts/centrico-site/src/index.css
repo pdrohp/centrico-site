@@ -89,8 +89,8 @@
   --popover-foreground: 0 0% 8%;
   --popover-border: 215 12% 82%;
 
-  /* primary: navy #1A2E4A */
-  --primary: 215 48% 20%;
+  /* primary: brand blue #2E5AAB */
+  --primary: 217 58% 42%;
   --primary-foreground: 0 0% 100%;
 
   --secondary: 215 14% 91%;
@@ -106,10 +106,10 @@
   --destructive-foreground: 0 0% 100%;
 
   --input: 215 14% 83%;
-  --ring: 215 48% 20%;
+  --ring: 217 58% 42%;
 
-  --chart-1: 215 48% 20%;
-  --chart-2: 215 48% 38%;
+  --chart-1: 217 58% 42%;
+  --chart-2: 218 50% 56%;
   --chart-3: 0 0% 10%;
   --chart-4: 215 14% 83%;
   --chart-5: 215 10% 40%;
@@ -117,11 +117,11 @@
   --sidebar: 215 18% 95%;
   --sidebar-foreground: 0 0% 8%;
   --sidebar-border: 215 12% 82%;
-  --sidebar-primary: 215 48% 20%;
+  --sidebar-primary: 217 58% 42%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 215 16% 91%;
   --sidebar-accent-foreground: 0 0% 10%;
-  --sidebar-ring: 215 48% 20%;
+  --sidebar-ring: 217 58% 42%;
 
   --app-font-sans: 'DM Sans', sans-serif;
   --app-font-serif: 'Playfair Display', serif;
@@ -142,8 +142,8 @@
   --spacing: 0.25rem;
 
   /* Brand single accent (navy) */
-  --brand-navy: #1A2E4A;
-  --brand-navy-soft: #2C4970;
+  --brand-navy: #2E5AAB;
+  --brand-navy-soft: #5A7CC8;
   --brand-ink: #0E1622;
 }
 

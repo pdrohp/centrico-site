@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import type { ModuleContent } from "@/lib/modulesContent";
 
 const FEATURE_BG = ["#EAEDF1", "#DBE0E8", "#C9D0DA"] as const;
-const FEATURE_ACCENT = "#1A2E4A";
+const FEATURE_ACCENT = "#2E5AAB";
 
 export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
   return (

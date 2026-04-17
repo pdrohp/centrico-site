@@ -22,7 +22,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         // Ciridae-inspired pill variants
         pill:
-          "rounded-full bg-foreground text-background border border-foreground font-display font-semibold uppercase tracking-[0.18em] hover:bg-foreground/85 transition-colors",
+          "rounded-full bg-primary text-primary-foreground border border-primary font-display font-semibold uppercase tracking-[0.18em] hover:bg-primary/90 transition-colors",
         pillOutline:
           "rounded-full bg-transparent text-foreground border border-foreground/40 font-display font-semibold uppercase tracking-[0.18em] hover:border-foreground hover:bg-foreground/5 transition-colors",
         pillInverse:
