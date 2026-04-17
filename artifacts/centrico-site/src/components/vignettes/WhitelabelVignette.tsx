@@ -1,27 +1,35 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 
-export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string }) {
+type Props = {
+  /** Background of the surrounding stage. */
+  bg?: string;
+  /** Brand color applied to the logo square + primary action badge. */
+  brandColor?: string;
+  /** URL displayed in the browser chrome. */
+  displayUrl?: string;
+  /** Legacy prop kept for backwards compatibility with the Módulos grid;
+   *  used as fallback brand color when `brandColor` is not provided. */
+  accent?: string;
+};
+
+export function WhitelabelVignette({
+  bg,
+  brandColor,
+  displayUrl = "app.centrico.com",
+  accent,
+}: Props) {
   const shouldReduceMotion = useReducedMotion();
-
-  const brandVariants = {
-    animate: {
-      backgroundColor: ["#2E5AAB", "#0E1622", "#2E5AAB"],
-      transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const }
-    }
-  };
-
-  const textVariants = {
-    animate: {
-      opacity: [1, 0, 1, 0, 1],
-      y: [0, -5, 0, -5, 0],
-      transition: { duration: 6, repeat: Infinity, times: [0, 0.45, 0.5, 0.95, 1], ease: "easeInOut" as const }
-    }
-  };
+  const color = brandColor ?? accent ?? "#2E5AAB";
+  const transitionStyle = shouldReduceMotion
+    ? undefined
+    : { transition: "background-color 350ms ease" };
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
+    <div
+      className="w-full h-full relative flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: bg }}
+    >
       <div className="relative w-72 h-56 bg-white rounded-xl shadow-md border border-border overflow-hidden flex flex-col">
-        
         {/* Browser Chrome */}
         <div className="h-8 bg-secondary/30 border-b border-border flex items-center px-3 gap-2">
           <div className="flex gap-1.5">
@@ -29,27 +37,8 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
             <div className="w-2.5 h-2.5 rounded-full bg-foreground/20" />
             <div className="w-2.5 h-2.5 rounded-full bg-foreground/20" />
           </div>
-          <div className="mx-auto bg-white/60 border border-border/50 rounded px-4 py-0.5 text-[8px] font-mono text-muted-foreground flex relative overflow-hidden w-32 justify-center">
-            {shouldReduceMotion ? (
-              <span>docs.empresa.com.br</span>
-            ) : (
-              <>
-                <motion.span 
-                  className="absolute"
-                  animate={{ opacity: [1, 0, 1], y: [0, -10, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, times: [0, 0.5, 1], ease: "easeInOut" as const }}
-                >
-                  app.centrico.com
-                </motion.span>
-                <motion.span 
-                  className="absolute"
-                  animate={{ opacity: [0, 1, 0], y: [10, 0, 10] }}
-                  transition={{ duration: 6, repeat: Infinity, times: [0, 0.5, 1], ease: "easeInOut" as const }}
-                >
-                  docs.empresa.com.br
-                </motion.span>
-              </>
-            )}
+          <div className="mx-auto bg-white/60 border border-border/50 rounded px-4 py-0.5 text-[8px] font-mono text-muted-foreground w-40 text-center truncate">
+            {displayUrl}
           </div>
         </div>
 
@@ -58,14 +47,12 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
           {/* Header */}
           <div className="h-10 border-b border-border/50 flex items-center justify-between px-4">
             <div className="flex items-center gap-2">
-              <motion.div 
+              <div
                 className="w-5 h-5 rounded flex items-center justify-center"
-                variants={!shouldReduceMotion ? brandVariants : undefined}
-                initial={shouldReduceMotion ? { backgroundColor: accent } : undefined}
-                animate={!shouldReduceMotion ? "animate" : undefined}
+                style={{ backgroundColor: color, ...transitionStyle }}
               >
                 <div className="w-2 h-2 bg-white rounded-sm" />
-              </motion.div>
+              </div>
               <div className="w-16 h-2 rounded bg-secondary/80" />
             </div>
             <div className="flex gap-2">
@@ -91,14 +78,12 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
                   <div className="w-24 h-3 rounded bg-secondary/80" />
                   <div className="w-16 h-2 rounded bg-secondary/40" />
                 </div>
-                <motion.div 
+                <div
                   className="w-16 h-5 rounded flex items-center justify-center"
-                  variants={!shouldReduceMotion ? brandVariants : undefined}
-                  initial={shouldReduceMotion ? { backgroundColor: accent } : undefined}
-                  animate={!shouldReduceMotion ? "animate" : undefined}
+                  style={{ backgroundColor: color, ...transitionStyle }}
                 >
                   <div className="w-8 h-1 bg-white/60 rounded" />
-                </motion.div>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
@@ -108,7 +93,6 @@ export function WhitelabelVignette({ accent, bg }: { accent: string; bg: string 
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

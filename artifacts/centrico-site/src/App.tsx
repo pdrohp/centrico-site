@@ -7,6 +7,7 @@ import ModuloPage from "@/pages/modulo";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Diferenciais } from "@/components/Diferenciais";
+import { Whitelabel } from "@/components/Whitelabel";
 import { Workflow } from "@/components/Workflow";
 import { Modulos } from "@/components/Modulos";
 import { Integracoes } from "@/components/Integracoes";
@@ -24,6 +25,7 @@ function Home() {
       <main className="flex-1">
         <Hero />
         <Diferenciais />
+        <Whitelabel />
         <Workflow />
         <Modulos />
         <Integracoes />
