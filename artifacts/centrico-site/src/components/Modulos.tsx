@@ -44,10 +44,11 @@ export function Modulos() {
           </p>
         </motion.div>
 
-        <div className="space-y-6 md:space-y-8">
+        <div className="relative">
           {modules.map((mod, i) => {
             const isMediaLeft = i % 2 === 0;
             const Vignette = vignetteComponents[mod.id];
+            const stickyTop = 96 + i * 22;
 
             return (
               <motion.div
@@ -56,8 +57,8 @@ export function Modulos() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-15%" }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="rounded-[28px] overflow-hidden flex flex-col lg:flex-row border border-border"
-                style={{ backgroundColor: mod.bg }}
+                className="rounded-[28px] overflow-hidden flex flex-col lg:flex-row border border-border sticky shadow-[0_-12px_40px_-24px_rgba(0,0,0,0.18)] mb-6 md:mb-8"
+                style={{ backgroundColor: mod.bg, top: `${stickyTop}px` }}
               >
                 <div 
                   className={`p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 order-2 ${
