@@ -47,7 +47,7 @@ export function Diferenciais() {
               className="group relative p-10 md:p-14 bg-white hover:bg-background transition-colors duration-300"
             >
               {card.badge && (
-                <span className="absolute top-6 left-6 md:top-8 md:left-8 inline-flex items-center h-7 px-3 rounded-full border border-foreground/30 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-foreground bg-background">
+                <span className="absolute top-6 right-6 md:top-8 md:right-8 inline-flex items-center h-7 px-3 rounded-full border border-foreground/30 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-foreground bg-background">
                   {card.badge}
                 </span>
               )}
