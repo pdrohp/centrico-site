@@ -3,7 +3,12 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function CtaFinal() {
+type CtaFinalProps = {
+  headline?: string;
+  subheadline?: string;
+};
+
+export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
@@ -38,11 +43,11 @@ export function CtaFinal() {
         <div className="mx-auto h-16 w-px bg-white/25 mb-8" aria-hidden />
 
         <h2 className="display-title text-white text-[36px] md:text-[56px] lg:text-[64px] leading-[1] mb-10">
-          Configure a vossa plataforma.
+          {headline ?? "Configure a vossa plataforma."}
         </h2>
 
         <p className="text-base md:text-lg text-white/70 mb-16 max-w-xl mx-auto">
-          Demonstração sem custo, sem compromisso. Trinta minutos com a vossa equipa.
+          {subheadline ?? "Demonstração sem custo, sem compromisso. Trinta minutos com a vossa equipa."}
         </p>
 
         <form onSubmit={handleSubmit} className="max-w-md mx-auto text-left mb-16">

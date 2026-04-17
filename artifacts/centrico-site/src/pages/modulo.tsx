@@ -42,7 +42,7 @@ export default function ModuloPage() {
         <ModuleSeguranca content={content} />
         <ModuleFaq content={content} />
         <ModuleRelacionados content={content} />
-        <CtaFinal />
+        <CtaFinal headline={content.ctaHeadline} subheadline={content.ctaSubheadline} />
       </main>
       <Footer />
     </div>
