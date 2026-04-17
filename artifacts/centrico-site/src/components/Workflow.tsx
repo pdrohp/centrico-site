@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { Button } from "./ui/button";
 import { coreModules, coreModuleCategories } from "@/lib/data";
 
 export function Workflow() {
@@ -269,12 +270,13 @@ export function Workflow() {
                 {selectedIds.length} módulo{selectedIds.length !== 1 ? "s" : ""} ·{" "}
                 {activeAreas} área{activeAreas !== 1 ? "s" : ""} coberta{activeAreas !== 1 ? "s" : ""}
               </div>
-              <button
+              <Button
+                variant="pillInverse"
+                size="pillMd"
                 onClick={() => document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-white text-[#0E1622] text-[12px] font-display font-semibold uppercase tracking-[0.18em] hover:bg-white/90 transition-colors"
               >
                 Agendar com esta configuração
-              </button>
+              </Button>
             </motion.div>
           )}
         </div>

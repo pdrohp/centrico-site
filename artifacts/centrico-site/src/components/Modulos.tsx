@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { modules } from "@/lib/data";
+import { Button } from "./ui/button";
 
 import { GedVignette } from "./vignettes/GedVignette";
 import { AssinaturasVignette } from "./vignettes/AssinaturasVignette";
@@ -82,12 +83,14 @@ export function Modulos() {
                   </p>
 
                   <div className="mt-auto">
-                    <button 
-                      className="group inline-flex items-center gap-3 h-11 px-6 rounded-full text-[11px] font-display font-semibold uppercase tracking-[0.18em] border border-foreground/40 text-foreground hover:bg-foreground hover:text-background transition-colors"
+                    <Button
+                      variant="pillOutline"
+                      size="pillSm"
+                      className="group"
                     >
                       Conhecer {mod.label}
                       <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-                    </button>
+                    </Button>
                   </div>
                 </div>
 

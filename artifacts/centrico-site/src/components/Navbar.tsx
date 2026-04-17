@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { Button } from "./ui/button";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,15 +30,15 @@ export function Navbar() {
       }`}
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between">
-        {/* Left: Pill CTA */}
-        <button
+        <Button
+          variant="pillOutline"
+          size="pillSm"
           onClick={goToCta}
-          className="hidden md:inline-flex items-center justify-center h-10 px-5 rounded-full border border-foreground/40 text-foreground text-[11px] font-display font-semibold uppercase tracking-[0.18em] hover:bg-foreground hover:text-background transition-colors"
+          className="hidden md:inline-flex"
         >
           Agendar demo
-        </button>
+        </Button>
 
-        {/* Center: Wordmark */}
         <a
           href="#"
           onClick={(e) => handleNavClick(e, "hero")}
@@ -46,7 +47,6 @@ export function Navbar() {
           Céntrico
         </a>
 
-        {/* Right: Menu pill */}
         <div className="ml-auto flex items-center gap-3">
           <nav className="hidden lg:flex items-center gap-5 mr-2">
             <a href="#modulos" onClick={(e) => handleNavClick(e, "modulos")} className="text-[11px] font-display font-semibold uppercase tracking-[0.18em] text-foreground/70 hover:text-foreground transition-colors">
@@ -59,18 +59,19 @@ export function Navbar() {
               Segurança
             </a>
           </nav>
-          <button
+          <Button
+            variant="pillOutline"
+            size="pillSm"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden inline-flex items-center justify-center h-10 px-5 rounded-full border border-foreground/40 text-foreground text-[11px] font-display font-semibold uppercase tracking-[0.18em] hover:bg-foreground hover:text-background transition-colors"
+            className="lg:hidden"
             aria-label="Toggle menu"
           >
             <span className="hidden sm:inline">Menu</span>
-            <span className="sm:hidden">{mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}</span>
-          </button>
+            <span className="sm:hidden inline-flex">{mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}</span>
+          </Button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-y border-border p-4 flex flex-col gap-1 shadow-lg">
           <a href="#modulos" onClick={(e) => handleNavClick(e, "modulos")} className="text-sm font-display font-semibold uppercase tracking-[0.18em] py-3 text-foreground/80 hover:text-foreground border-b border-border">
@@ -82,12 +83,14 @@ export function Navbar() {
           <a href="#seguranca" onClick={(e) => handleNavClick(e, "seguranca")} className="text-sm font-display font-semibold uppercase tracking-[0.18em] py-3 text-foreground/80 hover:text-foreground border-b border-border">
             Segurança
           </a>
-          <button
+          <Button
+            variant="pillOutline"
+            size="pillMd"
+            className="mt-3 w-full"
             onClick={() => { setMobileMenuOpen(false); goToCta(); }}
-            className="mt-3 inline-flex items-center justify-center h-11 px-6 rounded-full border border-foreground text-foreground text-xs font-display font-semibold uppercase tracking-[0.18em]"
           >
             Agendar demo
-          </button>
+          </Button>
         </div>
       )}
     </header>

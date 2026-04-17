@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -64,13 +65,15 @@ export function CtaFinal() {
               placeholder="Empresa" 
               className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-full px-5 focus-visible:border-white"
             />
-            <button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={loading}
-              className="w-full h-12 rounded-full bg-white text-[#0E1622] text-[12px] font-display font-semibold uppercase tracking-[0.18em] hover:bg-white/90 disabled:opacity-60 transition-colors mt-2"
+              variant="pillInverse"
+              size="pillMd"
+              className="w-full mt-2"
             >
               {loading ? "A enviar..." : "Agendar demonstração →"}
-            </button>
+            </Button>
           </div>
         </form>
 

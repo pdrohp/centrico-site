@@ -11,28 +11,34 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-           // @replit: no hover, and add primary border
            "bg-primary text-primary-foreground border border-primary-border",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm border-destructive-border",
         outline:
-          // @replit Shows the background color of whatever card / sidebar / accent background it is inside of.
-          // Inherits the current text color. Uses shadow-xs. no shadow on active
-          // No hover state
           " border [border-color:var(--button-outline)] shadow-xs active:shadow-none ",
         secondary:
-          // @replit border, no hover, no shadow, secondary border.
           "border bg-secondary text-secondary-foreground border border-secondary-border ",
-        // @replit no hover, transparent border
         ghost: "border border-transparent",
         link: "text-primary underline-offset-4 hover:underline",
+        // Ciridae-inspired pill variants
+        pill:
+          "rounded-full bg-foreground text-background border border-foreground font-display font-semibold uppercase tracking-[0.18em] hover:bg-foreground/85 transition-colors",
+        pillOutline:
+          "rounded-full bg-transparent text-foreground border border-foreground/40 font-display font-semibold uppercase tracking-[0.18em] hover:border-foreground hover:bg-foreground/5 transition-colors",
+        pillInverse:
+          "rounded-full bg-white text-[#0E1622] border border-white font-display font-semibold uppercase tracking-[0.18em] hover:bg-white/90 transition-colors",
+        pillInverseOutline:
+          "rounded-full bg-transparent text-white border border-white/35 font-display font-semibold uppercase tracking-[0.18em] hover:border-white hover:bg-white/10 transition-colors",
       },
       size: {
-        // @replit changed sizes
         default: "min-h-9 px-4 py-2",
         sm: "min-h-8 rounded-md px-3 text-xs",
         lg: "min-h-10 rounded-md px-8",
         icon: "h-9 w-9",
+        // Pill sizes — text reads as condensed eyebrow
+        pillSm: "h-10 px-5 text-[11px]",
+        pillMd: "h-12 px-7 text-[12px]",
+        pillLg: "h-14 px-9 text-[13px]",
       },
     },
     defaultVariants: {
