@@ -57,7 +57,6 @@ export function GridPulseBackground() {
     let nextSpawn = 0;
     let last = performance.now();
     let raf = 0;
-    let visible = true;
     let running = true;
 
     const spawn = (now: number) => {
@@ -143,40 +142,50 @@ export function GridPulseBackground() {
     };
 
     const loop = (now: number) => {
-      if (!running) return;
+      if (!running) {
+        raf = 0;
+        return;
+      }
       const dt = now - last;
       last = now;
-      if (visible) {
-        nextSpawn -= dt;
-        while (nextSpawn <= 0) {
-          spawn(now);
-          nextSpawn += MIN_SPAWN_MS + Math.random() * (MAX_SPAWN_MS - MIN_SPAWN_MS);
-        }
-        draw(now);
+      nextSpawn -= dt;
+      while (nextSpawn <= 0) {
+        spawn(now);
+        nextSpawn +=
+          MIN_SPAWN_MS + Math.random() * (MAX_SPAWN_MS - MIN_SPAWN_MS);
       }
+      draw(now);
       raf = requestAnimationFrame(loop);
+    };
+
+    const startLoop = () => {
+      if (raf || !running) return;
+      last = performance.now();
+      raf = requestAnimationFrame(loop);
+    };
+    const stopLoop = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+      ctx.clearRect(0, 0, width, height);
     };
 
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          visible = e.isIntersecting;
-        }
-        if (visible) {
-          last = performance.now();
-        } else {
-          ctx.clearRect(0, 0, width, height);
+          if (e.isIntersecting) startLoop();
+          else stopLoop();
         }
       },
       { threshold: 0 },
     );
     io.observe(wrap);
 
-    raf = requestAnimationFrame(loop);
-
     return () => {
       running = false;
-      cancelAnimationFrame(raf);
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
       ro.disconnect();
       io.disconnect();
     };
@@ -189,7 +198,7 @@ export function GridPulseBackground() {
       className="absolute inset-0 pointer-events-none overflow-hidden"
     >
       <div
-        className="absolute inset-0 opacity-25"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage:
             "linear-gradient(rgba(120, 118, 109, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 118, 109, 0.35) 1px, transparent 1px)",
