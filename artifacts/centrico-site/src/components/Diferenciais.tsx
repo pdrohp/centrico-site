@@ -16,7 +16,8 @@ export function Diferenciais() {
     {
       title: "Os vossos dados permanecem na Europa",
       desc: "Total conformidade com o RGPD e a legislação europeia de proteção de dados. Sem riscos jurídicos.",
-      icon: ShieldCheck
+      icon: ShieldCheck,
+      badge: "LGPD / RGPD"
     },
     {
       title: "A vossa marca, a vossa plataforma",
@@ -43,8 +44,13 @@ export function Diferenciais() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.06 }}
-              className="group p-10 md:p-14 bg-white hover:bg-background transition-colors duration-300"
+              className="group relative p-10 md:p-14 bg-white hover:bg-background transition-colors duration-300"
             >
+              {card.badge && (
+                <span className="absolute top-6 left-6 md:top-8 md:left-8 inline-flex items-center h-7 px-3 rounded-full border border-foreground/30 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-foreground bg-background">
+                  {card.badge}
+                </span>
+              )}
               <div className="w-14 h-14 rounded-full border border-foreground/30 flex items-center justify-center text-foreground mb-8 group-hover:bg-foreground group-hover:text-background transition-all duration-300">
                 <card.icon size={22} strokeWidth={1.5} />
               </div>
