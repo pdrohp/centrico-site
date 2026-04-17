@@ -226,7 +226,7 @@ export function Workflow() {
           <span className="display-eyebrow inline-block text-[11px] text-white/50 mb-6">
             Configure a vossa plataforma
           </span>
-          <h2 className="display-title text-white text-[36px] md:text-[56px] max-w-3xl mx-auto">
+          <h2 className="display-title text-white text-[32px] md:text-[48px] max-w-3xl mx-auto">
             Selecione os módulos<br className="hidden md:block" /> de que necessitam.
           </h2>
         </motion.div>

@@ -26,9 +26,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
-          className="display-title text-foreground text-[40px] sm:text-[56px] md:text-[76px] lg:text-[88px] leading-[0.95] mb-10"
+          className="display-title text-foreground text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] leading-[1] mb-10"
         >
-          A vossa empresa ainda depende de quatro sistemas para gerir documentos?
+          Ajudamos a vossa empresa a unificar a gestão documental numa só plataforma.
         </motion.h1>
 
         <motion.p
@@ -37,7 +37,7 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.16 }}
           className="text-base md:text-lg text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed"
         >
-          A Céntrico unifica tudo numa só plataforma. Um sistema. A vossa marca. Os módulos que a vossa operação exige.
+          Simplificamos o circuito documental num só sistema. A vossa marca. Os módulos que a vossa operação exige.
         </motion.p>
 
         <motion.div

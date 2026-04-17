@@ -21,7 +21,7 @@ export function SocialProof() {
       <div className="container max-w-6xl mx-auto px-6 md:px-8">
         <div className="text-center mb-16">
           <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">Quem já confia</span>
-          <h2 className="display-title text-foreground text-[36px] md:text-[56px] max-w-3xl mx-auto">
+          <h2 className="display-title text-foreground text-[32px] md:text-[48px] max-w-3xl mx-auto">
             A operação acelera quando<br className="hidden md:block" /> o ficheiro está no sítio certo
           </h2>
         </div>

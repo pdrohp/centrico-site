@@ -37,8 +37,8 @@ export function CtaFinal() {
         {/* vertical connector */}
         <div className="mx-auto h-16 w-px bg-white/25 mb-8" aria-hidden />
 
-        <h2 className="display-title text-white text-[56px] sm:text-[88px] md:text-[120px] lg:text-[140px] leading-[0.9] mb-10">
-          Configure<br /> a vossa<br /> plataforma.
+        <h2 className="display-title text-white text-[36px] md:text-[56px] lg:text-[64px] leading-[1] mb-10">
+          Configure a vossa plataforma.
         </h2>
 
         <p className="text-base md:text-lg text-white/70 mb-16 max-w-xl mx-auto">
@@ -77,7 +77,7 @@ export function CtaFinal() {
           </div>
         </form>
 
-        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-white/55">
+        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-white/55 mb-10">
           <div className="flex items-center gap-2">
             <span className="w-1 h-1 rounded-full bg-white/60"></span>
             Alojado na Europa
@@ -94,6 +94,17 @@ export function CtaFinal() {
             <span className="w-1 h-1 rounded-full bg-white/60"></span>
             Acompanhamento permanente
           </div>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-2">
+          {["ISO 27001", "LGPD / RGPD", "SOC 2"].map((cert) => (
+            <span
+              key={cert}
+              className="inline-flex items-center h-8 px-4 rounded-full border border-white/30 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-white/85"
+            >
+              {cert}
+            </span>
+          ))}
         </div>
       </div>
     </section>

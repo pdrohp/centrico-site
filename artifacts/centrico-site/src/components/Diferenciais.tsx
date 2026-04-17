@@ -9,8 +9,8 @@ export function Diferenciais() {
       icon: Link2
     },
     {
-      title: "Uma plataforma, não quatro",
-      desc: "Consolida num único sistema o conjunto de ferramentas dispersas que a concorrência ainda mantém em paralelo.",
+      title: "Uma plataforma única",
+      desc: "Unificamos num só sistema o que a vossa operação hoje espalha por várias ferramentas. Menos contratos, menos atrito, mais foco.",
       icon: Layers
     },
     {
@@ -30,7 +30,7 @@ export function Diferenciais() {
       <div className="container max-w-6xl mx-auto px-6 md:px-8">
         <div className="text-center mb-14 md:mb-20">
           <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">Por que Céntrico</span>
-          <h2 className="display-title text-foreground text-[36px] md:text-[56px] max-w-3xl mx-auto">
+          <h2 className="display-title text-foreground text-[32px] md:text-[48px] max-w-3xl mx-auto">
             Quatro razões para consolidar tudo num só lugar
           </h2>
         </div>

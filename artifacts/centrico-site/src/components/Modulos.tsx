@@ -36,7 +36,7 @@ export function Modulos() {
           <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">
             Possibilidades de uso
           </span>
-          <h2 className="display-title text-foreground text-[40px] md:text-[64px] mb-6">
+          <h2 className="display-title text-foreground text-[32px] md:text-[48px] mb-6">
             Oito formas de transformar a vossa operação
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -70,7 +70,7 @@ export function Modulos() {
                     {mod.area}
                   </span>
                   
-                  <h3 className="display-title text-foreground text-[40px] md:text-[56px] mb-4 leading-[0.95]">
+                  <h3 className="display-title text-foreground text-[32px] md:text-[44px] mb-4 leading-[1]">
                     {mod.label}
                   </h3>
                   

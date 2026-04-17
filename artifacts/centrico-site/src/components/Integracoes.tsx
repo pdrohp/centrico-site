@@ -10,7 +10,7 @@ export function Integracoes() {
         <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">
           Ecossistema
         </span>
-        <h2 className="display-title text-foreground text-[40px] md:text-[64px] mb-4">
+        <h2 className="display-title text-foreground text-[32px] md:text-[48px] mb-4">
           Integra-se com os sistemas<br className="hidden md:block" /> que já utilizam
         </h2>
         <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
