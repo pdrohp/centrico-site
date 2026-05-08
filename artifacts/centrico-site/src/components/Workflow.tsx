@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
-import { coreModules } from "@/lib/data";
+import { coreModules, coreModuleCategories } from "@/lib/data";
 
 export function Workflow() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -69,7 +69,7 @@ export function Workflow() {
         </div>
 
         {/* Mockup card */}
-        <div className="relative rounded-[20px] overflow-hidden border border-white/10 bg-[#0a1024] p-8 md:p-12 min-h-[380px]">
+        <div className="relative rounded-[20px] overflow-hidden border border-white/10 bg-[#0a1024] p-8 md:p-12 min-h-[420px]">
           <div className="absolute inset-0 pointer-events-none opacity-[0.08]"
             style={{
               backgroundImage:
@@ -77,34 +77,22 @@ export function Workflow() {
               backgroundSize: "32px 32px",
             }}
           />
-          <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-[300px] gap-6">
+          <div className="relative z-10 flex flex-col items-center min-h-[340px] gap-8">
             {/* Hub pill */}
-            <div className="inline-flex items-center justify-center px-5 py-2.5 bg-white text-[#00072c] rounded-full text-[11px] font-display font-semibold uppercase tracking-[0.04em]">
+            <div className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-[#00072c] rounded-[2px] text-[11px] font-display font-semibold uppercase tracking-[0.04em]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0028ff]" />
               A vossa plataforma
             </div>
 
             {selectedIds.length === 0 ? (
-              <p className="text-white/55 text-sm md:text-base max-w-md">
+              <p className="text-white/55 text-sm md:text-base max-w-md text-center mt-6">
                 Selecione os módulos acima para configurar a vossa plataforma.
               </p>
             ) : (
               <>
-                <div className="flex flex-wrap justify-center gap-3 max-w-3xl">
-                  {coreModules
-                    .filter((m) => selectedIds.includes(m.id))
-                    .map((m) => (
-                      <motion.div
-                        key={m.id}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3 }}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[6px] bg-white/5 border border-white/15 text-white text-[12px] font-display"
-                      >
-                        <span className="w-2 h-2 rounded-full bg-[#0028ff]" />
-                        {m.label}
-                      </motion.div>
-                    ))}
-                </div>
+                {/* Connections diagram */}
+                <ConnectionsDiagram selectedIds={selectedIds} />
+
                 <div className="flex items-center gap-3 text-[10px] font-display uppercase tracking-[0.18em] text-white/55">
                   <span>{selectedIds.length} módulo{selectedIds.length !== 1 ? "s" : ""} ativo{selectedIds.length !== 1 ? "s" : ""}</span>
                 </div>
@@ -123,5 +111,99 @@ export function Workflow() {
         </div>
       </div>
     </section>
+  );
+}
+
+function ConnectionsDiagram({ selectedIds }: { selectedIds: string[] }) {
+  const groups = useMemo(() => {
+    return coreModuleCategories
+      .map((category) => ({
+        category,
+        items: coreModules.filter(
+          (m) => m.category === category && selectedIds.includes(m.id)
+        ),
+      }))
+      .filter((g) => g.items.length > 0);
+  }, [selectedIds]);
+
+  if (groups.length === 0) return null;
+
+  return (
+    <div className="w-full max-w-4xl mx-auto">
+      {/* Trunk down from hub */}
+      <div className="flex justify-center">
+        <div className="w-px h-8 bg-[#0028ff]" />
+      </div>
+
+      {/* Horizontal trunk spanning the columns */}
+      <div className="relative">
+        {groups.length > 1 && (
+          <div
+            className="absolute top-0 h-px bg-[#0028ff]"
+            style={{
+              left: `calc((100% / ${groups.length}) / 2)`,
+              right: `calc((100% / ${groups.length}) / 2)`,
+            }}
+          />
+        )}
+
+        <div
+          className="grid gap-4"
+          style={{
+            gridTemplateColumns: `repeat(${groups.length}, minmax(0, 1fr))`,
+          }}
+        >
+          <AnimatePresence>
+            {groups.map((group) => (
+              <motion.div
+                key={group.category}
+                layout
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col items-center"
+              >
+                {/* Branch down to category header */}
+                <div className="w-px h-6 bg-[#0028ff]" />
+
+                {/* Category header */}
+                <div className="inline-flex items-center justify-center px-3 py-1.5 rounded-[2px] border border-[#0028ff]/40 bg-[#0028ff]/10 text-[10px] font-display font-semibold uppercase tracking-[0.1em] text-white text-center">
+                  {group.category}
+                </div>
+
+                {/* Branch down to modules */}
+                <div className="w-px h-4 bg-[#0028ff]/60" />
+
+                {/* Modules column */}
+                <div className="flex flex-col items-stretch gap-2 w-full px-2">
+                  <AnimatePresence>
+                    {group.items.map((m, idx) => (
+                      <motion.div
+                        key={m.id}
+                        layout
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -8 }}
+                        transition={{ duration: 0.25, delay: idx * 0.04 }}
+                        className="relative"
+                      >
+                        {idx > 0 && (
+                          <span className="absolute left-1/2 -top-2 w-px h-2 bg-[#0028ff]/60" />
+                        )}
+                        <div className="inline-flex items-center gap-2 w-full px-3 py-2 rounded-[2px] bg-[#0028ff] text-white text-[11px] font-display font-medium">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+                          <span className="truncate">{m.label}</span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
   );
 }
