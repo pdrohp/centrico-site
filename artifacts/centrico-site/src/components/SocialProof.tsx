@@ -20,13 +20,16 @@ export function SocialProof() {
     <section className="py-24 md:py-32 bg-background">
       <div className="container max-w-6xl mx-auto px-6 md:px-8">
         <div className="text-center mb-16">
-          <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">Quem já confia</span>
-          <h2 className="display-title text-foreground text-[32px] md:text-[48px] max-w-3xl mx-auto">
-            A operação acelera quando<br className="hidden md:block" /> o ficheiro está no sítio certo
+          <span className="eyebrow-pill mb-6">Quem já confia</span>
+          <h2 className="display-title text-foreground text-[32px] md:text-[48px] max-w-3xl mx-auto mt-6">
+            A operação acelera quando{" "}
+            <span className="font-italic-display text-[1.04em]">
+              o ficheiro está no sítio certo
+            </span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border rounded-[28px] overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border rounded-[12px] overflow-hidden">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
@@ -45,7 +48,7 @@ export function SocialProof() {
                 "{t.quote}"
               </p>
               <div>
-                <p className="font-display font-semibold uppercase tracking-[0.14em] text-[12px] text-foreground">{t.name}</p>
+                <p className="font-display font-semibold uppercase tracking-[0.04em] text-[12px] text-foreground">{t.name}</p>
                 <p className="text-sm text-muted-foreground mt-1">{t.role} · {t.company}</p>
               </div>
             </motion.div>

@@ -33,11 +33,14 @@ export function Modulos() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center max-w-3xl mx-auto mb-16 md:mb-24"
         >
-          <span className="display-eyebrow inline-block text-[11px] text-foreground/60 mb-6">
+          <span className="eyebrow-pill mb-6">
             Possibilidades de uso
           </span>
-          <h2 className="display-title text-foreground text-[32px] md:text-[48px] mb-6">
-            Sete formas de transformar a vossa operação
+          <h2 className="display-title text-foreground text-[32px] md:text-[48px] mb-6 mt-6">
+            Sete formas de{" "}
+            <span className="font-italic-display text-[1.04em]">
+              transformar a vossa operação
+            </span>
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
             Ative os módulos de que necessitam hoje e expanda à medida que a operação cresce. Tudo integrado de forma nativa desde o primeiro dia.
@@ -57,7 +60,7 @@ export function Modulos() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-15%" }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="rounded-[28px] overflow-hidden flex flex-col lg:flex-row border border-border sticky shadow-[0_-12px_40px_-24px_rgba(0,0,0,0.18)] mb-24 md:mb-40"
+                className="rounded-[12px] overflow-hidden flex flex-col lg:flex-row border border-border sticky shadow-[0_-12px_40px_-24px_rgba(0,0,0,0.18)] mb-24 md:mb-40"
                 style={{ backgroundColor: mod.bg, top: `${stickyTop}px` }}
               >
                 <div 
@@ -65,13 +68,11 @@ export function Modulos() {
                     isMediaLeft ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
-                  <span 
-                    className="display-eyebrow text-[10px] text-foreground/60 mb-4"
-                  >
+                  <span className="eyebrow-pill eyebrow-pill--badge mb-5 self-start">
                     {mod.area}
                   </span>
-                  
-                  <h3 className="display-title text-foreground text-[32px] md:text-[44px] mb-4 leading-[1]">
+
+                  <h3 className="display-title text-foreground text-[32px] md:text-[44px] mb-4 leading-[1.05]">
                     {mod.label}
                   </h3>
                   
@@ -87,19 +88,19 @@ export function Modulos() {
                     {hasModuleContent(mod.id) ? (
                       <Button
                         asChild
-                        variant="pillOutline"
-                        size="pillSm"
+                        variant="square"
+                        size="squareSm"
                         className="group"
                       >
                         <Link href={`/modulos/${mod.id}`}>
                           Conhecer {mod.label}
-                          <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                          <span className="transition-transform duration-300 group-hover:translate-x-1">&nbsp;&rarr;</span>
                         </Link>
                       </Button>
                     ) : (
                       <Button
-                        variant="pillOutline"
-                        size="pillSm"
+                        variant="squareLight"
+                        size="squareSm"
                         disabled
                         className="opacity-60 cursor-not-allowed"
                         title="Página detalhada em breve"
