@@ -77,6 +77,8 @@ export function Navbar() {
   }, [modulosOpen]);
 
   const isHome = location === "/";
+  // On the home page hero is dark; navbar starts on dark surface and inverts to light when scrolled
+  const onDark = isHome && !scrolled && !modulosOpen;
 
   const handleAnchorClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -111,7 +113,9 @@ export function Navbar() {
         {/* LEFT — Logo */}
         <Link
           href="/"
-          className="text-xl md:text-2xl font-serif font-semibold tracking-[0.18em] text-foreground uppercase shrink-0"
+          className={`text-xl md:text-2xl font-serif font-semibold tracking-[0.18em] uppercase shrink-0 transition-colors ${
+            onDark ? "text-white" : "text-foreground"
+          }`}
         >
           Céntrico
         </Link>
@@ -128,7 +132,9 @@ export function Navbar() {
             className={`flex items-center gap-1 text-[11px] font-display font-semibold uppercase tracking-[0.18em] transition-colors ${
               modulosOpen
                 ? "text-foreground"
-                : "text-foreground/70 hover:text-foreground"
+                : onDark
+                  ? "text-white/80 hover:text-white"
+                  : "text-foreground/70 hover:text-foreground"
             }`}
           >
             Módulos
@@ -143,14 +149,18 @@ export function Navbar() {
           <a
             href={isHome ? "#integracoes" : "/#integracoes"}
             onClick={(e) => handleAnchorClick(e, "integracoes")}
-            className="text-[11px] font-display font-semibold uppercase tracking-[0.18em] text-foreground/70 hover:text-foreground transition-colors"
+            className={`text-[11px] font-display font-semibold uppercase tracking-[0.18em] transition-colors ${
+              onDark ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+            }`}
           >
             Integrações
           </a>
           <a
             href={isHome ? "#seguranca" : "/#seguranca"}
             onClick={(e) => handleAnchorClick(e, "seguranca")}
-            className="text-[11px] font-display font-semibold uppercase tracking-[0.18em] text-foreground/70 hover:text-foreground transition-colors"
+            className={`text-[11px] font-display font-semibold uppercase tracking-[0.18em] transition-colors ${
+              onDark ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
+            }`}
           >
             Segurança
           </a>
@@ -160,8 +170,8 @@ export function Navbar() {
         <div className="flex items-center gap-3 shrink-0">
           <Button
             asChild
-            variant="pill"
-            size="pillSm"
+            variant="square"
+            size="squareSm"
             className="hidden md:inline-flex"
           >
             <a href={isHome ? "#cta" : "/#cta"} onClick={goToCta}>
@@ -169,8 +179,8 @@ export function Navbar() {
             </a>
           </Button>
           <Button
-            variant="pillOutline"
-            size="pillSm"
+            variant={onDark ? "squareOutlineDark" : "squareLight"}
+            size="squareSm"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden"
             aria-label="Toggle menu"
@@ -331,7 +341,7 @@ export function Navbar() {
           >
             Segurança
           </a>
-          <Button asChild variant="pill" size="pillMd" className="mt-3 w-full">
+          <Button asChild variant="square" size="square" className="mt-3 w-full">
             <a href={isHome ? "#cta" : "/#cta"} onClick={goToCta}>
               Agendar demo
             </a>

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Shield, MapPin } from "lucide-react";
 import globeImage from "@assets/20018_1776367127367.png";
 
-const NAVY = "#2E5AAB";
+const NAVY = "#0028ff";
 
 export function Seguranca() {
   return (

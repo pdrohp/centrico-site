@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import type { ModuleContent } from "@/lib/modulesContent";
 
 const FEATURE_BG = ["#EAEDF1", "#DBE0E8", "#C9D0DA"] as const;
-const FEATURE_ACCENT = "#2E5AAB";
+const FEATURE_ACCENT = "#0028ff";
 
 export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
   return (
@@ -108,7 +108,7 @@ function FeatureIllustration({ Icon, accent, bg }: IllustrationProps) {
         className="absolute inset-0 opacity-[0.08]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, #0E1622 1px, transparent 1px), linear-gradient(to bottom, #0E1622 1px, transparent 1px)",
+            "linear-gradient(to right, #00072c 1px, transparent 1px), linear-gradient(to bottom, #00072c 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }}
         aria-hidden

@@ -89,8 +89,8 @@
   --popover-foreground: 0 0% 8%;
   --popover-border: 215 12% 82%;
 
-  /* primary: brand blue #2E5AAB */
-  --primary: 217 58% 42%;
+  /* primary: brand electric blue #0028ff */
+  --primary: 230 100% 50%;
   --primary-foreground: 0 0% 100%;
 
   --secondary: 215 14% 91%;
@@ -106,10 +106,10 @@
   --destructive-foreground: 0 0% 100%;
 
   --input: 215 14% 83%;
-  --ring: 217 58% 42%;
+  --ring: 230 100% 50%;
 
-  --chart-1: 217 58% 42%;
-  --chart-2: 218 50% 56%;
+  --chart-1: 230 100% 50%;
+  --chart-2: 232 100% 38%;
   --chart-3: 0 0% 10%;
   --chart-4: 215 14% 83%;
   --chart-5: 215 10% 40%;
@@ -117,15 +117,16 @@
   --sidebar: 215 18% 95%;
   --sidebar-foreground: 0 0% 8%;
   --sidebar-border: 215 12% 82%;
-  --sidebar-primary: 217 58% 42%;
+  --sidebar-primary: 230 100% 50%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 215 16% 91%;
   --sidebar-accent-foreground: 0 0% 10%;
-  --sidebar-ring: 217 58% 42%;
+  --sidebar-ring: 230 100% 50%;
 
-  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-sans: 'Switzer', 'DM Sans', sans-serif;
   --app-font-serif: 'Playfair Display', serif;
-  --app-font-display: 'Archivo Narrow', 'Barlow Condensed', 'Helvetica Neue', sans-serif;
+  --app-font-display: 'Switzer', 'DM Sans', sans-serif;
+  --app-font-italic: 'Tiro Devanagari Marathi', 'Playfair Display', serif;
   --app-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --radius: 0.5rem;
 
@@ -141,10 +142,14 @@
   --tracking-normal: 0em;
   --spacing: 0.25rem;
 
-  /* Brand single accent (navy) */
-  --brand-navy: #2E5AAB;
-  --brand-navy-soft: #5A7CC8;
-  --brand-ink: #0E1622;
+  /* Brand palette — electric blue redesign */
+  --brand-blue: #0028ff;
+  --brand-blue-deep: #001ec2;
+  --brand-ink: #00072c;
+  --brand-surface: #ECECEC;
+  /* Legacy aliases retained for any remaining navy references */
+  --brand-navy: #0028ff;
+  --brand-navy-soft: #4d6cff;
 }
 
 @layer base {
@@ -170,17 +175,52 @@
 
   .display-title {
     font-family: var(--app-font-display);
-    text-transform: uppercase;
+    text-transform: none;
     letter-spacing: -0.01em;
-    font-weight: 600;
-    line-height: 0.95;
+    font-weight: 500;
+    line-height: 1;
   }
 
   .display-eyebrow {
     font-family: var(--app-font-display);
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+  }
+
+  .font-italic-display {
+    font-family: var(--app-font-italic);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    border-radius: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-family: var(--app-font-display);
+    font-size: 12px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: #141414;
+    background: transparent;
+  }
+
+  .eyebrow-pill--dark {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+  }
+
+  .eyebrow-pill--badge {
+    padding: 0 13px;
+    height: 28px;
+    font-size: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(20, 20, 20, 0.3);
   }
 }
 

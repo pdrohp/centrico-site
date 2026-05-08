@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 const GRID = 48;
-const PULSE_COLOR = [46, 90, 171] as const; // #2E5AAB
+const PULSE_COLOR = [0, 40, 255] as const; // #0028ff
 const MAX_PULSES = 8;
 const MIN_SPAWN_MS = 180;
 const MAX_SPAWN_MS = 520;
@@ -201,7 +201,7 @@ export function GridPulseBackground() {
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(120, 118, 109, 0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 118, 109, 0.35) 1px, transparent 1px)",
+            "linear-gradient(rgba(0, 7, 44, 0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 7, 44, 0.18) 1px, transparent 1px)",
           backgroundSize: `${GRID}px ${GRID}px`,
         }}
       />

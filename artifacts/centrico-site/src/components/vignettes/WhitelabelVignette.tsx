@@ -19,7 +19,7 @@ export function WhitelabelVignette({
   accent,
 }: Props) {
   const shouldReduceMotion = useReducedMotion();
-  const color = brandColor ?? accent ?? "#2E5AAB";
+  const color = brandColor ?? accent ?? "#0028ff";
   const transitionStyle = shouldReduceMotion
     ? undefined
     : { transition: "background-color 350ms ease" };

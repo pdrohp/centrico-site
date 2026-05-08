@@ -27,7 +27,7 @@ export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
   };
 
   return (
-    <section id="cta" className="relative py-32 md:py-48 bg-[#0E1622] text-white overflow-hidden">
+    <section id="cta" className="relative py-32 md:py-48 bg-[#00072c] text-white overflow-hidden">
       {/* Faint grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{
         backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",

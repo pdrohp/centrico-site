@@ -10,9 +10,9 @@ type Palette = {
 };
 
 const PALETTES: Palette[] = [
-  { id: "centrico", label: "Azul Céntrico", color: "#2E5AAB", url: "app.centrico.com" },
-  { id: "floresta", label: "Verde floresta", color: "#1F4D2B", url: "docs.empresa.pt" },
-  { id: "bordeaux", label: "Bordeaux", color: "#7A1F1F", url: "portal.advocacia.pt" },
+  { id: "centrico", label: "Azul Céntrico", color: "#0028ff", url: "app.centrico.com" },
+  { id: "floresta", label: "Verde floresta", color: "#119d36", url: "docs.empresa.pt" },
+  { id: "bordeaux", label: "Bordeaux", color: "#b30909", url: "portal.advocacia.pt" },
 ];
 
 const PILLS = ["Domínio próprio", "Logótipo", "Identidade visual"];
@@ -32,7 +32,7 @@ export function Whitelabel() {
   return (
     <section
       id="whitelabel"
-      className="py-24 md:py-32 bg-background border-y border-border"
+      className="py-24 md:py-32 bg-[#ECECEC]"
     >
       <div className="container max-w-6xl mx-auto px-6 md:px-8">
         <motion.div
@@ -40,21 +40,18 @@ export function Whitelabel() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15%" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="rounded-[28px] overflow-hidden flex flex-col lg:flex-row border border-border bg-[#EAEDF1]"
+          className="rounded-[20px] overflow-hidden flex flex-col lg:flex-row"
         >
-          {/* TEXT */}
-          <div className="p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2">
-            <span className="display-eyebrow text-[10px] text-foreground/60 mb-4">
+          {/* TEXT — deep blue panel */}
+          <div className="p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 bg-[#001ec2] text-white">
+            <span className="eyebrow-pill eyebrow-pill--dark mb-6 self-start">
               Funcionalidade
             </span>
-            <h3 className="display-title text-foreground text-[32px] md:text-[44px] mb-4 leading-[1]">
-              A plataforma é vossa
+            <h3 className="display-title text-white text-[32px] md:text-[44px] mb-6 leading-[1.05]">
+              A plataforma é{" "}
+              <span className="font-italic-display text-[1.06em]">vossa</span>
             </h3>
-            <h4 className="text-lg md:text-xl font-medium text-foreground/75 mb-6 leading-snug max-w-md">
-              Domínio, logótipo e paleta de cores configurados à imagem da
-              vossa marca.
-            </h4>
-            <p className="text-[15px] md:text-base text-muted-foreground leading-relaxed mb-8 max-w-lg">
+            <p className="text-[15px] md:text-base text-white/75 leading-relaxed mb-8 max-w-lg">
               Os vossos clientes acedem a um portal com a vossa identidade
               visual — sem qualquer referência à Céntrico. Experimente: troque
               a cor de marca em baixo e veja a interface adaptar-se em tempo
@@ -64,7 +61,7 @@ export function Whitelabel() {
               {PILLS.map((p) => (
                 <span
                   key={p}
-                  className="inline-flex items-center h-8 px-4 rounded-full border border-foreground/30 text-[10px] font-display font-semibold uppercase tracking-[0.18em] text-foreground bg-white"
+                  className="inline-flex items-center h-8 px-4 rounded-full border border-white/30 text-[10px] font-display uppercase tracking-[0.04em] text-white bg-white/10"
                 >
                   {p}
                 </span>
@@ -72,36 +69,18 @@ export function Whitelabel() {
             </div>
           </div>
 
-          {/* ILLUSTRATION + PICKER */}
-          <div className="lg:w-1/2 p-6 md:p-12 flex items-center justify-center min-h-[340px] md:min-h-[400px]">
-            <div className="w-full max-w-[560px] aspect-[4/3] relative rounded-2xl shadow-xl overflow-hidden border border-border/60">
-              {/* Browser-style top bar of the stage */}
-              <div className="absolute top-0 inset-x-0 h-10 bg-white/90 backdrop-blur border-b border-border/50 flex items-center px-4 gap-2 z-20">
-                <div className="flex gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                  <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                  <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                </div>
-              </div>
-
-              {/* Vignette */}
+          {/* ILLUSTRATION + ROTATED PICKER — white panel */}
+          <div className="lg:w-1/2 relative bg-white flex items-stretch min-h-[420px] md:min-h-[520px]">
+            {/* Vertical (rotated) picker on the left edge */}
+            <div className="relative w-16 shrink-0 border-r border-[#141414]/10 flex items-center justify-center">
               <div
-                className="absolute inset-0 pt-10 z-10 bg-white transition-colors duration-[350ms]"
-                style={{ backgroundColor: hexToRgba(selected.color, 0.08) }}
-              >
-                <WhitelabelVignette
-                  brandColor={selected.color}
-                  displayUrl={selected.url}
-                  bg="transparent"
-                />
-              </div>
-
-              {/* Color picker */}
-              <div
-                className="absolute top-14 right-4 z-30 flex items-center gap-2 bg-white/90 backdrop-blur border border-border/60 rounded-full p-1.5 shadow-md"
+                className="flex items-center gap-3 -rotate-90 origin-center whitespace-nowrap"
                 role="group"
                 aria-label="Selecionar cor de marca"
               >
+                <span className="text-[10px] font-display uppercase tracking-[0.18em] text-[#141414]/50">
+                  Cor de marca
+                </span>
                 {PALETTES.map((p) => {
                   const active = p.id === selectedId;
                   return (
@@ -111,15 +90,38 @@ export function Whitelabel() {
                       onClick={() => setSelectedId(p.id)}
                       aria-label={`Aplicar cor ${p.label}`}
                       aria-pressed={active}
-                      className={`w-6 h-6 rounded-full transition-transform duration-200 outline-none focus-visible:ring-2 focus-visible:ring-foreground/40 ${
+                      className={`w-6 h-6 rounded-full transition-transform duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#141414]/40 ${
                         active
-                          ? "ring-2 ring-foreground ring-offset-2 ring-offset-white scale-105"
-                          : "ring-1 ring-foreground/15 hover:scale-110"
+                          ? "ring-2 ring-[#141414] ring-offset-2 ring-offset-white scale-110"
+                          : "ring-1 ring-[#141414]/15 hover:scale-110"
                       }`}
                       style={{ backgroundColor: p.color }}
                     />
                   );
                 })}
+              </div>
+            </div>
+
+            {/* Mockup stage */}
+            <div className="flex-1 p-6 md:p-10 flex items-center justify-center">
+              <div className="w-full max-w-[520px] aspect-[4/3] relative rounded-[12px] shadow-xl overflow-hidden border border-[#141414]/10 bg-white">
+                <div className="absolute top-0 inset-x-0 h-10 bg-white/95 backdrop-blur border-b border-[#141414]/10 flex items-center px-4 gap-2 z-20">
+                  <div className="flex gap-1.5">
+                    <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
+                    <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
+                    <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
+                  </div>
+                </div>
+                <div
+                  className="absolute inset-0 pt-10 z-10 transition-colors duration-[350ms]"
+                  style={{ backgroundColor: hexToRgba(selected.color, 0.08) }}
+                >
+                  <WhitelabelVignette
+                    brandColor={selected.color}
+                    displayUrl={selected.url}
+                    bg="transparent"
+                  />
+                </div>
               </div>
             </div>
           </div>
