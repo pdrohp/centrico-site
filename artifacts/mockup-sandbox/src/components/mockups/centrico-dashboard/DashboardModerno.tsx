@@ -136,7 +136,7 @@ export function DashboardModerno() {
 
       {/* ════ SIDEBAR ════ */}
       <div style={{
-        width: 220, background: WHITE, display: "flex", flexDirection: "column",
+        width: 218, background: WHITE, display: "flex", flexDirection: "column",
         borderRight: `1px solid ${GRAY5}`, flexShrink: 0,
         boxShadow: "2px 0 8px rgba(0,0,0,0.04)",
       }}>
@@ -195,7 +195,7 @@ export function DashboardModerno() {
               </div>
               {badge != null && (
                 <span style={{
-                  background: "#ef4444", color: WHITE, fontSize: 10, fontWeight: 700,
+                  background: BLUE, color: WHITE, fontSize: 10, fontWeight: 700,
                   padding: "1px 6px", borderRadius: 999, lineHeight: "16px",
                 }}>{badge}</span>
               )}
@@ -258,13 +258,13 @@ export function DashboardModerno() {
           <div style={{ display: "flex", gap: 16, marginBottom: 24 }}>
             <StatCard
               icon={FileText} label="Páginas Processadas"
-              value="340" badgeText="+1024% este mês" badgeColor="#15803d"
+              value="340" badgeText="+1024% este mês" badgeColor={BLUE2}
               detail="Total: 360 páginas" detailSub="Detalhes"
             />
             <StatCard
               icon={FolderOpen} label="Documentos"
               value={<>65<span style={{ fontSize: 18, color: GRAY3, fontWeight: 500 }}>/74</span></>}
-              badgeText="−8% desde ontem" badgeColor="#b45309"
+              badgeText="−8% desde ontem" badgeColor={GRAY2}
               detail="Pendentes: 9" detailSub="Detalhes"
             />
             <StatCard
@@ -347,7 +347,7 @@ export function DashboardModerno() {
 
       {/* ════ RIGHT PANEL ════ */}
       <div style={{
-        width: 284, background: WHITE, borderLeft: `1px solid ${GRAY5}`,
+        width: 280, background: WHITE, borderLeft: `1px solid ${GRAY5}`,
         display: "flex", flexDirection: "column", flexShrink: 0,
         boxShadow: "-2px 0 8px rgba(0,0,0,0.04)",
       }}>
