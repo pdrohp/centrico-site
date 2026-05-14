@@ -2,5 +2,6 @@
 type ModuleMap = Record<string, () => Promise<Record<string, unknown>>>;
 export const modules: ModuleMap = {
   "./components/mockups/centrico-dashboard/Dashboard.tsx": () => import("../components/mockups/centrico-dashboard/Dashboard.tsx"),
+  "./components/mockups/centrico-dashboard/DashboardWireframe.tsx": () => import("../components/mockups/centrico-dashboard/DashboardWireframe.tsx"),
   "./components/mockups/module-selector/ModuleSelector.tsx": () => import("../components/mockups/module-selector/ModuleSelector.tsx")
 };
