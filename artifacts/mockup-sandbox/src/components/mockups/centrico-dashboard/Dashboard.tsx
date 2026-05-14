@@ -170,7 +170,7 @@ export function Dashboard() {
             <button style={{
               display: "flex", alignItems: "center", gap: 6,
               background: BLUE, color: WHITE, border: "none", borderRadius: 2,
-              padding: "0 16px", height: 36, fontSize: 13, fontWeight: 600,
+              padding: "0 16px", height: 48, fontSize: 13, fontWeight: 600,
               cursor: "pointer", fontFamily: "inherit",
             }}>
               <Plus size={14} />
