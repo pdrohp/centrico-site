@@ -60,11 +60,11 @@ export function Modulos() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-15%" }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="rounded-[12px] overflow-hidden flex flex-col lg:flex-row border border-border sticky shadow-[0_-12px_40px_-24px_rgba(0,0,0,0.18)] mb-24 md:mb-40"
-                style={{ backgroundColor: mod.bg, top: `${stickyTop}px` }}
+                className="rounded-[12px] overflow-hidden flex flex-col lg:flex-row border border-border sticky shadow-[0_-12px_40px_-24px_rgba(0,0,0,0.18)] mb-24 md:mb-40 bg-white"
+                style={{ top: `${stickyTop}px` }}
               >
                 <div 
-                  className={`p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 order-2 ${
+                  className={`p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 order-2 bg-[#F6F6F6] ${
                     isMediaLeft ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
