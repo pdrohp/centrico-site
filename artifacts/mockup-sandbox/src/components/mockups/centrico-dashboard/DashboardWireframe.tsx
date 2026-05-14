@@ -7,8 +7,8 @@ const G2  = "#666666"; // mid gray
 const G3  = "#999999"; // light-mid gray
 const G4  = "#c0c0c0"; // light gray
 const G5  = "#d8d8d8"; // very light gray
-const G6  = "#e8e8e8"; // border / divider
-const G7  = "#f2f2f2"; // near-white background
+const G6  = "#e0e0e0"; // border / divider (lightest allowed non-white gray)
+const G7  = "#e0e0e0"; // page bg tint (within #111–#e0e0e0 + white spec)
 const GW  = "#ffffff"; // white
 
 // ── Primitives ────────────────────────────────────────────────────────────────
