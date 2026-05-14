@@ -111,13 +111,13 @@ export function Navbar() {
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between gap-6 relative">
         {/* LEFT — Logo */}
-        <Link
-          href="/"
-          className={`text-xl md:text-2xl font-serif font-semibold tracking-[0.18em] uppercase shrink-0 transition-colors ${
-            onDark ? "text-white" : "text-foreground"
-          }`}
-        >
-          Céntrico
+        <Link href="/" className="shrink-0 flex items-center">
+          <img
+            src="/centrico-logo.svg"
+            alt="Céntrico"
+            className="h-[18px] w-auto transition-all duration-300"
+            style={onDark ? { filter: "brightness(0) invert(1)" } : undefined}
+          />
         </Link>
 
         {/* CENTER — Links */}
