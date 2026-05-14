@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, Linkedin, MessageCircle } from "lucide-react";
+import { CentricoLogo } from "./CentricoLogo";
 
 export function Footer() {
   return (
@@ -6,16 +7,8 @@ export function Footer() {
       <div className="container max-w-6xl mx-auto px-0 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-2">
-            <a href="/" className="inline-flex items-center gap-2 mb-4">
-              <span
-                aria-hidden
-                className="inline-flex items-center justify-center bg-[#001ec2] rounded-[2px] w-[21px] h-[19px] font-display font-semibold text-white text-[11px] leading-none"
-              >
-                C
-              </span>
-              <span className="font-italic-display text-[24px] leading-[32px] capitalize text-white">
-                Céntrico
-              </span>
+            <a href="/" className="inline-flex items-center mb-4">
+              <CentricoLogo height={20} wordmarkColor="#ffffff" />
             </a>
             <p className="text-[14px] leading-[22.75px] text-white max-w-[284px]">
               Plataforma SaaS de gestão documental alojada na Europa. Segura,
