@@ -92,7 +92,7 @@ function DottedGlobe() {
 
   return (
     <div
-      className="absolute top-1/2 -translate-y-1/2 left-0 lg:-left-12"
+      className="absolute top-1/2 -translate-y-1/2 left-0 lg:-left-[28px]"
       style={{
         width: "min(900px, 130%)",
         aspectRatio: "1 / 1",
