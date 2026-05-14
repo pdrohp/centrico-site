@@ -4,6 +4,7 @@ import { Link, useLocation } from "wouter";
 import { modules } from "@/lib/data";
 import { hasModuleContent } from "@/lib/modulesContent";
 import { Button } from "./ui/button";
+import { CentricoLogo } from "./CentricoLogo";
 
 // Map each module's `area` (from data.ts) to one of three navbar buckets.
 // Every area in the catalog must be mapped here — modules with an unmapped
@@ -111,18 +112,12 @@ export function Navbar() {
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between gap-6 relative">
         {/* LEFT — Logo */}
-        <Link href="/" className="shrink-0 flex items-center gap-2">
-          <img
-            src="/centrico-icon.svg"
-            alt=""
-            aria-hidden="true"
-            className="h-[18px] w-auto"
+        <Link href="/" className="shrink-0 flex items-center">
+          <CentricoLogo
+            height={18}
+            wordmarkColor={onDark ? "#ffffff" : "#00072c"}
+            className="transition-all duration-300"
           />
-          <span className={`text-[15px] font-serif font-semibold tracking-[0.18em] uppercase transition-colors ${
-            onDark ? "text-white" : "text-foreground"
-          }`}>
-            Céntrico
-          </span>
         </Link>
 
         {/* CENTER — Links */}
