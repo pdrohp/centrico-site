@@ -1,7 +1,16 @@
+import logo1 from "@assets/int-1.png";
+import logo2 from "@assets/int-2.png";
+import logo3 from "@assets/int-3.png";
+import logo4 from "@assets/int-4.png";
+import logo5 from "@assets/int-5.png";
+
 export function Integracoes() {
   const logos = [
-    "SAP", "Salesforce", "Microsoft 365", "Google Workspace", 
-    "TOTVS", "HubSpot", "Pipedrive", "Slack", "DocuSign", "AWS"
+    { src: logo1, alt: "Integração 1", h: "h-16 md:h-20" },
+    { src: logo2, alt: "Integração 2", h: "h-20 md:h-28" },
+    { src: logo3, alt: "Integração 3", h: "h-14 md:h-16" },
+    { src: logo4, alt: "Integração 4", h: "h-16 md:h-20" },
+    { src: logo5, alt: "Integração 5", h: "h-16 md:h-20" },
   ];
 
   return (
@@ -21,13 +30,18 @@ export function Integracoes() {
         </p>
       </div>
 
-      <div className="relative flex overflow-x-hidden w-full bg-white py-10 border-y border-border">
+      <div className="relative flex overflow-x-hidden w-full bg-white py-10 border-y border-[#ccd0d7]">
         <div className="animate-marquee whitespace-nowrap flex items-center">
           {[...logos, ...logos].map((logo, i) => (
-            <div key={i} className="mx-8 md:mx-16 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-              <span className="display-title text-xl md:text-3xl text-foreground/85">
-                {logo}
-              </span>
+            <div
+              key={i}
+              className="mx-10 md:mx-16 flex items-center justify-center"
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                className={`${logo.h} w-auto object-contain`}
+              />
             </div>
           ))}
         </div>
