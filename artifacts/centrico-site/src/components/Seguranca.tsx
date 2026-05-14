@@ -15,7 +15,7 @@ export function Seguranca() {
       style={{
         borderColor: "#ccd0d7",
         background:
-          "linear-gradient(90deg, #ffffff 0%, #ffffff 55%, #ECECEC 55.001%, #ECECEC 100%)",
+          "linear-gradient(90deg, #ECECEC 0%, #ECECEC 50%, #ffffff 50%, #ffffff 100%)",
       }}
     >
       <div className="container max-w-6xl mx-auto px-6 md:px-8 relative">
