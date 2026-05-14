@@ -27,96 +27,64 @@ export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
   };
 
   return (
-    <section id="cta" className="relative py-32 md:py-48 bg-[#00072c] text-white overflow-hidden">
-      {/* Faint grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{
-        backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
-        backgroundSize: "48px 48px"
-      }} />
-
-      <div className="container max-w-5xl mx-auto px-6 md:px-8 text-center relative z-10">
-        <span className="eyebrow-pill eyebrow-pill--dark mb-8">
-          Próximo passo
-        </span>
-
-        {/* vertical connector */}
-        <div className="mx-auto h-12 w-px bg-white/25 my-6" aria-hidden />
-
-        <h2 className="display-title text-white text-[36px] md:text-[56px] lg:text-[64px] leading-[1.02] mb-10">
-          {headline ?? (
-            <>
-              Configure a{" "}
-              <span className="font-italic-display text-[1.04em]">
-                vossa plataforma.
+    <section
+      id="cta"
+      className="relative bg-[#001376] text-white overflow-hidden px-6 md:px-12 lg:px-20 py-24 md:py-36 lg:py-48"
+    >
+      <div className="container max-w-6xl mx-auto relative z-10">
+        <div className="bg-[#001ec2] rounded-[8px] p-8 md:p-12 lg:p-14">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-8 items-start justify-center">
+            {/* Left: text */}
+            <div className="flex flex-col gap-9 max-w-[576px] w-full lg:w-[576px] pt-2 items-center lg:items-start text-center lg:text-left">
+              <span className="font-display font-semibold uppercase text-[11px] tracking-[0.18em] text-white/50">
+                Próximo passo
               </span>
-            </>
-          )}
-        </h2>
+              <h2 className="font-display font-medium text-white text-[36px] md:text-[44px] lg:text-[48px] leading-none tracking-[-0.01em] w-full">
+                {headline ?? "Configure a vossa plataforma."}
+              </h2>
+              <p className="text-[18px] leading-[28px] text-white/70">
+                {subheadline ?? (
+                  <>
+                    Demonstração sem custo, sem compromisso.
+                    <br />
+                    Trinta minutos com a vossa equipa.
+                  </>
+                )}
+              </p>
+            </div>
 
-        <p className="text-base md:text-lg text-white/70 mb-16 max-w-xl mx-auto">
-          {subheadline ?? "Demonstração sem custo, sem compromisso. Trinta minutos com a vossa equipa."}
-        </p>
-
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto text-left mb-16">
-          <div className="space-y-3">
-            <Input
-              required
-              type="text"
-              placeholder="Nome completo"
-              className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-[2px] px-5 focus-visible:border-white"
-            />
-            <Input
-              required
-              type="email"
-              placeholder="E-mail profissional"
-              className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-[2px] px-5 focus-visible:border-white"
-            />
-            <Input
-              required
-              type="text"
-              placeholder="Empresa"
-              className="bg-transparent border-white/30 text-white placeholder:text-white/40 h-12 rounded-[2px] px-5 focus-visible:border-white"
-            />
-            <Button
-              type="submit"
-              disabled={loading}
-              variant="square"
-              size="square"
-              className="w-full mt-2"
+            {/* Right: form */}
+            <form
+              onSubmit={handleSubmit}
+              className="w-full lg:w-[448px] flex flex-col gap-3"
             >
-              {loading ? "A enviar..." : "Agendar demonstração →"}
-            </Button>
+              <Input
+                required
+                type="text"
+                placeholder="Nome completo"
+                className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
+              />
+              <Input
+                required
+                type="email"
+                placeholder="E-mail profissional"
+                className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
+              />
+              <Input
+                required
+                type="text"
+                placeholder="Empresa"
+                className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
+              />
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full h-12 mt-1 rounded-[8px] bg-white text-[#0e1622] hover:bg-white/90 font-display font-medium text-[16px] uppercase"
+              >
+                {loading ? "A enviar..." : "Agendar demonstração →"}
+              </Button>
+            </form>
           </div>
-        </form>
-
-        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-[10px] font-display font-semibold uppercase tracking-[0.04em] text-white/55 mb-10">
-          <div className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-white/60"></span>
-            Alojado na Europa
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-white/60"></span>
-            Conformidade RGPD
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-white/60"></span>
-            Dados nunca saem da UE
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-white/60"></span>
-            Acompanhamento permanente
-          </div>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-2">
-          {["ISO 27001", "LGPD / RGPD", "SOC 2"].map((cert) => (
-            <span
-              key={cert}
-              className="inline-flex items-center h-7 px-3 rounded-full border border-white/30 text-[10px] font-display uppercase tracking-[0.04em] text-white/85 bg-white/5"
-            >
-              {cert}
-            </span>
-          ))}
         </div>
       </div>
     </section>
