@@ -45,8 +45,8 @@ export function Workflow() {
           </h2>
         </motion.div>
 
-        {/* Capability pills */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12 max-w-3xl mx-auto">
+        {/* Capability pills — desktop: wrap; mobile: 2 scrollable rows */}
+        <div className="hidden md:flex flex-wrap justify-center gap-2 mb-12 max-w-3xl mx-auto">
           {coreModules.map((mod) => {
             const isActive = selectedIds.includes(mod.id);
             return (
@@ -66,6 +66,39 @@ export function Workflow() {
               </button>
             );
           })}
+        </div>
+
+        <div className="md:hidden flex flex-col gap-2 mb-12">
+          {[
+            coreModules.slice(0, Math.ceil(coreModules.length / 2)),
+            coreModules.slice(Math.ceil(coreModules.length / 2)),
+          ].map((row, rowIdx) => (
+            <div
+              key={rowIdx}
+              className="flex flex-nowrap overflow-x-auto gap-2 px-6 pb-1"
+              style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {row.map((mod) => {
+                const isActive = selectedIds.includes(mod.id);
+                return (
+                  <button
+                    key={mod.id}
+                    onClick={() => toggleModule(mod.id)}
+                    className={`flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] font-display font-semibold uppercase tracking-[0.04em] transition-all duration-300 border ${
+                      isActive
+                        ? "bg-[#0028ff] text-white border-[#0028ff]"
+                        : "bg-transparent border-white/25 text-white/80"
+                    }`}
+                  >
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                    )}
+                    {mod.label}
+                  </button>
+                );
+              })}
+            </div>
+          ))}
         </div>
 
         {/* Mockup card */}
