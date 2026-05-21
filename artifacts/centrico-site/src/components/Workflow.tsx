@@ -103,7 +103,7 @@ export function Workflow() {
                     document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })
                   }
                 >
-                  Agendar com esta configuração
+                  Agendar demo
                 </Button>
               </>
             )}

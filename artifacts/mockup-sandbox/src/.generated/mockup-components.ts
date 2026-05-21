@@ -4,7 +4,7 @@ export const modules: ModuleMap = {
   "./components/mockups/centrico-dashboard/Dashboard.tsx": () => import("../components/mockups/centrico-dashboard/Dashboard.tsx"),
   "./components/mockups/centrico-dashboard/DashboardModerno.tsx": () => import("../components/mockups/centrico-dashboard/DashboardModerno.tsx"),
   "./components/mockups/centrico-dashboard/DashboardWireframe.tsx": () => import("../components/mockups/centrico-dashboard/DashboardWireframe.tsx"),
-  "./components/mockups/module-selector/ModuleSelector.tsx": () => import("../components/mockups/module-selector/ModuleSelector.tsx"),
   "./components/mockups/centrico-docs/Documentos.tsx": () => import("../components/mockups/centrico-docs/Documentos.tsx"),
-  "./components/mockups/centrico-docs/DocumentosWireframe.tsx": () => import("../components/mockups/centrico-docs/DocumentosWireframe.tsx")
+  "./components/mockups/centrico-docs/DocumentosWireframe.tsx": () => import("../components/mockups/centrico-docs/DocumentosWireframe.tsx"),
+  "./components/mockups/module-selector/ModuleSelector.tsx": () => import("../components/mockups/module-selector/ModuleSelector.tsx")
 };
