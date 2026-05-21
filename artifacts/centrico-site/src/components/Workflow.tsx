@@ -85,7 +85,7 @@ export function Workflow() {
             </div>
 
             {selectedIds.length === 0 ? (
-              <p className="text-white/55 text-sm md:text-base max-w-md text-center mt-6 w-full flex justify-center">
+              <p className="text-white/55 text-sm md:text-base max-w-md text-center w-full flex justify-center mt-[80px]">
                 Selecione os módulos
               </p>
             ) : (
