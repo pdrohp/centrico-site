@@ -6,3 +6,9 @@ dist-ssr
 .env.*
 !.env.example
 .DS_Store
+
+# ShipStudio metadata
+.shipstudio/
+
+# Astro
+.astro/

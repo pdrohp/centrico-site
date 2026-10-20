@@ -1,9 +1,15 @@
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useLoopActive } from "@/lib/motion";
 
 export function AuditoriaVignette({ accent, bg }: { accent: string; bg: string }) {
   const shouldReduceMotion = useReducedMotion();
+  // Loops only run while the vignette is on screen and the tab is visible.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const playing = useLoopActive(rootRef);
 
   const scrollVariants = {
+    initial: { y: 0 },
     animate: {
       y: [0, -120],
       transition: { duration: 8, ease: "linear" as const, repeat: Infinity }
@@ -24,7 +30,7 @@ export function AuditoriaVignette({ accent, bg }: { accent: string; bg: string }
   ];
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
+    <div ref={rootRef} className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
       <div className="relative w-72 h-56 bg-white rounded-xl shadow-md border border-border overflow-hidden flex flex-col">
         {/* Header */}
         <div className="px-4 py-2 border-b border-border/50 bg-secondary/20 flex justify-between items-center z-10 relative">
@@ -43,7 +49,7 @@ export function AuditoriaVignette({ accent, bg }: { accent: string; bg: string }
           <motion.div 
             className="px-4 pt-4 pb-8 space-y-3"
             variants={!shouldReduceMotion ? scrollVariants : undefined}
-            animate={!shouldReduceMotion ? "animate" : undefined}
+            animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
           >
             {logs.map((log, i) => (
               <div key={i} className="flex flex-col gap-0.5 border-l-2 pl-2" style={{ borderColor: log.alert ? accent : "var(--border)" }}>

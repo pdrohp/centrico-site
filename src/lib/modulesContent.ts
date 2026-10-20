@@ -1,39 +1,3 @@
-import {
-  FileText,
-  Search,
-  History,
-  ScanLine,
-  Lock,
-  Archive,
-  Building2,
-  Briefcase,
-  Stethoscope,
-  PenLine,
-  CheckCircle,
-  Clock,
-  UserCheck,
-  GitBranch,
-  BellRing,
-  LayoutList,
-  Eye,
-  Key,
-  ShieldCheck,
-  Activity,
-  FileCheck,
-  ClipboardList,
-  AlertCircle,
-  Link2,
-  Database,
-  RefreshCw,
-  Zap,
-  Puzzle,
-  Users,
-  UserPlus,
-  Calendar,
-  Award,
-  Layers,
-  type LucideIcon,
-} from "lucide-react";
 
 export type ModuleKpi = {
   value: string;
@@ -41,13 +5,15 @@ export type ModuleKpi = {
 };
 
 export type ModuleFeature = {
-  icon: LucideIcon;
+  /** Nome de um ícone Lucide — ver src/lib/icons.ts */
+  icon: string;
   title: string;
   desc: string;
 };
 
 export type ModuleCase = {
-  icon: LucideIcon;
+  /** Nome de um ícone Lucide — ver src/lib/icons.ts */
+  icon: string;
   sector: string;
   problem: string;
   resolution: string;
@@ -107,39 +73,39 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
     ],
     features: [
       {
-        icon: FileText,
+        icon: "FileText",
         title: "Repositório único",
         desc: "Toda a documentação corporativa num só lugar, organizada por hierarquia de pastas, etiquetas e metadados configuráveis.",
       },
       {
-        icon: History,
+        icon: "History",
         title: "Versionamento automático",
         desc: "Cada alteração gera uma nova versão com autor, data e comentário. Restauro em um clique a qualquer ponto do histórico.",
       },
       {
-        icon: Search,
+        icon: "Search",
         title: "Pesquisa semântica",
         desc: "Encontre por conteúdo, não apenas por nome do ficheiro. A pesquisa lê PDFs, imagens digitalizadas e documentos Office.",
       },
       {
-        icon: ScanLine,
+        icon: "ScanLine",
         title: "OCR integrado",
         desc: "Documentos físicos digitalizados tornam-se pesquisáveis automaticamente, com elevada precisão para PT-PT e PT-BR.",
       },
       {
-        icon: Lock,
+        icon: "Lock",
         title: "Acessos granulares",
         desc: "Permissões por utilizador, grupo, departamento ou documento individual, com herança configurável por pasta.",
       },
       {
-        icon: Archive,
+        icon: "Archive",
         title: "Retenção e arquivo",
         desc: "Políticas automáticas de retenção, expurgo e arquivo legal configuradas conforme o tipo documental.",
       },
     ],
     cases: [
       {
-        icon: Building2,
+        icon: "Building2",
         sector: "Indústria",
         problem:
           "Manuais técnicos, certificados e procedimentos espalhados por dezenas de pastas departamentais.",
@@ -147,7 +113,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Repositório central com versionamento, garantindo que produção e qualidade consultam sempre a versão vigente.",
       },
       {
-        icon: Briefcase,
+        icon: "Briefcase",
         sector: "Serviços profissionais",
         problem:
           "Pareceres, propostas e contratos arquivados em drives pessoais, com risco de perda quando o consultor sai.",
@@ -155,7 +121,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Toda a produção intelectual fica organizada por cliente e projeto, com pesquisa por conteúdo e acesso permissionado.",
       },
       {
-        icon: Stethoscope,
+        icon: "Stethoscope",
         sector: "Saúde",
         problem:
           "Prontuários, exames e laudos em sistemas isolados, com dificuldade de reconciliação e risco LGPD.",
@@ -245,39 +211,39 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
     ],
     features: [
       {
-        icon: PenLine,
+        icon: "PenLine",
         title: "Assinatura eletrónica qualificada",
         desc: "Suporte a assinatura simples, avançada e qualificada conforme o regulamento eIDAS, com certificados de entidades acreditadas.",
       },
       {
-        icon: Clock,
+        icon: "Clock",
         title: "Acompanhamento em tempo real",
         desc: "Visibilidade total do estado de cada pedido: pendente, visualizado, assinado ou recusado, com histórico de eventos.",
       },
       {
-        icon: BellRing,
+        icon: "BellRing",
         title: "Notificações automáticas",
         desc: "Lembretes configuráveis para signatários pendentes, com escalada automática ao responsável se o prazo esgotar.",
       },
       {
-        icon: CheckCircle,
+        icon: "CheckCircle",
         title: "Fluxos multi-signatário",
         desc: "Defina ordens de assinatura sequenciais ou paralelas. Cada parte recebe o documento apenas quando é a sua vez.",
       },
       {
-        icon: Archive,
+        icon: "Archive",
         title: "Arquivo automático na GED",
         desc: "O documento assinado é arquivado na GED com todos os signatários, certificado de assinatura e trilha de auditoria.",
       },
       {
-        icon: UserCheck,
+        icon: "UserCheck",
         title: "Verificação de identidade",
         desc: "Autenticação de dois fatores por SMS ou email para cada signatário, com registo do método utilizado.",
       },
     ],
     cases: [
       {
-        icon: Briefcase,
+        icon: "Briefcase",
         sector: "Jurídico e consultoria",
         problem:
           "Contratos de prestação de serviços enviados por email, impressos, assinados à mão e devolvidos por correio com demoras de semanas.",
@@ -285,7 +251,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Envio digital com rastreio em tempo real, fecho em menos de 24 horas e arquivo automático no dossier do cliente.",
       },
       {
-        icon: Building2,
+        icon: "Building2",
         sector: "Recursos Humanos",
         problem:
           "Admissões demoradas por acumulação de formulários em papel, com risco de extravio de documentos sensíveis.",
@@ -293,7 +259,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Onboarding totalmente digital: contrato, termos e declarações assinadas antes do primeiro dia de trabalho.",
       },
       {
-        icon: Stethoscope,
+        icon: "Stethoscope",
         sector: "Saúde",
         problem:
           "Consentimentos informados impressos, assinados e arquivados manualmente, com risco de perda e dificuldade de rastreio.",
@@ -372,39 +338,39 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
     ],
     features: [
       {
-        icon: GitBranch,
+        icon: "GitBranch",
         title: "Fluxos visuais configuráveis",
         desc: "Desenhe processos com etapas sequenciais, paralelas e condicionais, sem programação. Drag-and-drop intuitivo.",
       },
       {
-        icon: LayoutList,
+        icon: "LayoutList",
         title: "Aprovações multinível",
         desc: "Defina hierarquias de aprovação com delegação automática quando o responsável está indisponível.",
       },
       {
-        icon: BellRing,
+        icon: "BellRing",
         title: "Notificações e prazos",
         desc: "Cada interveniente recebe alertas no momento certo. Prazos configuráveis com escalada automática ao superior.",
       },
       {
-        icon: History,
+        icon: "History",
         title: "Histórico completo",
         desc: "Cada decisão fica registada com utilizador, data, hora e comentário. Histórico imutável e auditável.",
       },
       {
-        icon: FileText,
+        icon: "FileText",
         title: "Ligação a documentos",
         desc: "Associe ficheiros da GED a qualquer etapa do processo. O aprovador vê e assina diretamente no fluxo.",
       },
       {
-        icon: Activity,
+        icon: "Activity",
         title: "Dashboard de operação",
         desc: "Visibilidade em tempo real de todos os processos em curso, com filtros por departamento, tipo e estado.",
       },
     ],
     cases: [
       {
-        icon: Building2,
+        icon: "Building2",
         sector: "Financeiro e compras",
         problem:
           "Pedidos de compra circulavam por email com aprovações perdidas, duplicadas ou esquecidas, sem rastreio.",
@@ -412,7 +378,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Fluxo digital com aprovação multinível, limites de valor configuráveis e arquivo automático do pedido aprovado.",
       },
       {
-        icon: Briefcase,
+        icon: "Briefcase",
         sector: "Jurídico",
         problem:
           "Revisão de contratos com múltiplos intervenientes sem visibilidade sobre quem aprovou, quem falta e há quanto tempo.",
@@ -420,7 +386,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Circuito de revisão e aprovação com SLA por etapa, histórico de alterações e recolha de assinatura integrada.",
       },
       {
-        icon: Users,
+        icon: "Users",
         sector: "Recursos Humanos",
         problem:
           "Pedidos de férias, despesas e formação geridos por email sem uniformidade nem rastreio centralizado.",
@@ -499,39 +465,39 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
     ],
     features: [
       {
-        icon: Key,
+        icon: "Key",
         title: "Controlo por função (RBAC)",
         desc: "Atribua funções com conjuntos de permissões predefinidos. Novos utilizadores herdam as permissões da sua função automaticamente.",
       },
       {
-        icon: Layers,
+        icon: "Layers",
         title: "Herança por estrutura",
         desc: "As permissões definem-se ao nível da pasta e propagam-se para o conteúdo, com possibilidade de exceções por documento.",
       },
       {
-        icon: Clock,
+        icon: "Clock",
         title: "Acessos temporários",
         desc: "Conceda acesso a prestadores externos ou colaboradores temporários com data de expiração automática.",
       },
       {
-        icon: Eye,
+        icon: "Eye",
         title: "Registo de acessos",
         desc: "Cada consulta, download ou tentativa de acesso falhada fica registada com utilizador, data, hora e endereço IP.",
       },
       {
-        icon: ShieldCheck,
+        icon: "ShieldCheck",
         title: "Revisão periódica",
         desc: "Alertas automáticos para revisão de permissões de contas inativas, acessos privilegiados e colaboradores que mudaram de função.",
       },
       {
-        icon: UserCheck,
+        icon: "UserCheck",
         title: "MFA integrado",
         desc: "Autenticação multifator obrigatória para acessos a recursos sensíveis, configurável por nível de classificação.",
       },
     ],
     cases: [
       {
-        icon: Briefcase,
+        icon: "Briefcase",
         sector: "Serviços financeiros",
         problem:
           "Documentos de due diligence e relatórios financeiros acessíveis a mais colaboradores do que o necessário, com risco regulatório.",
@@ -539,7 +505,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Estrutura de acessos por projeto e função, com revisão trimestral automatizada e revogação imediata ao encerrar cada processo.",
       },
       {
-        icon: Stethoscope,
+        icon: "Stethoscope",
         sector: "Saúde",
         problem:
           "Dados clínicos partilhados entre departamentos sem controlo, em incumprimento com a legislação de proteção de dados.",
@@ -547,7 +513,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Modelo de acesso baseado no princípio do mínimo privilégio, com registo de cada consulta e relatórios para auditoria RGPD.",
       },
       {
-        icon: Building2,
+        icon: "Building2",
         sector: "Indústria",
         problem:
           "Saída de colaboradores sem revogação imediata de acessos, com risco de fuga de propriedade intelectual.",
@@ -626,39 +592,39 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
     ],
     features: [
       {
-        icon: ClipboardList,
+        icon: "ClipboardList",
         title: "Trilha de auditoria imutável",
         desc: "Cada evento é registado com timestamp, utilizador, ação, recurso e endereço IP. Nenhum registo pode ser alterado ou eliminado.",
       },
       {
-        icon: AlertCircle,
+        icon: "AlertCircle",
         title: "Alertas de anomalia",
         desc: "Deteção automática de comportamentos suspeitos: downloads massivos, acessos fora de horas ou tentativas repetidas falhadas.",
       },
       {
-        icon: FileCheck,
+        icon: "FileCheck",
         title: "Relatórios para auditores",
         desc: "Exportação em PDF ou CSV com filtros por utilizador, documento, período e tipo de ação. Prontos para entrega a auditores.",
       },
       {
-        icon: Activity,
+        icon: "Activity",
         title: "Dashboard em tempo real",
         desc: "Visibilidade imediata da atividade da plataforma, com métricas de utilização e destacação de eventos críticos.",
       },
       {
-        icon: Archive,
+        icon: "Archive",
         title: "Retenção configurável",
         desc: "Defina políticas de retenção de logs por tipo de evento ou conformidade aplicável, com arquivo seguro de longa duração.",
       },
       {
-        icon: Search,
+        icon: "Search",
         title: "Pesquisa avançada de eventos",
         desc: "Filtre o histórico por qualquer combinação de utilizador, recurso, ação e período. Resultados em segundos.",
       },
     ],
     cases: [
       {
-        icon: Briefcase,
+        icon: "Briefcase",
         sector: "Serviços financeiros",
         problem:
           "Auditoria regulatória exigiu prova de quem acedeu a informação confidencial num período de 18 meses, sem sistema centralizado.",
@@ -666,7 +632,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Exportação do histórico completo em minutos, com filtros por utilizador e documento, entregue ao auditor sem intervenção de TI.",
       },
       {
-        icon: Building2,
+        icon: "Building2",
         sector: "Indústria",
         problem:
           "Suspeita de fuga de informação técnica sem capacidade de apurar quem descarregou os ficheiros nem quando.",
@@ -674,7 +640,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Investigação concluída em menos de uma hora com o registo detalhado de todos os acessos e downloads ao longo dos últimos 90 dias.",
       },
       {
-        icon: Stethoscope,
+        icon: "Stethoscope",
         sector: "Saúde",
         problem:
           "Requisito RGPD de demonstrar quem acedeu a dados de saúde e com que finalidade, sem registo sistemático.",
@@ -753,39 +719,39 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
     ],
     features: [
       {
-        icon: Puzzle,
+        icon: "Puzzle",
         title: "Conectores nativos",
         desc: "Biblioteca de conectores pré-construídos para Microsoft 365, Google Workspace, SAP, TOTVS, Salesforce, Slack e mais.",
       },
       {
-        icon: Link2,
+        icon: "Link2",
         title: "API REST documentada",
         desc: "API completa com autenticação OAuth 2.0, documentação OpenAPI e ambiente de sandbox para desenvolvimento.",
       },
       {
-        icon: RefreshCw,
+        icon: "RefreshCw",
         title: "Sincronização bidirecional",
         desc: "Dados atualizados na Céntrico refletem-se nos sistemas ligados e vice-versa, sem intervenção manual.",
       },
       {
-        icon: Zap,
+        icon: "Zap",
         title: "Webhooks em tempo real",
         desc: "Notifique sistemas externos de qualquer evento na plataforma: documento carregado, processo aprovado, assinatura concluída.",
       },
       {
-        icon: Database,
+        icon: "Database",
         title: "Mapeamento de dados",
         desc: "Interface visual para mapear campos entre sistemas, sem código. Transformações simples configuráveis no editor.",
       },
       {
-        icon: Activity,
+        icon: "Activity",
         title: "Monitorização de fluxos",
         desc: "Dashboard de saúde das integrações com alertas de falha, histórico de chamadas e reprocessamento de erros.",
       },
     ],
     cases: [
       {
-        icon: Building2,
+        icon: "Building2",
         sector: "Indústria",
         problem:
           "Documentos técnicos gerados no SAP precisavam de ser carregados manualmente na GED, com risco de versões desatualizadas.",
@@ -793,7 +759,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Conector SAP sincroniza automaticamente os documentos de produção para a GED, com metadados mapeados e versionamento preservado.",
       },
       {
-        icon: Briefcase,
+        icon: "Briefcase",
         sector: "Serviços profissionais",
         problem:
           "Propostas e contratos criados no CRM não chegavam ao repositório documental, fragmentando o historial do cliente.",
@@ -801,7 +767,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Integração Salesforce → GED arquiva automaticamente cada proposta e contrato no dossier do cliente, em tempo real.",
       },
       {
-        icon: Stethoscope,
+        icon: "Stethoscope",
         sector: "Saúde",
         problem:
           "Sistema de gestão clínica não comunicava com o arquivo documental, obrigando a duplicação de ficheiros.",
@@ -880,39 +846,39 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
     ],
     features: [
       {
-        icon: UserPlus,
+        icon: "UserPlus",
         title: "Onboarding digital",
         desc: "Processo de admissão guiado com checklist configurável: contrato, termos, formulários e documentação entregues e assinados digitalmente.",
       },
       {
-        icon: FileText,
+        icon: "FileText",
         title: "Gestão contratual",
         desc: "Arquivo centralizado de contratos, adendas e renovações com alertas automáticos de fim de prazo e renovação.",
       },
       {
-        icon: Calendar,
+        icon: "Calendar",
         title: "Férias e ausências",
         desc: "Portal de pedidos de férias com aprovação pelo responsável direto, saldo atualizado em tempo real e sincronização com calendário.",
       },
       {
-        icon: Award,
+        icon: "Award",
         title: "Formação e certificações",
         desc: "Registo de formações, certificados e competências por colaborador, com alertas de renovação de certificações.",
       },
       {
-        icon: Users,
+        icon: "Users",
         title: "Portal do colaborador",
         desc: "Acesso self-service a recibos de vencimento, declarações, histórico contratual e pedidos, sem passar pelo departamento de RH.",
       },
       {
-        icon: Archive,
+        icon: "Archive",
         title: "Offboarding e arquivo legal",
         desc: "Processo de saída com checklist, revogação automática de acessos e arquivo do dossier do colaborador pelo período legal.",
       },
     ],
     cases: [
       {
-        icon: Building2,
+        icon: "Building2",
         sector: "Indústria",
         problem:
           "Processo de admissão de operadores com dezenas de formulários em papel, demoras de dias e risco de dossiers incompletos.",
@@ -920,7 +886,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Onboarding digital com checklist automática: o novo colaborador assina tudo antes do primeiro dia, o dossier fica completo e arquivado.",
       },
       {
-        icon: Briefcase,
+        icon: "Briefcase",
         sector: "Serviços profissionais",
         problem:
           "Gestão de contratos de consultores com renovações esquecidas e adendas dispersas por email e drives pessoais.",
@@ -928,7 +894,7 @@ export const modulesContent: Record<string, ModuleContent | undefined> = {
           "Repositório centralizado com alertas automáticos de renovação e histórico contratual completo por colaborador.",
       },
       {
-        icon: Stethoscope,
+        icon: "Stethoscope",
         sector: "Saúde",
         problem:
           "Pedidos de férias e escalas geridos por email e folhas de cálculo sem visibilidade centralizada para a gestão.",

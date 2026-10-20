@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { Link, useLocation } from "wouter";
-import { modules } from "@/lib/data";
-import { hasModuleContent } from "@/lib/modulesContent";
+import type { Module } from "@/lib/data";
 import { Button } from "./ui/button";
 import { CentricoLogo } from "./CentricoLogo";
 
@@ -25,33 +23,38 @@ const BUCKET_ORDER = [
   "Plataforma",
 ];
 
-const MODULE_GROUPS = BUCKET_ORDER.map((title) => ({
-  title,
-  modules: modules.filter(
-    (m) => (AREA_TO_BUCKET[m.area] ?? "Plataforma") === title,
-  ),
-})).filter((g) => g.modules.length > 0);
+const groupModules = (modules: Module[]) =>
+  BUCKET_ORDER.map((title) => ({
+    title,
+    modules: modules.filter(
+      (m) => (AREA_TO_BUCKET[m.area] ?? "Plataforma") === title,
+    ),
+  })).filter((g) => g.modules.length > 0);
 
-export function Navbar() {
+type NavbarProps = {
+  pathname?: string;
+  modules: Module[];
+  moduleIdsWithContent: string[];
+};
+
+export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: NavbarProps) {
+  const MODULE_GROUPS = groupModules(modules);
+  const hasModuleContent = (id: string) => moduleIdsWithContent.includes(id);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [modulosOpen, setModulosOpen] = useState(false);
   const [mobileModulosOpen, setMobileModulosOpen] = useState(false);
-  const [location] = useLocation();
+  const location = pathname.replace(/(.)\/$/, "$1");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    // Pages can load already scrolled (e.g. /#cta from a module page).
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    setModulosOpen(false);
-    setMobileMenuOpen(false);
-    setMobileModulosOpen(false);
-  }, [location]);
 
   useEffect(() => {
     if (!modulosOpen) return;
@@ -113,13 +116,13 @@ export function Navbar() {
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between gap-6 relative">
         {/* LEFT — Logo */}
-        <Link href="/" className="shrink-0 flex items-center">
+        <a href="/" className="shrink-0 flex items-center">
           <CentricoLogo
             height={18}
             wordmarkColor={onDark ? "#ffffff" : "#00072c"}
             className="transition-all duration-300"
           />
-        </Link>
+        </a>
 
         {/* CENTER — Links */}
         <nav className="hidden lg:flex items-center gap-7 absolute left-1/2 -translate-x-1/2">
@@ -201,7 +204,7 @@ export function Navbar() {
           id="modulos-mega-menu"
           role="region"
           aria-label="Menu de módulos"
-          className="hidden lg:block absolute top-full left-0 right-0 bg-background border-y border-border shadow-xl animate-in fade-in duration-150"
+          className="hidden lg:block absolute top-full left-0 right-0 bg-background border-y border-border shadow-xl animate-in fade-in slide-in-from-top-1 duration-200 ease-[var(--ease-out)]"
         >
           <div className="container max-w-7xl mx-auto px-6 md:px-8 py-10">
             <div className="grid grid-cols-12 gap-8">
@@ -227,12 +230,12 @@ export function Navbar() {
                         return (
                           <li key={mod.id}>
                             {enabled ? (
-                              <Link
+                              <a
                                 href={`/modulos/${mod.id}`}
                                 className="block -mx-2 px-2 py-1 rounded-md hover:bg-foreground/5 transition-colors"
                               >
                                 {inner}
-                              </Link>
+                              </a>
                             ) : (
                               <a
                                 href={isHome ? "#modulos" : "/#modulos"}
@@ -277,7 +280,7 @@ export function Navbar() {
 
       {/* MOBILE MENU */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-y border-border p-4 flex flex-col gap-1 shadow-lg max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-y border-border p-4 flex flex-col gap-1 shadow-lg max-h-[80vh] overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-200 ease-[var(--ease-out)]">
           <button
             type="button"
             onClick={() => setMobileModulosOpen((o) => !o)}
@@ -305,12 +308,12 @@ export function Navbar() {
                       return (
                         <li key={mod.id}>
                           {enabled ? (
-                            <Link
+                            <a
                               href={`/modulos/${mod.id}`}
                               className="block py-1.5 text-[13px] font-display font-semibold uppercase tracking-[0.05em] text-foreground"
                             >
                               {mod.label}
-                            </Link>
+                            </a>
                           ) : (
                             <a
                               href={isHome ? "#modulos" : "/#modulos"}

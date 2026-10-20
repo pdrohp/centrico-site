@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { getSiteContent } from "@/lib/content";
+
+const site = await getSiteContent();
+---
+
+<Layout title="Página não encontrada — Céntrico">
+  <Navbar
+    client:load
+    pathname={Astro.url.pathname}
+    modules={site.modules}
+    moduleIdsWithContent={site.moduleIdsWithContent}
+  />
+  <main class="flex-1 flex items-center justify-center px-6 pt-40 pb-24">
+    <div class="max-w-md text-center">
+      <p class="font-display uppercase tracking-[0.04em] text-sm text-muted-foreground">Erro 404</p>
+      <h1 class="mt-3 text-3xl md:text-4xl font-semibold">Página não encontrada</h1>
+      <p class="mt-4 text-muted-foreground">A página que procura não existe ou foi movida.</p>
+      <a href="/" class="mt-8 inline-block underline underline-offset-4">Voltar ao início</a>
+    </div>
+  </main>
+  <Footer />
+</Layout>

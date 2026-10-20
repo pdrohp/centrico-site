@@ -11,8 +11,9 @@ export function Footer() {
               <CentricoLogo height={20} wordmarkColor="#ffffff" />
             </a>
             <p className="text-[14px] leading-[22.75px] text-white max-w-[284px]">
-              Plataforma SaaS de gestão documental alojada na Europa. Segura,
-              escalável e disponível em formato whitelabel.
+              Plataforma de gestão documental,
+              <br />
+              segura, escalável e whitelabel.
             </p>
           </div>
 
@@ -107,8 +108,6 @@ export function Footer() {
 
         <div className="pt-8 border-t border-[#ccd0d7] flex flex-col md:flex-row items-center justify-between gap-4 text-[12px] text-white uppercase">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2 justify-center md:justify-start">
-            <span>Alojado na Europa</span>
-            <span className="text-[#5c6470]">·</span>
             <span>Conformidade RGPD</span>
             <span className="text-[#5c6470]">·</span>
             <span>ISO 27001</span>

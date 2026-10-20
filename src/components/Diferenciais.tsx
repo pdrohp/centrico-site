@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link2, Layers, ShieldCheck, Paintbrush } from "lucide-react";
+import { reveal, MotionRoot, stagger } from "@/lib/motion";
 
 type Card = {
   title: string;
@@ -40,73 +41,72 @@ export function Diferenciais() {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-[#ECECEC]">
-      <div className="container max-w-6xl mx-auto px-6 md:px-8">
-        <div className="text-center mb-14 md:mb-20">
-          <span className="eyebrow-pill mb-6">Por que Céntrico</span>
-          <h2 className="display-title text-[#141414] text-[32px] md:text-[48px] max-w-3xl mx-auto mt-6">
-            Quatro razões para consolidar tudo{" "}
-            <span className="font-italic-display text-[1.04em]">
-              num só lugar
-            </span>
-          </h2>
-        </div>
+    <MotionRoot>
+      <section className="py-24 md:py-32 bg-[#ECECEC]">
+        <div className="container max-w-6xl mx-auto px-6 md:px-8">
+          <div className="text-center mb-14 md:mb-20">
+            <span className="eyebrow-pill mb-6">Por que Céntrico</span>
+            <h2 className="display-title text-[#141414] text-[32px] md:text-[48px] max-w-3xl mx-auto mt-6">
+              Quatro razões para consolidar tudo{" "}
+              <span className="font-italic-display text-[1.04em]">
+                num só lugar
+              </span>
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-          {cards.map((card, i) => {
-            const isBlue = card.variant === "blue";
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.06 }}
-                className={`group relative p-10 md:p-14 rounded-[12px] transition-colors duration-300 ${
-                  isBlue
-                    ? "bg-[#0028ff] text-white"
-                    : "bg-white text-[#141414]"
-                }`}
-              >
-                {card.badge && (
-                  <span
-                    className={`absolute top-6 right-6 md:top-8 md:right-8 inline-flex items-center h-7 px-3 rounded-full border text-[10px] font-display uppercase tracking-[0.04em] ${
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+            {cards.map((card, i) => {
+              const isBlue = card.variant === "blue";
+              return (
+                <motion.div
+                  key={i}
+                  {...reveal(stagger(i))}
+                  className={`group relative p-10 md:p-14 rounded-[12px] transition-colors duration-300 ${
+                    isBlue
+                      ? "bg-[#0028ff] text-white"
+                      : "bg-white text-[#141414]"
+                  }`}
+                >
+                  {card.badge && (
+                    <span
+                      className={`absolute top-6 right-6 md:top-8 md:right-8 inline-flex items-center h-7 px-3 rounded-full border text-[10px] font-display uppercase tracking-[0.04em] ${
+                        isBlue
+                          ? "border-white/40 text-white/90 bg-white/10"
+                          : "border-[#141414]/30 text-[#141414] bg-black/5"
+                      }`}
+                    >
+                      {card.badge}
+                    </span>
+                  )}
+                  <div
+                    className={`w-14 h-14 rounded-full border flex items-center justify-center mb-8 transition-all duration-300 ${
                       isBlue
-                        ? "border-white/40 text-white/90 bg-white/10"
-                        : "border-[#141414]/30 text-[#141414] bg-black/5"
+                        ? "border-white/40 text-white"
+                        : "border-[#141414]/30 text-[#141414]"
                     }`}
                   >
-                    {card.badge}
-                  </span>
-                )}
-                <div
-                  className={`w-14 h-14 rounded-full border flex items-center justify-center mb-8 transition-all duration-300 ${
-                    isBlue
-                      ? "border-white/40 text-white"
-                      : "border-[#141414]/30 text-[#141414]"
-                  }`}
-                >
-                  <card.icon size={22} strokeWidth={1.5} />
-                </div>
-                <h3
-                  className={`display-title text-[26px] md:text-[32px] mb-4 leading-[1.05] max-w-sm ${
-                    isBlue ? "text-white" : "text-[#141414]"
-                  }`}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  className={`leading-relaxed text-[15px] max-w-md ${
-                    isBlue ? "text-white/80" : "text-[#141414]/65"
-                  }`}
-                >
-                  {card.desc}
-                </p>
-              </motion.div>
-            );
-          })}
+                    <card.icon size={22} strokeWidth={1.5} />
+                  </div>
+                  <h3
+                    className={`display-title text-[26px] md:text-[32px] mb-4 leading-[1.05] max-w-sm ${
+                      isBlue ? "text-white" : "text-[#141414]"
+                    }`}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    className={`leading-relaxed text-[15px] max-w-md ${
+                      isBlue ? "text-white/80" : "text-[#141414]/65"
+                    }`}
+                  >
+                    {card.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </MotionRoot>
   );
 }

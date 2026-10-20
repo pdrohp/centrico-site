@@ -1,7 +1,12 @@
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useLoopActive } from "@/lib/motion";
 
 export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
   const shouldReduceMotion = useReducedMotion();
+  // Loops only run while the vignette is on screen and the tab is visible.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const playing = useLoopActive(rootRef);
 
   const tasks = [
     "Contrato assinado",
@@ -20,15 +25,15 @@ export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
   };
 
   const progressVariants = {
-    initial: { width: "0%" },
+    initial: { scaleX: 0 },
     animate: {
-      width: ["0%", "25%", "50%", "75%", "100%", "0%"],
+      scaleX: [0, 0.25, 0.5, 0.75, 1, 0],
       transition: { duration: 6, repeat: Infinity, times: [0, 0.15, 0.3, 0.45, 0.8, 1], ease: "easeInOut" as const }
     }
   };
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
+    <div ref={rootRef} className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
       <div className="relative w-64 bg-white rounded-xl shadow-md border border-border p-5">
         <div className="mb-4 pb-3 border-b border-border/50">
           <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-1">Onboarding</h4>
@@ -45,7 +50,7 @@ export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
                   custom={i}
                   variants={!shouldReduceMotion ? checkVariants : undefined}
                   initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : "initial"}
-                  animate={!shouldReduceMotion ? "animate" : undefined}
+                  animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
                 >
                   <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
@@ -64,11 +69,11 @@ export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
           </div>
           <div className="w-full h-1.5 rounded-full bg-secondary/50 overflow-hidden">
             <motion.div 
-              className="h-full rounded-full"
+              className="h-full w-full rounded-full origin-left"
               style={{ backgroundColor: accent }}
               variants={!shouldReduceMotion ? progressVariants : undefined}
-              initial={shouldReduceMotion ? { width: "100%" } : "initial"}
-              animate={!shouldReduceMotion ? "animate" : undefined}
+              initial={shouldReduceMotion ? { scaleX: 1 } : "initial"}
+              animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
             />
           </div>
         </div>

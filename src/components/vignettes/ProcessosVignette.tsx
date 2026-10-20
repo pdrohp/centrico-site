@@ -1,7 +1,12 @@
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useLoopActive } from "@/lib/motion";
 
 export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }) {
   const shouldReduceMotion = useReducedMotion();
+  // Loops only run while the vignette is on screen and the tab is visible.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const playing = useLoopActive(rootRef);
 
   const steps = ["Solicitação", "Revisão", "Aprovação", "Concluído"];
   
@@ -60,7 +65,7 @@ export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }
   };
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
+    <div ref={rootRef} className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
       <div className="flex items-center justify-center gap-2 md:gap-3 w-full px-8">
         {steps.map((step, i) => (
           <div key={i} className="flex items-center">
@@ -70,7 +75,7 @@ export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }
                 custom={i}
                 variants={!shouldReduceMotion ? stepVariants : undefined}
                 initial={shouldReduceMotion ? { borderColor: accent, color: accent } : "initial"}
-                animate={!shouldReduceMotion ? "animate" : undefined}
+                animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
                 style={shouldReduceMotion ? { borderColor: accent, color: accent } : undefined}
               >
                 {i < 3 ? (
@@ -92,7 +97,7 @@ export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }
                 custom={i}
                 variants={!shouldReduceMotion ? pillVariants : undefined}
                 initial={shouldReduceMotion ? { opacity: 1, y: 0 } : "initial"}
-                animate={!shouldReduceMotion ? "animate" : undefined}
+                animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
               >
                 Automático
               </motion.div>

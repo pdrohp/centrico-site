@@ -1,0 +1,54 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { CtaFinal } from "@/components/CtaFinal";
+import { SocialProof } from "@/components/SocialProof";
+import { ModuleHero } from "@/components/module/ModuleHero";
+import { ModuleVantagens } from "@/components/module/ModuleVantagens";
+import { ModuleFuncionalidades } from "@/components/module/ModuleFuncionalidades";
+import { ModuleCasos } from "@/components/module/ModuleCasos";
+import { ModuleIntegracoes } from "@/components/module/ModuleIntegracoes";
+import { ModuleSeguranca } from "@/components/module/ModuleSeguranca";
+import { ModuleFaq } from "@/components/module/ModuleFaq";
+import { ModuleRelacionados } from "@/components/module/ModuleRelacionados";
+import { getSiteContent } from "@/lib/content";
+
+export async function getStaticPaths() {
+  const site = await getSiteContent();
+  return site.modules
+    .filter((m) => site.moduleContents[m.id])
+    .map((m) => ({ params: { id: m.id } }));
+}
+
+const site = await getSiteContent();
+const { id } = Astro.params;
+const module = site.modules.find((m) => m.id === id)!;
+const content = site.moduleContents[id!]!;
+---
+
+<Layout title={`${module.label} — Céntrico`} description={content.subheadline}>
+  <Navbar
+    client:load
+    pathname={Astro.url.pathname}
+    modules={site.modules}
+    moduleIdsWithContent={site.moduleIdsWithContent}
+  />
+  <main class="flex-1">
+    <ModuleHero client:visible module={module} content={content} />
+    <ModuleVantagens client:visible={{ rootMargin: "200px" }} content={content} />
+    <ModuleFuncionalidades client:visible={{ rootMargin: "200px" }} content={content} />
+    <ModuleCasos client:visible={{ rootMargin: "200px" }} content={content} />
+    <SocialProof client:visible={{ rootMargin: "200px" }} />
+    <ModuleIntegracoes content={content} />
+    <ModuleSeguranca client:visible={{ rootMargin: "200px" }} content={content} />
+    <ModuleRelacionados
+      client:visible={{ rootMargin: "200px" }}
+      content={content}
+      moduleIdsWithContent={site.moduleIdsWithContent}
+    />
+    <ModuleFaq client:visible={{ rootMargin: "200px" }} content={content} />
+    <CtaFinal client:visible={{ rootMargin: "200px" }} headline={content.ctaHeadline} subheadline={content.ctaSubheadline} />
+  </main>
+  <Footer />
+</Layout>

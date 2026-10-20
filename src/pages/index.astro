@@ -1,0 +1,46 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Diferenciais } from "@/components/Diferenciais";
+import { Whitelabel } from "@/components/Whitelabel";
+import { Workflow } from "@/components/Workflow";
+import { Modulos } from "@/components/Modulos";
+import { Integracoes } from "@/components/Integracoes";
+import { Seguranca } from "@/components/Seguranca";
+import { SocialProof } from "@/components/SocialProof";
+import { CtaFinal } from "@/components/CtaFinal";
+import { Footer } from "@/components/Footer";
+import { getSiteContent } from "@/lib/content";
+
+const site = await getSiteContent();
+---
+
+<Layout>
+  <Navbar
+    client:load
+    pathname={Astro.url.pathname}
+    modules={site.modules}
+    moduleIdsWithContent={site.moduleIdsWithContent}
+  />
+  <main class="flex-1">
+    <Hero />
+    <Diferenciais client:visible={{ rootMargin: "200px" }} />
+    <Whitelabel client:visible={{ rootMargin: "200px" }} />
+    <Workflow
+      client:visible={{ rootMargin: "200px" }}
+      coreModules={site.coreModules}
+      coreModuleCategories={site.coreModuleCategories}
+    />
+    <Modulos
+      client:visible={{ rootMargin: "200px" }}
+      modules={site.modules}
+      moduleIdsWithContent={site.moduleIdsWithContent}
+    />
+    <Integracoes />
+    <Seguranca client:visible={{ rootMargin: "200px" }} />
+    <SocialProof client:visible={{ rootMargin: "200px" }} />
+    <CtaFinal client:visible={{ rootMargin: "200px" }} />
+  </main>
+  <Footer />
+</Layout>

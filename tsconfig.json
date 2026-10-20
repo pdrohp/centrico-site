@@ -1,27 +1,11 @@
 {
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "dist", "**/*.test.ts"],
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "src/**/*"],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "target": "es2022",
-    "lib": ["es2022", "dom", "dom.iterable"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "jsx": "preserve",
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "strictFunctionTypes": false,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    "skipLibCheck": true,
-    "types": ["node", "vite/client"],
     "paths": {
       "@/*": ["./src/*"]
     }

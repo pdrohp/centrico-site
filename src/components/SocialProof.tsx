@@ -55,13 +55,14 @@ export function SocialProof() {
 
   const total = testimonials.length;
 
-  // Responsive: 1 card per view on mobile (<768px), 2 on desktop
+  // Responsive: 1 card per view below lg (<1024px), 2 on desktop
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const update = () => setIsMobile(window.innerWidth < 768);
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const update = () => setIsMobile(mq.matches);
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, []);
   const factor = isMobile ? 100 : 50; // % of container each card occupies
 

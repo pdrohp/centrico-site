@@ -1,82 +1,79 @@
 import { motion } from "framer-motion";
-import globeImage from "@assets/20018_1776367127367.png";
-import certIso from "@assets/cert-iso27001.png";
-import certRgpd from "@assets/cert-rgpd.png";
-import certEu from "@assets/cert-eu.png";
-import certSoc from "@assets/cert-soc2.png";
+import globeImage from "@/assets/20018_1776367127367.png";
+import certIso from "@/assets/cert-iso27001.png";
+import certRgpd from "@/assets/cert-rgpd.png";
+import certEu from "@/assets/cert-eu.png";
+import certSoc from "@/assets/cert-soc2.png";
+import { reveal, MotionRoot } from "@/lib/motion";
 
 const NAVY = "#001ec2";
 
 export function Seguranca() {
   return (
-    <section
-      id="seguranca"
-      className="relative py-24 md:py-32 overflow-hidden border-y"
-      style={{
-        borderColor: "#ccd0d7",
-        background:
-          "linear-gradient(90deg, #ECECEC 0%, #ECECEC 50%, #ffffff 50%, #ffffff 100%)",
-      }}
-    >
-      <div className="container max-w-6xl mx-auto px-6 md:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Text column */}
-          <div className="relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <h2 className="font-display font-medium text-[#141414] text-[36px] md:text-[44px] lg:text-[48px] leading-[1] mb-6 tracking-[-0.01em]">
-                Os vossos documentos
-                <br />
-                não saem da Europa.
-              </h2>
-              <p className="text-base text-[#5c6470] leading-[1.5] mb-10 max-w-lg">
-                Infraestrutura alojada em centros de dados europeus, com total
-                conformidade ao RGPD e à legislação europeia de proteção de
-                dados. Os vossos documentos permanecem sempre dentro do
-                território da UE.
-              </p>
-
-              <div>
-                <p className="font-display font-semibold text-[16px] text-[#141414] mb-4">
-                  Certificações:
+    <MotionRoot>
+      <section
+        id="seguranca"
+        className="relative py-24 md:py-32 overflow-hidden border-y bg-white lg:bg-[linear-gradient(90deg,#ECECEC_0%,#ECECEC_50%,#ffffff_50%,#ffffff_100%)]"
+        style={{ borderColor: "#ccd0d7" }}
+      >
+        <div className="container max-w-6xl mx-auto px-6 md:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Text column */}
+            <div className="relative z-10 md:max-w-[58%] lg:max-w-none">
+              <motion.div
+                {...reveal()}
+              >
+                <h2 className="font-display font-medium text-[#141414] text-[36px] md:text-[44px] lg:text-[48px] leading-[1] mb-6 tracking-[-0.01em]">
+                  Os vossos documentos
+                  <br />
+                  não saem da Europa.
+                </h2>
+                <p className="text-base text-[#5c6470] leading-[1.5] mb-10 max-w-lg">
+                  Infraestrutura alojada em centros de dados europeus, com total
+                  conformidade ao RGPD e à legislação europeia de proteção de
+                  dados. Os vossos documentos permanecem sempre dentro do
+                  território da UE.
                 </p>
-                <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
-                  <img
-                    src={certIso}
-                    alt="ISO 27001"
-                    className="h-12 w-auto object-contain"
-                  />
-                  <img
-                    src={certRgpd}
-                    alt="LGPD Compliance Software"
-                    className="h-11 w-auto object-contain"
-                  />
-                  <img
-                    src={certEu}
-                    alt="RGPD"
-                    className="h-12 w-auto object-contain"
-                  />
-                  <img
-                    src={certSoc}
-                    alt="AICPA SOC 2"
-                    className="h-11 w-auto object-contain"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </div>
 
-          {/* Globe column — oversized, overflows right */}
-          <div className="relative h-[420px] md:h-[520px] lg:h-[560px]">
-            <DottedGlobe />
+                <div>
+                  <p className="font-display font-semibold text-[16px] text-[#141414] mb-4">
+                    Certificações:
+                  </p>
+                  <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
+                    <img
+                      src={certIso.src}
+                      alt="ISO 27001"
+                      className="h-12 w-auto object-contain"
+                    />
+                    <img
+                      src={certRgpd.src}
+                      alt="LGPD Compliance Software"
+                      className="h-11 w-auto object-contain"
+                    />
+                    <img
+                      src={certEu.src}
+                      alt="RGPD"
+                      className="h-12 w-auto object-contain"
+                    />
+                    <img
+                      src={certSoc.src}
+                      alt="AICPA SOC 2"
+                      className="h-11 w-auto object-contain"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Globe column — oversized, overflows right. Below lg it sits
+                beside the text (md) or under it (mobile), cropped by the section. */}
+            <div className="relative h-[300px] -mr-[30%] ml-[25%] md:absolute md:inset-y-0 md:right-0 md:w-[42%] md:h-auto md:m-0 md:translate-x-[6%] lg:relative lg:inset-auto lg:w-auto lg:h-[560px] lg:translate-x-0">
+              <DottedGlobe />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </MotionRoot>
   );
 }
 
@@ -101,7 +98,7 @@ function DottedGlobe() {
       <div
         className="w-full h-full bg-no-repeat bg-center bg-contain"
         style={{
-          backgroundImage: `url(${globeImage})`,
+          backgroundImage: `url(${globeImage.src})`,
           mixBlendMode: "darken",
         }}
       />

@@ -24,7 +24,7 @@ export function ModuleIntegracoes({ content }: { content: ModuleContent }) {
         </p>
       </div>
 
-      <div className="relative overflow-hidden w-full bg-white border-y border-[#ccd0d7] h-[120px] md:h-[180px]">
+      <div className="marquee-pausable relative overflow-hidden w-full bg-white border-y border-[#ccd0d7] h-[120px] md:h-[180px]">
         {[0, 1].map((track) => (
           <div
             key={track}

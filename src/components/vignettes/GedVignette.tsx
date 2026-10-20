@@ -1,7 +1,12 @@
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useLoopActive } from "@/lib/motion";
 
 export function GedVignette({ accent, bg }: { accent: string; bg: string }) {
   const shouldReduceMotion = useReducedMotion();
+  // Loops only run while the vignette is on screen and the tab is visible.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const playing = useLoopActive(rootRef);
 
   const containerVariants = {
     animate: {
@@ -27,12 +32,12 @@ export function GedVignette({ accent, bg }: { accent: string; bg: string }) {
   };
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
+    <div ref={rootRef} className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
       <motion.div 
         className="relative w-48 h-56"
         variants={!shouldReduceMotion ? containerVariants : undefined}
         initial="initial"
-        animate="animate"
+        animate={playing ? "animate" : "initial"}
       >
         {/* Background Card */}
         <motion.div 

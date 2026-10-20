@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { Link } from "wouter";
+import type { CSSProperties } from "react";
 import { Button } from "../ui/button";
 import { GedVignette } from "../vignettes/GedVignette";
 import { AssinaturasVignette } from "../vignettes/AssinaturasVignette";
@@ -60,10 +59,8 @@ export function ModuleHero({
 
       <div className="container max-w-6xl mx-auto px-6 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+          <div
+            className="reveal-up"
           >
             <span className="eyebrow-pill eyebrow-pill--dark">
               {content.eyebrow} · {module.area}
@@ -96,26 +93,18 @@ export function ModuleHero({
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                variant="square"
-                size="square"
-                onClick={() =>
-                  document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                Agendar demonstração
+              <Button asChild variant="square" size="square">
+                <a href="#cta">Agendar demonstração</a>
               </Button>
               <Button asChild variant="squareOutlineDark" size="square">
-                <Link href="/#modulos">← Voltar aos módulos</Link>
+                <a href="/#modulos">← Voltar aos módulos</a>
               </Button>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease: "easeOut", delay: 0.05 }}
-            className="flex items-center justify-center"
+          <div
+            style={{ "--reveal-delay": "120ms" } as CSSProperties}
+            className="reveal-up flex items-center justify-center"
           >
             <div className="w-full max-w-[560px] aspect-[4/3] relative rounded-[12px] shadow-2xl overflow-hidden border border-white/10 bg-white">
               <div className="absolute top-0 inset-x-0 h-10 bg-white/95 backdrop-blur border-b border-[#141414]/10 flex items-center px-4 gap-2 z-20">
@@ -135,7 +124,7 @@ export function ModuleHero({
                 )}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,7 +1,12 @@
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useLoopActive } from "@/lib/motion";
 
 export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) {
   const shouldReduceMotion = useReducedMotion();
+  // Loops only run while the vignette is on screen and the tab is visible.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const playing = useLoopActive(rootRef);
 
   const toggleVariants = {
     initial: { x: 2, backgroundColor: "var(--muted)" },
@@ -25,7 +30,7 @@ export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) 
   const cols = [0, 1];
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
+    <div ref={rootRef} className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
       <div className="relative bg-white rounded-xl shadow-md border border-border p-4 w-64">
         {/* Header Row */}
         <div className="flex items-center mb-4 pb-2 border-b border-border/50">
@@ -52,7 +57,7 @@ export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) 
             className="absolute -left-3 -top-2 bg-foreground text-background px-2 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider z-10 shadow-sm flex items-center gap-1"
             variants={!shouldReduceMotion ? badgeVariants : undefined}
             initial={shouldReduceMotion ? { opacity: 1, y: 36 } : "initial"}
-            animate={!shouldReduceMotion ? "animate" : undefined}
+            animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
           >
             Admin
           </motion.div>
@@ -75,7 +80,7 @@ export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) 
                         custom={delay}
                         variants={!shouldReduceMotion ? toggleVariants : undefined}
                         initial={isStaticOn ? { x: 14, backgroundColor: accent } : "initial"}
-                        animate={!shouldReduceMotion ? "animate" : undefined}
+                        animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
                         style={isStaticOn ? { x: 14, backgroundColor: accent } : undefined}
                       />
                     </div>

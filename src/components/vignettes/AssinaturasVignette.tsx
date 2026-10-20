@@ -1,7 +1,12 @@
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useLoopActive } from "@/lib/motion";
 
 export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string }) {
   const shouldReduceMotion = useReducedMotion();
+  // Loops only run while the vignette is on screen and the tab is visible.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const playing = useLoopActive(rootRef);
 
   const drawVariants = {
     initial: { pathLength: 0, opacity: 0 },
@@ -32,7 +37,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
   };
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
+    <div ref={rootRef} className="w-full h-full relative flex items-center justify-center overflow-hidden" style={{ backgroundColor: bg }}>
       <div className="relative w-56 h-64 bg-white rounded-xl shadow-md border border-border p-5 flex flex-col">
         {/* Document Faux Content */}
         <div className="w-1/2 h-3 rounded bg-secondary/80 mb-6" />
@@ -60,7 +65,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
                 strokeLinejoin="round"
                 variants={!shouldReduceMotion ? drawVariants : undefined}
                 initial={shouldReduceMotion ? { pathLength: 1, opacity: 1 } : "initial"}
-                animate={!shouldReduceMotion ? "animate" : undefined}
+                animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
               />
             </svg>
             
@@ -69,7 +74,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
               className="absolute z-20"
               variants={!shouldReduceMotion ? cursorVariants : undefined}
               initial={shouldReduceMotion ? { opacity: 0 } : "initial"}
-              animate={!shouldReduceMotion ? "animate" : undefined}
+              animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground">
                 <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="white" />
@@ -81,7 +86,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
               className="absolute -right-4 -bottom-2 bg-white rounded-full p-1 shadow-sm border border-border"
               variants={!shouldReduceMotion ? checkVariants : undefined}
               initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : "initial"}
-              animate={!shouldReduceMotion ? "animate" : undefined}
+              animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
             >
               <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ backgroundColor: accent }}>
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">

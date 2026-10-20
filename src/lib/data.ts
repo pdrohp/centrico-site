@@ -1,4 +1,26 @@
-export const coreModules = [
+export type CoreModule = {
+  id: string;
+  label: string;
+  desc: string;
+  category: string;
+  accent: string;
+  bg: string;
+};
+
+export type Module = {
+  id: string;
+  label: string;
+  desc: string;
+  /** Área do catálogo — o Navbar agrupa os módulos a partir deste valor. */
+  area: string;
+  accent: string;
+  bg: string;
+  headline: string;
+  body: string;
+  video: string;
+};
+
+export const coreModules: CoreModule[] = [
   {
     id: "auto-dados",
     label: "Automação de Dados",
@@ -73,7 +95,7 @@ export const coreModules = [
   },
 ];
 
-export const coreModuleCategories = [
+export const coreModuleCategories: string[] = [
   "IA Estratégica",
   "Automação de Processos",
   "Recursos Avançados",
@@ -84,7 +106,7 @@ const STONE_LIGHT = "#EAEDF1";
 const STONE_MID = "#DBE0E8";
 const STONE_DEEP = "#C9D0DA";
 
-export const modules = [
+export const modules: Module[] = [
   {
     id: "ged",
     label: "GED",
