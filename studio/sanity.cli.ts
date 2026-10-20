@@ -6,5 +6,5 @@ export default defineCliConfig({
     dataset: process.env.SANITY_STUDIO_DATASET ?? "production",
   },
   studioHost: process.env.SANITY_STUDIO_HOST,
-  deployment: { autoUpdates: true },
+  deployment: { autoUpdates: true, appId: "ll1ri4mzvh2915oezaa8jc83" },
 });

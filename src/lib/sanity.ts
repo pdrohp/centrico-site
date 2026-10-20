@@ -43,7 +43,7 @@ export const siteContentQuery = /* groq */ `{
   "modules": *[_type == "platformModule" && defined(slug.current)] | order(order asc, title asc) {
     "id": slug.current,
     "label": title,
-    "desc": coalesce(desc, ""),
+    "desc": coalesce(@.desc, ""),
     "area": coalesce(area, ""),
     "accent": coalesce(accent, "#0028ff"),
     "bg": coalesce(bg, "#EAEDF1"),
@@ -58,7 +58,7 @@ export const siteContentQuery = /* groq */ `{
       "vantagensTitle": coalesce(vantagensTitle, ""),
       "vantagensBody": coalesce(vantagensBody, ""),
       "kpis": coalesce(kpis[]{ value, label }, []),
-      "features": coalesce(features[]{ icon, title, desc }, []),
+      "features": coalesce(features[]{ icon, title, "desc": @.desc }, []),
       "cases": coalesce(cases[]{ icon, sector, problem, resolution }, []),
       "integrations": coalesce(integrations, []),
       "compliance": coalesce(compliance, []),
@@ -67,7 +67,7 @@ export const siteContentQuery = /* groq */ `{
       "related": coalesce(related[defined(module->slug.current)]{
         "id": module->slug.current,
         "label": module->title,
-        "desc": coalesce(desc, module->desc, "")
+        "desc": coalesce(@.desc, module->{ "desc": @.desc }.desc, "")
       }, []),
       "ctaHeadline": coalesce(ctaHeadline, ""),
       "ctaSubheadline": coalesce(ctaSubheadline, "")
@@ -77,7 +77,7 @@ export const siteContentQuery = /* groq */ `{
   "coreModules": *[_type == "workflowModule" && defined(slug.current)] | order(order asc, title asc) {
     "id": slug.current,
     "label": title,
-    "desc": coalesce(desc, ""),
+    "desc": coalesce(@.desc, ""),
     "category": coalesce(category->title, ""),
     "accent": coalesce(accent, "#0028ff"),
     "bg": coalesce(bg, "#ECECEC")
