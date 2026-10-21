@@ -1,8 +1,16 @@
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLoopActive } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) {
+const COPY = {
+  pt: { user: "Utilizador" },
+  en: { user: "User" },
+};
+
+
+export function AcessosVignette({ accent, bg, lang = "pt" }: { accent: string; bg: string; lang?: Lang }) {
+  const t = COPY[lang];
   const shouldReduceMotion = useReducedMotion();
   // Loops only run while the vignette is on screen and the tab is visible.
   const rootRef = useRef<HTMLDivElement>(null);
@@ -34,7 +42,7 @@ export function AcessosVignette({ accent, bg }: { accent: string; bg: string }) 
       <div className="relative bg-white rounded-xl shadow-md border border-border p-4 w-64">
         {/* Header Row */}
         <div className="flex items-center mb-4 pb-2 border-b border-border/50">
-          <div className="w-20 text-[9px] uppercase tracking-wider text-muted-foreground">Utilizador</div>
+          <div className="w-20 text-[9px] uppercase tracking-wider text-muted-foreground">{t.user}</div>
           <div className="flex-1 flex justify-around">
             <div className="text-[9px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

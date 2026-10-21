@@ -1,16 +1,42 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
+import { scrollToId } from "@/lib/smooth-scroll";
 import type { CoreModule } from "@/lib/data";
 import { reveal, MotionRoot, ease, duration } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
+
+const COPY = {
+  pt: {
+    eyebrow: "Sistema modular",
+    title: "Selecione os módulos",
+    titleItalic: "de que necessitam.",
+    hub: "A vossa plataforma",
+    empty: "Selecione os módulos",
+    active: (n: number) => `${n} módulo${n !== 1 ? "s" : ""} ativo${n !== 1 ? "s" : ""}`,
+    cta: "Agendar demo",
+  },
+  en: {
+    eyebrow: "Modular system",
+    title: "Choose the modules",
+    titleItalic: "you need.",
+    hub: "Your platform",
+    empty: "Choose your modules",
+    active: (n: number) => `${n} active module${n !== 1 ? "s" : ""}`,
+    cta: "Book a demo",
+  },
+};
 
 export function Workflow({
   coreModules,
   coreModuleCategories,
+  lang = "pt",
 }: {
   coreModules: CoreModule[];
   coreModuleCategories: string[];
+  lang?: Lang;
 }) {
+  const t = COPY[lang];
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const toggleModule = (id: string) => {
@@ -50,12 +76,12 @@ export function Workflow({
             className="text-center mb-12"
           >
             <span className="eyebrow-pill eyebrow-pill--dark mb-6">
-              Sistema modular
+              {t.eyebrow}
             </span>
             <h2 className="display-title text-white text-[32px] md:text-[48px] max-w-3xl mx-auto mt-6">
-              Selecione os módulos{" "}
+              {t.title}{" "}
               <span className="font-italic-display text-[1.04em]">
-                de que necessitam.
+                {t.titleItalic}
               </span>
             </h2>
           </motion.div>
@@ -129,12 +155,12 @@ export function Workflow({
               {/* Hub pill */}
               <div className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-[#00072c] rounded-[2px] text-[11px] font-display font-semibold uppercase tracking-[0.04em]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#0028ff]" />
-                A vossa plataforma
+                {t.hub}
               </div>
 
               {selectedIds.length === 0 ? (
                 <p className="text-white/55 text-sm md:text-base max-w-md text-center w-full flex justify-center mt-[80px]">
-                  Selecione os módulos
+                  {t.empty}
                 </p>
               ) : (
                 <>
@@ -146,16 +172,16 @@ export function Workflow({
                   />
 
                   <div className="flex items-center gap-3 text-[10px] font-display uppercase tracking-[0.18em] text-white/55">
-                    <span>{selectedIds.length} módulo{selectedIds.length !== 1 ? "s" : ""} ativo{selectedIds.length !== 1 ? "s" : ""}</span>
+                    <span>{t.active(selectedIds.length)}</span>
                   </div>
                   <Button
                     variant="square"
                     size="square"
                     onClick={() =>
-                      document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" })
+                      scrollToId("cta")
                     }
                   >
-                    Agendar demo
+                    {t.cta}
                   </Button>
                 </>
               )}

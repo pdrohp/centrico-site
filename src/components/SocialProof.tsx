@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import type { Lang } from "@/lib/i18n";
 
 const QuoteIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -25,33 +26,80 @@ function Card({ t }: { t: Testimonial }) {
   );
 }
 
-export function SocialProof() {
-  const testimonials: Testimonial[] = [
-    {
-      quote: "Automatizámos o circuito de aprovação de contratos em três semanas. O nosso departamento jurídico deixou de ser um entrave à operação.",
-      name: "Mariana Costa",
-      role: "Diretora Jurídica",
-      company: "Grupo de Distribuição"
-    },
-    {
-      quote: "O módulo de Recursos Humanos digitalizou por completo o processo de admissão. Zero papel, zero documentos extraviados e total conformidade com o RGPD.",
-      name: "Ricardo Silva",
-      role: "Diretor de Operações",
-      company: "Construtora Atlântico"
-    },
-    {
-      quote: "Conseguimos reduzir o tempo de resposta a clientes em 60%. A centralização de documentos comerciais foi transformadora para a nossa equipa.",
-      name: "Ana Ferreira",
-      role: "Diretora Comercial",
-      company: "Ibertech Solutions"
-    },
-    {
-      quote: "A integração com o SAP foi feita em menos de uma semana. A equipa de TI ficou surpreendida com a simplicidade do processo e a robustez da API.",
-      name: "João Monteiro",
-      role: "CTO",
-      company: "Meridian Logística"
-    }
-  ];
+const COPY = {
+  pt: {
+    eyebrow: "Quem já confia",
+    title: "A operação acelera quando",
+    titleItalic: "o ficheiro está no sítio certo",
+    prev: "Anterior",
+    next: "Próximo",
+    dot: (n: number) => `Depoimento ${n}`,
+    testimonials: [
+      {
+        quote: "Automatizámos o circuito de aprovação de contratos em três semanas. O nosso departamento jurídico deixou de ser um entrave à operação.",
+        name: "Mariana Costa",
+        role: "Diretora Jurídica",
+        company: "Grupo de Distribuição",
+      },
+      {
+        quote: "O módulo de Recursos Humanos digitalizou por completo o processo de admissão. Zero papel, zero documentos extraviados e total conformidade com o RGPD.",
+        name: "Ricardo Silva",
+        role: "Diretor de Operações",
+        company: "Construtora Atlântico",
+      },
+      {
+        quote: "Conseguimos reduzir o tempo de resposta a clientes em 60%. A centralização de documentos comerciais foi transformadora para a nossa equipa.",
+        name: "Ana Ferreira",
+        role: "Diretora Comercial",
+        company: "Ibertech Solutions",
+      },
+      {
+        quote: "A integração com o SAP foi feita em menos de uma semana. A equipa de TI ficou surpreendida com a simplicidade do processo e a robustez da API.",
+        name: "João Monteiro",
+        role: "CTO",
+        company: "Meridian Logística",
+      },
+    ] as Testimonial[],
+  },
+  en: {
+    eyebrow: "Trusted by",
+    title: "Operations speed up when",
+    titleItalic: "every file is in the right place",
+    prev: "Previous",
+    next: "Next",
+    dot: (n: number) => `Testimonial ${n}`,
+    testimonials: [
+      {
+        quote: "We automated our contract approval flow in three weeks. Our legal department is no longer a bottleneck for the business.",
+        name: "Mariana Costa",
+        role: "Head of Legal",
+        company: "Distribution Group",
+      },
+      {
+        quote: "The Human Resources module fully digitised our onboarding. Zero paper, zero lost documents and full GDPR compliance.",
+        name: "Ricardo Silva",
+        role: "Operations Director",
+        company: "Construtora Atlântico",
+      },
+      {
+        quote: "We cut our response time to clients by 60%. Centralising our sales documents transformed the way our team works.",
+        name: "Ana Ferreira",
+        role: "Sales Director",
+        company: "Ibertech Solutions",
+      },
+      {
+        quote: "The SAP integration took less than a week. Our IT team was surprised by how simple the process was and how robust the API is.",
+        name: "João Monteiro",
+        role: "CTO",
+        company: "Meridian Logística",
+      },
+    ] as Testimonial[],
+  },
+};
+
+export function SocialProof({ lang = "pt" }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const testimonials = t.testimonials;
 
   const total = testimonials.length;
 
@@ -118,11 +166,11 @@ export function SocialProof() {
     <section className="py-24 md:py-32 bg-background">
       <div className="container max-w-6xl mx-auto px-6 md:px-8">
         <div className="text-center mb-16">
-          <span className="eyebrow-pill mb-6">Quem já confia</span>
+          <span className="eyebrow-pill mb-6">{t.eyebrow}</span>
           <h2 className="display-title text-foreground text-[32px] md:text-[48px] max-w-3xl mx-auto mt-6">
-            A operação acelera quando{" "}
+            {t.title}{" "}
             <span className="font-italic-display text-[1.04em]">
-              o ficheiro está no sítio certo
+              {t.titleItalic}
             </span>
           </h2>
         </div>
@@ -152,7 +200,7 @@ export function SocialProof() {
         <div className="flex items-center justify-center gap-6 mt-8">
           <button
             onClick={() => go(-1)}
-            aria-label="Anterior"
+            aria-label={t.prev}
             className="w-10 h-10 rounded-[2px] border border-border flex items-center justify-center text-foreground hover:bg-foreground hover:text-white transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -171,7 +219,7 @@ export function SocialProof() {
                   setStripIdx((s) => s + dir * steps);
                   setRealSlide(i);
                 }}
-                aria-label={`Depoimento ${i + 1}`}
+                aria-label={t.dot(i + 1)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${i === realSlide ? "w-6 bg-foreground" : "w-1.5 bg-border"}`}
               />
             ))}
@@ -179,7 +227,7 @@ export function SocialProof() {
 
           <button
             onClick={() => go(1)}
-            aria-label="Próximo"
+            aria-label={t.next}
             className="w-10 h-10 rounded-[2px] border border-border flex items-center justify-center text-foreground hover:bg-foreground hover:text-white transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

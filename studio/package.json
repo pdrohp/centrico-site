@@ -8,6 +8,7 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "seed": "sanity exec scripts/seed.ts --with-user-token",
+    "seed:en": "sanity exec scripts/seed-en.ts --with-user-token",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

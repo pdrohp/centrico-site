@@ -1,0 +1,54 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Diferenciais } from "@/components/Diferenciais";
+import { Whitelabel } from "@/components/Whitelabel";
+import { Workflow } from "@/components/Workflow";
+import { Modulos } from "@/components/Modulos";
+import { Integracoes } from "@/components/Integracoes";
+import { Seguranca } from "@/components/Seguranca";
+import { SocialProof } from "@/components/SocialProof";
+import { CtaFinal } from "@/components/CtaFinal";
+import { Footer } from "@/components/Footer";
+import { getSiteContent } from "@/lib/content";
+import type { Lang } from "@/lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const site = await getSiteContent(lang);
+---
+
+<Layout lang={lang}>
+  <Navbar
+    client:load
+    pathname={Astro.url.pathname}
+    modules={site.modules}
+    moduleIdsWithContent={site.moduleIdsWithContent}
+  />
+  <main class="flex-1">
+    <Hero lang={lang} />
+    <Diferenciais client:visible={{ rootMargin: "200px" }} lang={lang} />
+    <Whitelabel client:visible={{ rootMargin: "200px" }} lang={lang} />
+    <Workflow
+      client:visible={{ rootMargin: "200px" }}
+      coreModules={site.coreModules}
+      coreModuleCategories={site.coreModuleCategories}
+      lang={lang}
+    />
+    <Modulos
+      client:visible={{ rootMargin: "200px" }}
+      modules={site.modules}
+      moduleIdsWithContent={site.moduleIdsWithContent}
+      lang={lang}
+    />
+    <Integracoes lang={lang} />
+    <Seguranca client:visible={{ rootMargin: "200px" }} lang={lang} />
+    <SocialProof client:visible={{ rootMargin: "200px" }} lang={lang} />
+    <CtaFinal client:visible={{ rootMargin: "200px" }} lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

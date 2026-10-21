@@ -2,23 +2,42 @@ import { motion } from "framer-motion";
 import type { ModuleContent } from "@/lib/modulesContent";
 import { getModuleIcon } from "@/lib/icons";
 import { reveal, MotionRoot, stagger } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
+
+const COPY = {
+  pt: {
+    eyebrow: "Casos de uso por setor",
+    title: "Como diferentes setores",
+    titleItalic: "aplicam este módulo",
+    before: "Hoje",
+    after: "Com a Céntrico",
+  },
+  en: {
+    eyebrow: "Use cases by sector",
+    title: "How different sectors",
+    titleItalic: "use this module",
+    before: "Today",
+    after: "With Céntrico",
+  },
+};
 
 function CaseIcon({ name }: { name: string }) {
   const Icon = getModuleIcon(name);
   return <Icon size={22} strokeWidth={1.5} />;
 }
 
-export function ModuleCasos({ content }: { content: ModuleContent }) {
+export function ModuleCasos({ content, lang = "pt" }: { content: ModuleContent; lang?: Lang }) {
+  const t = COPY[lang];
   return (
     <MotionRoot>
       <section className="py-24 md:py-32 bg-[#ECECEC]">
         <div className="container max-w-6xl mx-auto px-6 md:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
-            <span className="eyebrow-pill mb-6">Casos de uso por setor</span>
+            <span className="eyebrow-pill mb-6">{t.eyebrow}</span>
             <h2 className="display-title text-[#141414] text-[32px] md:text-[48px] mt-6 leading-[1.05]">
-              Como diferentes setores{" "}
+              {t.title}{" "}
               <span className="font-italic-display text-[1.04em]">
-                aplicam este módulo
+                {t.titleItalic}
               </span>
             </h2>
           </div>
@@ -57,7 +76,7 @@ export function ModuleCasos({ content }: { content: ModuleContent }) {
                         isBlue ? "text-white/55" : "text-[#7A1F1F]"
                       }`}
                     >
-                      Hoje
+                      {t.before}
                     </span>
                     <p
                       className={`text-[14px] md:text-[15px] leading-relaxed ${
@@ -78,7 +97,7 @@ export function ModuleCasos({ content }: { content: ModuleContent }) {
                         isBlue ? "text-white" : "text-[#1F4D2B]"
                       }`}
                     >
-                      Com a Céntrico
+                      {t.after}
                     </span>
                     <p
                       className={`text-[14px] md:text-[15px] leading-relaxed ${

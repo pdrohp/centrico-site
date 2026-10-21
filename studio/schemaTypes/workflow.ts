@@ -7,6 +7,7 @@ export const workflowCategory = defineType({
   orderings: [{ title: "Ordem", name: "ordem", by: [{ field: "order", direction: "asc" }] }],
   fields: [
     defineField({ name: "title", title: "Nome", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "titleEn", title: "Nome (inglês)", description: "Se vazio, usa o nome em português.", type: "string" }),
     defineField({ name: "order", title: "Ordem", type: "number", initialValue: 100 }),
   ],
 });
@@ -21,6 +22,8 @@ export const workflowModule = defineType({
     defineField({ name: "title", title: "Nome", type: "string", validation: (r) => r.required() }),
     defineField({ name: "slug", title: "Identificador", type: "slug", options: { source: "title" }, validation: (r) => r.required() }),
     defineField({ name: "desc", title: "Descrição", type: "string" }),
+    defineField({ name: "titleEn", title: "Nome (inglês)", description: "Se vazio, usa o nome em português.", type: "string" }),
+    defineField({ name: "descEn", title: "Descrição (inglês)", type: "string" }),
     defineField({
       name: "category",
       title: "Categoria",

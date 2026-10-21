@@ -1,8 +1,16 @@
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLoopActive } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function GedVignette({ accent, bg }: { accent: string; bg: string }) {
+const COPY = {
+  pt: { restored: "Versão restaurada" },
+  en: { restored: "Version restored" },
+};
+
+
+export function GedVignette({ accent, bg, lang = "pt" }: { accent: string; bg: string; lang?: Lang }) {
+  const t = COPY[lang];
   const shouldReduceMotion = useReducedMotion();
   // Loops only run while the vignette is on screen and the tab is visible.
   const rootRef = useRef<HTMLDivElement>(null);
@@ -92,7 +100,7 @@ export function GedVignette({ accent, bg }: { accent: string; bg: string }) {
             variants={!shouldReduceMotion ? badgeVariants : undefined}
             initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : "initial"}
           >
-            Versão restaurada
+            {t.restored}
           </motion.div>
         </motion.div>
       </motion.div>

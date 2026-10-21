@@ -1,0 +1,11 @@
+---
+import ModulePage from "@/views/ModulePage.astro";
+import { getSiteContent } from "@/lib/content";
+
+export async function getStaticPaths() {
+  const site = await getSiteContent("en");
+  return site.moduleIdsWithContent.map((id) => ({ params: { id } }));
+}
+---
+
+<ModulePage lang="en" id={Astro.params.id!} />

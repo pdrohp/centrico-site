@@ -2,13 +2,43 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
+import type { Lang } from "@/lib/i18n";
+
+const COPY = {
+  pt: {
+    toastTitle: "Pedido recebido",
+    toastBody: "A nossa equipa entrará em contacto brevemente para agendar a demonstração.",
+    eyebrow: "Próximo passo",
+    headline: "Configure a vossa plataforma.",
+    subheadline: ["Demonstração sem custo, sem compromisso.", "Trinta minutos com a vossa equipa."],
+    name: "Nome completo",
+    email: "E-mail profissional",
+    company: "Empresa",
+    sending: "A enviar...",
+    submit: "Agendar demonstração →",
+  },
+  en: {
+    toastTitle: "Request received",
+    toastBody: "Our team will be in touch shortly to schedule your demo.",
+    eyebrow: "Next step",
+    headline: "Set up your platform.",
+    subheadline: ["A free demo, with no commitment.", "Thirty minutes with your team."],
+    name: "Full name",
+    email: "Work email",
+    company: "Company",
+    sending: "Sending...",
+    submit: "Book a demo →",
+  },
+};
 
 type CtaFinalProps = {
   headline?: string;
   subheadline?: string;
+  lang?: Lang;
 };
 
-export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
+export function CtaFinal({ headline, subheadline, lang = "pt" }: CtaFinalProps = {}) {
+  const t = COPY[lang];
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
@@ -20,8 +50,8 @@ export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
       const form = e.target as HTMLFormElement;
       form.reset();
       toast({
-        title: "Pedido recebido",
-        description: "A nossa equipa entrará em contacto brevemente para agendar a demonstração.",
+        title: t.toastTitle,
+        description: t.toastBody,
       });
     }, 1000);
   };
@@ -37,17 +67,17 @@ export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
             {/* Left: text */}
             <div className="flex flex-col gap-9 max-w-[576px] w-full lg:w-[576px] pt-2 items-center lg:items-start text-center lg:text-left">
               <span className="font-display font-semibold uppercase text-[11px] tracking-[0.18em] text-white/50">
-                Próximo passo
+                {t.eyebrow}
               </span>
               <h2 className="font-display font-medium text-white text-[36px] md:text-[44px] lg:text-[48px] leading-none tracking-[-0.01em] w-full">
-                {headline ?? "Configure a vossa plataforma."}
+                {headline ?? t.headline}
               </h2>
               <p className="text-[18px] leading-[28px] text-white/70">
                 {subheadline ?? (
                   <>
-                    Demonstração sem custo, sem compromisso.
+                    {t.subheadline[0]}
                     <br />
-                    Trinta minutos com a vossa equipa.
+                    {t.subheadline[1]}
                   </>
                 )}
               </p>
@@ -61,19 +91,19 @@ export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
               <Input
                 required
                 type="text"
-                placeholder="Nome completo"
+                placeholder={t.name}
                 className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
               />
               <Input
                 required
                 type="email"
-                placeholder="E-mail profissional"
+                placeholder={t.email}
                 className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
               />
               <Input
                 required
                 type="text"
-                placeholder="Empresa"
+                placeholder={t.company}
                 className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
               />
               <Button
@@ -81,7 +111,7 @@ export function CtaFinal({ headline, subheadline }: CtaFinalProps = {}) {
                 disabled={loading}
                 className="w-full h-12 mt-1 rounded-[8px] bg-white text-[#0e1622] hover:bg-white/90 font-display font-medium text-[16px] uppercase"
               >
-                {loading ? "A enviar..." : "Agendar demonstração →"}
+                {loading ? t.sending : t.submit}
               </Button>
             </form>
           </div>

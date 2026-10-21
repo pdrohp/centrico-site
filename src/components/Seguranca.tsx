@@ -6,14 +6,32 @@ import certEu from "@/assets/cert-eu.png";
 import certSoc from "@/assets/cert-soc2.png";
 import { reveal, MotionRoot } from "@/lib/motion";
 
+import type { Lang } from "@/lib/i18n";
+
 const NAVY = "#001ec2";
 
-export function Seguranca() {
+const COPY = {
+  pt: {
+    title: ["Os vossos documentos", "não saem da Europa."],
+    body: "Infraestrutura alojada em centros de dados europeus, com total conformidade ao RGPD e à legislação europeia de proteção de dados. Os vossos documentos permanecem sempre dentro do território da UE.",
+    certifications: "Certificações:",
+    gdpr: "RGPD",
+  },
+  en: {
+    title: ["Your documents", "never leave Europe."],
+    body: "Infrastructure hosted in European data centres, fully compliant with the GDPR and European data protection law. Your documents always stay within EU territory.",
+    certifications: "Certifications:",
+    gdpr: "GDPR",
+  },
+};
+
+export function Seguranca({ lang = "pt" }: { lang?: Lang }) {
+  const t = COPY[lang];
   return (
     <MotionRoot>
       <section
         id="seguranca"
-        className="relative py-24 md:py-32 overflow-hidden border-y bg-white lg:bg-[linear-gradient(90deg,#ECECEC_0%,#ECECEC_50%,#ffffff_50%,#ffffff_100%)]"
+        className="relative py-24 md:py-32 overflow-hidden border-y bg-white lg:bg-[linear-gradient(90deg,hsl(var(--background))_0%,hsl(var(--background))_50%,#ffffff_50%,#ffffff_100%)]"
         style={{ borderColor: "#ccd0d7" }}
       >
         <div className="container max-w-6xl mx-auto px-6 md:px-8 relative">
@@ -24,20 +42,17 @@ export function Seguranca() {
                 {...reveal()}
               >
                 <h2 className="font-display font-medium text-[#141414] text-[36px] md:text-[44px] lg:text-[48px] leading-[1] mb-6 tracking-[-0.01em]">
-                  Os vossos documentos
+                  {t.title[0]}
                   <br />
-                  não saem da Europa.
+                  {t.title[1]}
                 </h2>
                 <p className="text-base text-[#5c6470] leading-[1.5] mb-10 max-w-lg">
-                  Infraestrutura alojada em centros de dados europeus, com total
-                  conformidade ao RGPD e à legislação europeia de proteção de
-                  dados. Os vossos documentos permanecem sempre dentro do
-                  território da UE.
+                  {t.body}
                 </p>
 
                 <div>
                   <p className="font-display font-semibold text-[16px] text-[#141414] mb-4">
-                    Certificações:
+                    {t.certifications}
                   </p>
                   <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
                     <img
@@ -52,7 +67,7 @@ export function Seguranca() {
                     />
                     <img
                       src={certEu.src}
-                      alt="RGPD"
+                      alt={t.gdpr}
                       className="h-12 w-auto object-contain"
                     />
                     <img

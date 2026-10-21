@@ -2,8 +2,25 @@ import { motion } from "framer-motion";
 import type { ModuleContent } from "@/lib/modulesContent";
 import { getModuleIcon } from "@/lib/icons";
 import { reveal, MotionRoot } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
+const COPY = {
+  pt: {
+    eyebrow: "Funcionalidades",
+    title: ["O que está", "incluído", "neste módulo"],
+    body: "Tudo o que a vossa equipa precisa para operar de forma centralizada, segura e auditável desde o primeiro dia.",
+    feature: "Funcionalidade",
+  },
+  en: {
+    eyebrow: "Features",
+    title: ["What is", "included", "in this module"],
+    body: "Everything your team needs to work in a centralised, secure and auditable way from day one.",
+    feature: "Feature",
+  },
+};
+
+export function ModuleFuncionalidades({ content, lang = "pt" }: { content: ModuleContent; lang?: Lang }) {
+  const t = COPY[lang];
   return (
     <MotionRoot>
       <section className="py-24 md:py-32 bg-white">
@@ -12,15 +29,14 @@ export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
             {...reveal()}
             className="text-center max-w-3xl mx-auto mb-16 md:mb-24"
           >
-            <span className="eyebrow-pill mb-6">Funcionalidades</span>
+            <span className="eyebrow-pill mb-6">{t.eyebrow}</span>
             <h2 className="display-title text-[#141414] text-[32px] md:text-[48px] mt-6 mb-6 leading-[1.05]">
-              O que está{" "}
-              <span className="font-italic-display text-[1.04em]">incluído</span>{" "}
-              neste módulo
+              {t.title[0]}{" "}
+              <span className="font-italic-display text-[1.04em]">{t.title[1]}</span>{" "}
+              {t.title[2]}
             </h2>
             <p className="text-base md:text-lg text-[#141414]/65 leading-relaxed">
-              Tudo o que a vossa equipa precisa para operar de forma centralizada,
-              segura e auditável desde o primeiro dia.
+              {t.body}
             </p>
           </motion.div>
 
@@ -62,7 +78,7 @@ export function ModuleFuncionalidades({ content }: { content: ModuleContent }) {
                         isBlue ? "text-white/70" : "text-[#141414]/55"
                       }`}
                     >
-                      Funcionalidade · {num}
+                      {t.feature} · {num}
                     </span>
 
                     <h3

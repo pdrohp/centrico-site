@@ -7,8 +7,15 @@ import {
 } from "../ui/accordion";
 import type { ModuleContent } from "@/lib/modulesContent";
 import { reveal, MotionRoot } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function ModuleFaq({ content }: { content: ModuleContent }) {
+const COPY = {
+  pt: { eyebrow: "Perguntas frequentes", title: "Antes de avançar, talvez se", titleItalic: "interroguem sobre" },
+  en: { eyebrow: "FAQ", title: "Before you go ahead, you may", titleItalic: "be wondering" },
+};
+
+export function ModuleFaq({ content, lang = "pt" }: { content: ModuleContent; lang?: Lang }) {
+  const t = COPY[lang];
   return (
     <MotionRoot>
       <section className="py-24 md:py-32 bg-white">
@@ -17,11 +24,11 @@ export function ModuleFaq({ content }: { content: ModuleContent }) {
             {...reveal()}
             className="text-center mb-14 md:mb-20"
           >
-            <span className="eyebrow-pill mb-6">Perguntas frequentes</span>
+            <span className="eyebrow-pill mb-6">{t.eyebrow}</span>
             <h2 className="display-title text-[#141414] text-[32px] md:text-[48px] mt-6 leading-[1.05]">
-              Antes de avançar, talvez se{" "}
+              {t.title}{" "}
               <span className="font-italic-display text-[1.04em]">
-                interroguem sobre
+                {t.titleItalic}
               </span>
             </h2>
           </motion.div>

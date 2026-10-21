@@ -1,0 +1,59 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { CtaFinal } from "@/components/CtaFinal";
+import { SocialProof } from "@/components/SocialProof";
+import { ModuleHero } from "@/components/module/ModuleHero";
+import { ModuleVantagens } from "@/components/module/ModuleVantagens";
+import { ModuleFuncionalidades } from "@/components/module/ModuleFuncionalidades";
+import { ModuleCasos } from "@/components/module/ModuleCasos";
+import { ModuleIntegracoes } from "@/components/module/ModuleIntegracoes";
+import { ModuleSeguranca } from "@/components/module/ModuleSeguranca";
+import { ModuleFaq } from "@/components/module/ModuleFaq";
+import { ModuleRelacionados } from "@/components/module/ModuleRelacionados";
+import { getSiteContent } from "@/lib/content";
+import type { Lang } from "@/lib/i18n";
+
+interface Props {
+  lang: Lang;
+  id: string;
+}
+
+const { lang, id } = Astro.props;
+const site = await getSiteContent(lang);
+const module = site.modules.find((m) => m.id === id)!;
+const content = site.moduleContents[id]!;
+---
+
+<Layout lang={lang} title={`${module.label} — Céntrico`} description={content.subheadline}>
+  <Navbar
+    client:load
+    pathname={Astro.url.pathname}
+    modules={site.modules}
+    moduleIdsWithContent={site.moduleIdsWithContent}
+  />
+  <main class="flex-1">
+    <ModuleHero client:visible module={module} content={content} lang={lang} />
+    <ModuleVantagens client:visible={{ rootMargin: "200px" }} content={content} lang={lang} />
+    <ModuleFuncionalidades client:visible={{ rootMargin: "200px" }} content={content} lang={lang} />
+    <ModuleCasos client:visible={{ rootMargin: "200px" }} content={content} lang={lang} />
+    <SocialProof client:visible={{ rootMargin: "200px" }} lang={lang} />
+    <ModuleIntegracoes content={content} lang={lang} />
+    <ModuleSeguranca client:visible={{ rootMargin: "200px" }} content={content} lang={lang} />
+    <ModuleRelacionados
+      client:visible={{ rootMargin: "200px" }}
+      content={content}
+      moduleIdsWithContent={site.moduleIdsWithContent}
+      lang={lang}
+    />
+    <ModuleFaq client:visible={{ rootMargin: "200px" }} content={content} lang={lang} />
+    <CtaFinal
+      client:visible={{ rootMargin: "200px" }}
+      headline={content.ctaHeadline}
+      subheadline={content.ctaSubheadline}
+      lang={lang}
+    />
+  </main>
+  <Footer lang={lang} />
+</Layout>

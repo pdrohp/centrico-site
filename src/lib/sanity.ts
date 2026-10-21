@@ -67,20 +67,47 @@ export const siteContentQuery = /* groq */ `{
       "related": coalesce(related[defined(module->slug.current)]{
         "id": module->slug.current,
         "label": module->title,
-        "desc": coalesce(@.desc, module->{ "desc": @.desc }.desc, "")
+        "desc": coalesce(@.desc, module->{ "desc": @.desc }.desc, ""),
+        "labelEn": module->en.title,
+        "moduleDescEn": module->en{ "desc": @.desc }.desc
       }, []),
       "ctaHeadline": coalesce(ctaHeadline, ""),
       "ctaSubheadline": coalesce(ctaSubheadline, "")
+    },
+    "en": en {
+      title,
+      "desc": @.desc,
+      headline,
+      body,
+      page {
+        eyebrow,
+        subheadline,
+        tags,
+        vantagensTitle,
+        vantagensBody,
+        "kpis": kpis[]{ value, label },
+        "features": features[]{ title, "desc": @.desc },
+        "cases": cases[]{ sector, problem, resolution },
+        compliance,
+        complianceNote,
+        "faq": faq[]{ q, a },
+        "related": related[]{ "desc": @.desc },
+        ctaHeadline,
+        ctaSubheadline
+      }
     }
   },
-  "coreModuleCategories": *[_type == "workflowCategory"] | order(order asc, title asc).title,
+  "coreModuleCategories": *[_type == "workflowCategory"] | order(order asc, title asc) { title, titleEn },
   "coreModules": *[_type == "workflowModule" && defined(slug.current)] | order(order asc, title asc) {
     "id": slug.current,
     "label": title,
     "desc": coalesce(@.desc, ""),
     "category": coalesce(category->title, ""),
+    "categoryEn": category->titleEn,
+    titleEn,
+    descEn,
     "accent": coalesce(accent, "#0028ff"),
     "bg": coalesce(bg, "#ECECEC")
   },
-  "settings": *[_id == "siteSettings"][0] { title, description, ogDescription, ogImage }
+  "settings": *[_id == "siteSettings"][0] { title, description, ogDescription, ogImage, en }
 }`;

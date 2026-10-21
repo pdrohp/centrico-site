@@ -8,6 +8,20 @@ import { AuditoriaVignette } from "../vignettes/AuditoriaVignette";
 import { IntegracoesVignette } from "../vignettes/IntegracoesVignette";
 import { RhVignette } from "../vignettes/RhVignette";
 import type { ModuleContent } from "@/lib/modulesContent";
+import { areaLabel, localizePath, type Lang } from "@/lib/i18n";
+
+const COPY = {
+  pt: {
+    cta: "Agendar demonstração",
+    back: "← Voltar aos módulos",
+    unavailable: "Vignette indisponível",
+  },
+  en: {
+    cta: "Book a demo",
+    back: "← Back to modules",
+    unavailable: "Preview unavailable",
+  },
+};
 
 const vignetteComponents: Record<string, React.ElementType> = {
   ged: GedVignette,
@@ -31,10 +45,13 @@ type ModuleData = {
 export function ModuleHero({
   module,
   content,
+  lang = "pt",
 }: {
   module: ModuleData;
   content: ModuleContent;
+  lang?: Lang;
 }) {
+  const t = COPY[lang];
   const Vignette = vignetteComponents[module.id];
 
   return (
@@ -63,14 +80,23 @@ export function ModuleHero({
             className="reveal-up"
           >
             <span className="eyebrow-pill eyebrow-pill--dark">
-              {content.eyebrow} · {module.area}
+              {content.eyebrow} · {areaLabel(module.area, lang)}
             </span>
 
             <div className="h-10 w-px bg-white/15 mt-4 mb-4" aria-hidden />
 
             <h1 className="display-title text-white text-[40px] sm:text-[52px] md:text-[60px] lg:text-[68px] leading-[1.02] tracking-[-0.01em] mb-6">
-              <span className="font-italic-display text-[1.04em]">Módulo</span>{" "}
-              {module.label}
+              {lang === "en" ? (
+                <>
+                  {module.label}{" "}
+                  <span className="font-italic-display text-[1.04em]">module</span>
+                </>
+              ) : (
+                <>
+                  <span className="font-italic-display text-[1.04em]">Módulo</span>{" "}
+                  {module.label}
+                </>
+              )}
             </h1>
 
             <p className="text-lg md:text-xl font-medium text-white/85 leading-snug mb-5 max-w-lg">
@@ -94,10 +120,10 @@ export function ModuleHero({
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild variant="square" size="square">
-                <a href="#cta">Agendar demonstração</a>
+                <a href="#cta">{t.cta}</a>
               </Button>
               <Button asChild variant="squareOutlineDark" size="square">
-                <a href="/#modulos">← Voltar aos módulos</a>
+                <a href={`${localizePath("/", lang)}#modulos`}>{t.back}</a>
               </Button>
             </div>
           </div>
@@ -116,10 +142,10 @@ export function ModuleHero({
               </div>
               <div className="absolute inset-0 pt-10 z-10 bg-white">
                 {Vignette ? (
-                  <Vignette accent={module.accent} bg={module.bg} />
+                  <Vignette accent={module.accent} bg={module.bg} lang={lang} />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-                    Vignette indisponível
+                    {t.unavailable}
                   </div>
                 )}
               </div>

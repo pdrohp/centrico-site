@@ -1,19 +1,23 @@
 ---
+import "lenis/dist/lenis.css";
 import "@/index.css";
 import { Toaster } from "@/components/ui/toaster";
 import { getSiteContent } from "@/lib/content";
+import { HTML_LANG, LANGS, localizePath, type Lang } from "@/lib/i18n";
 
 interface Props {
+  lang?: Lang;
   title?: string;
   description?: string;
 }
 
-const { settings } = await getSiteContent();
+const { lang = "pt" } = Astro.props;
+const { settings } = await getSiteContent(lang);
 const { title = settings.title, description = settings.description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="pt-PT" class="scroll-smooth">
+<html lang={HTML_LANG[lang]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -22,6 +26,10 @@ const { title = settings.title, description = settings.description } = Astro.pro
     <meta property="og:title" content={title} />
     <meta property="og:description" content={settings.ogDescription} />
     <meta property="og:image" content={settings.ogImage} />
+    {/* hreflang precisa de URLs absolutos: só sai quando `site` está definido no astro.config. */}
+    {Astro.site && LANGS.map((l) => (
+      <link rel="alternate" hreflang={HTML_LANG[l]} href={new URL(localizePath(Astro.url.pathname, l), Astro.site).href} />
+    ))}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,5 +42,9 @@ const { title = settings.title, description = settings.description } = Astro.pro
       <slot />
     </div>
     <Toaster client:idle />
+    <script>
+      import { initSmoothScroll } from "@/lib/smooth-scroll";
+      initSmoothScroll();
+    </script>
   </body>
 </html>

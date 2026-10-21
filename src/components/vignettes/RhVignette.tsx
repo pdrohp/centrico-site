@@ -1,19 +1,32 @@
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLoopActive } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
+const COPY = {
+  pt: {
+    tasks: ["Contrato assinado", "Documentos recebidos", "Acesso provisionado", "Welcome email enviado"],
+    person: "Ana Costa • Analista",
+    progress: "Progresso",
+    done: "Concluído",
+  },
+  en: {
+    tasks: ["Contract signed", "Documents received", "Access granted", "Welcome email sent"],
+    person: "Ana Costa • Analyst",
+    progress: "Progress",
+    done: "Complete",
+  },
+};
+
+
+export function RhVignette({ accent, bg, lang = "pt" }: { accent: string; bg: string; lang?: Lang }) {
+  const t = COPY[lang];
   const shouldReduceMotion = useReducedMotion();
   // Loops only run while the vignette is on screen and the tab is visible.
   const rootRef = useRef<HTMLDivElement>(null);
   const playing = useLoopActive(rootRef);
 
-  const tasks = [
-    "Contrato assinado",
-    "Documentos recebidos",
-    "Acesso provisionado",
-    "Welcome email enviado"
-  ];
+  const tasks = t.tasks;
 
   const checkVariants = {
     initial: { scale: 0, opacity: 0 },
@@ -37,7 +50,7 @@ export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
       <div className="relative w-64 bg-white rounded-xl shadow-md border border-border p-5">
         <div className="mb-4 pb-3 border-b border-border/50">
           <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-1">Onboarding</h4>
-          <p className="text-[9px] text-muted-foreground">Ana Costa • Analista</p>
+          <p className="text-[9px] text-muted-foreground">{t.person}</p>
         </div>
 
         <div className="space-y-3 mb-6">
@@ -64,8 +77,8 @@ export function RhVignette({ accent, bg }: { accent: string; bg: string }) {
 
         <div className="space-y-1.5">
           <div className="flex justify-between text-[8px] font-bold uppercase tracking-widest text-muted-foreground">
-            <span>Progresso</span>
-            <span style={{ color: accent }}>Concluído</span>
+            <span>{t.progress}</span>
+            <span style={{ color: accent }}>{t.done}</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-secondary/50 overflow-hidden">
             <motion.div 

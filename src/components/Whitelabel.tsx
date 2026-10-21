@@ -1,22 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { WhitelabelVignette } from "./vignettes/WhitelabelVignette";
 import { reveal, MotionRoot } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
 type Palette = {
   id: string;
-  label: string;
   color: string;
   url: string;
 };
 
 const PALETTES: Palette[] = [
-  { id: "centrico", label: "Azul Céntrico", color: "#0028ff", url: "app.centrico.com" },
-  { id: "floresta", label: "Verde floresta", color: "#119d36", url: "docs.empresa.pt" },
-  { id: "bordeaux", label: "Bordeaux", color: "#b30909", url: "portal.advocacia.pt" },
+  { id: "centrico", color: "#0028ff", url: "app.centrico.com" },
+  { id: "floresta", color: "#119d36", url: "docs.empresa.pt" },
+  { id: "bordeaux", color: "#b30909", url: "portal.advocacia.pt" },
 ];
 
-const PILLS = ["Domínio próprio", "Logótipo", "Identidade visual"];
+const COPY = {
+  pt: {
+    eyebrow: "Funcionalidade",
+    title: "A plataforma é",
+    titleItalic: "vossa",
+    body: "Os vossos clientes acedem a um portal com a vossa identidade visual — sem qualquer referência à Céntrico. Experimente: troque a cor de marca em baixo e veja a interface adaptar-se em tempo real.",
+    pills: ["Domínio próprio", "Logótipo", "Identidade visual"],
+    pickerLabel: "Cor de marca",
+    pickerAria: "Selecionar cor de marca",
+    applyColor: (label: string) => `Aplicar cor ${label}`,
+    paletteLabels: { centrico: "Azul Céntrico", floresta: "Verde floresta", bordeaux: "Bordeaux" } as Record<string, string>,
+  },
+  en: {
+    eyebrow: "Feature",
+    title: "The platform is",
+    titleItalic: "yours",
+    body: "Your clients use a portal with your visual identity — with no mention of Céntrico. Try it: change the brand colour and watch the interface adapt in real time.",
+    pills: ["Custom domain", "Logo", "Visual identity"],
+    pickerLabel: "Brand colour",
+    pickerAria: "Choose brand colour",
+    applyColor: (label: string) => `Apply ${label}`,
+    paletteLabels: { centrico: "Céntrico blue", floresta: "Forest green", bordeaux: "Bordeaux" } as Record<string, string>,
+  },
+};
 
 function hexToRgba(hex: string, alpha: number) {
   const h = hex.replace("#", "");
@@ -26,9 +49,25 @@ function hexToRgba(hex: string, alpha: number) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-export function Whitelabel() {
+export function Whitelabel({ lang = "pt" }: { lang?: Lang }) {
+  const t = COPY[lang];
   const [selectedId, setSelectedId] = useState(PALETTES[0].id);
+  const [paused, setPaused] = useState(false);
   const selected = PALETTES.find((p) => p.id === selectedId) ?? PALETTES[0];
+
+  // Cycle the brand colours on their own; hovering the panel pauses it, and a
+  // click restarts the interval from the chosen colour.
+  useEffect(() => {
+    if (paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      setSelectedId((current) => {
+        const i = PALETTES.findIndex((p) => p.id === current);
+        return PALETTES[(i + 1) % PALETTES.length].id;
+      });
+    }, 2800);
+    return () => window.clearInterval(id);
+  }, [paused, selectedId]);
 
   return (
     <MotionRoot>
@@ -44,20 +83,17 @@ export function Whitelabel() {
             {/* TEXT — deep blue panel */}
             <div className="p-10 md:p-14 lg:p-16 flex flex-col justify-center lg:w-1/2 bg-[#001ec2] text-white">
               <span className="eyebrow-pill eyebrow-pill--dark mb-6 self-start">
-                Funcionalidade
+                {t.eyebrow}
               </span>
               <h3 className="display-title text-white text-[32px] md:text-[44px] mb-6 leading-[1.05]">
-                A plataforma é{" "}
-                <span className="font-italic-display text-[1.06em]">vossa</span>
+                {t.title}{" "}
+                <span className="font-italic-display text-[1.06em]">{t.titleItalic}</span>
               </h3>
               <p className="text-[15px] md:text-base text-white/75 leading-relaxed mb-8 max-w-lg">
-                Os vossos clientes acedem a um portal com a vossa identidade
-                visual — sem qualquer referência à Céntrico. Experimente: troque
-                a cor de marca em baixo e veja a interface adaptar-se em tempo
-                real.
+                {t.body}
               </p>
               <div className="flex flex-wrap gap-2">
-                {PILLS.map((p) => (
+                {t.pills.map((p) => (
                   <span
                     key={p}
                     className="inline-flex items-center h-8 px-4 rounded-full border border-white/30 text-[10px] font-display uppercase tracking-[0.04em] text-white bg-white/10"
@@ -69,16 +105,20 @@ export function Whitelabel() {
             </div>
 
             {/* ILLUSTRATION + ROTATED PICKER — white panel */}
-            <div className="lg:w-1/2 relative bg-white flex items-stretch min-h-[420px] md:min-h-[520px]">
+            <div
+              className="lg:w-1/2 relative bg-white flex items-stretch min-h-[420px] md:min-h-[520px]"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
               {/* Vertical (rotated) picker on the left edge */}
               <div className="relative w-16 shrink-0 border-r border-[#141414]/10 flex items-center justify-center">
                 <div
                   className="flex items-center gap-3 -rotate-90 origin-center whitespace-nowrap"
                   role="group"
-                  aria-label="Selecionar cor de marca"
+                  aria-label={t.pickerAria}
                 >
                   <span className="text-[10px] font-display uppercase tracking-[0.18em] text-[#141414]/50">
-                    Cor de marca
+                    {t.pickerLabel}
                   </span>
                   {PALETTES.map((p) => {
                     const active = p.id === selectedId;
@@ -87,7 +127,7 @@ export function Whitelabel() {
                         key={p.id}
                         type="button"
                         onClick={() => setSelectedId(p.id)}
-                        aria-label={`Aplicar cor ${p.label}`}
+                        aria-label={t.applyColor(t.paletteLabels[p.id])}
                         aria-pressed={active}
                         className={`w-6 h-6 rounded-full transition-transform duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#141414]/40 ${
                           active

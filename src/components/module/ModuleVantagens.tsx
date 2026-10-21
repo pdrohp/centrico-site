@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
 import type { ModuleContent } from "@/lib/modulesContent";
 import { reveal, MotionRoot } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function ModuleVantagens({ content }: { content: ModuleContent }) {
+const COPY = { pt: { eyebrow: "Vantagens" }, en: { eyebrow: "Benefits" } };
+
+export function ModuleVantagens({ content, lang = "pt" }: { content: ModuleContent; lang?: Lang }) {
+  const t = COPY[lang];
   return (
     <MotionRoot>
       <section className="py-24 md:py-32 bg-[#ECECEC]">
@@ -11,7 +15,7 @@ export function ModuleVantagens({ content }: { content: ModuleContent }) {
             <motion.div
               {...reveal()}
             >
-              <span className="eyebrow-pill mb-6">Vantagens</span>
+              <span className="eyebrow-pill mb-6">{t.eyebrow}</span>
               <h2 className="display-title text-[#141414] text-[32px] md:text-[48px] mt-6 mb-8 leading-[1.05] max-w-xl">
                 {content.vantagensTitle}
               </h2>

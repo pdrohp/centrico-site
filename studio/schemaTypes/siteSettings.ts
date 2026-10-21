@@ -9,6 +9,17 @@ export const siteSettings = defineType({
     defineField({ name: "description", title: "Descrição (SEO)", type: "text", rows: 3, validation: (r) => r.max(200) }),
     defineField({ name: "ogDescription", title: "Descrição para partilha (redes sociais)", type: "text", rows: 2 }),
     defineField({
+      name: "en",
+      title: "Versão em inglês",
+      description: "SEO das páginas em /en. Campos vazios usam o texto padrão em inglês.",
+      type: "object",
+      fields: [
+        defineField({ name: "title", title: "Título do site (SEO)", type: "string", validation: (r) => r.max(70) }),
+        defineField({ name: "description", title: "Descrição (SEO)", type: "text", rows: 3, validation: (r) => r.max(200) }),
+        defineField({ name: "ogDescription", title: "Descrição para partilha (redes sociais)", type: "text", rows: 2 }),
+      ],
+    }),
+    defineField({
       name: "ogImage",
       title: "Imagem de partilha",
       description: "1200 × 630 px.",

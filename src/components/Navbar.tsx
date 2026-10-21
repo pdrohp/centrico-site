@@ -2,7 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import type { Module } from "@/lib/data";
 import { Button } from "./ui/button";
+import { scrollToId } from "@/lib/smooth-scroll";
 import { CentricoLogo } from "./CentricoLogo";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { langFromPath, localizePath } from "@/lib/i18n";
 
 // Map each module's `area` (from data.ts) to one of three navbar buckets.
 // Every area in the catalog must be mapped here — modules with an unmapped
@@ -22,6 +25,39 @@ const BUCKET_ORDER = [
   "Operação & Compliance",
   "Plataforma",
 ];
+
+const COPY = {
+  pt: {
+    modules: "Módulos",
+    integrations: "Integrações",
+    security: "Segurança",
+    demo: "Agendar demo",
+    menu: "Menu",
+    toggleMenu: "Abrir menu",
+    megaMenu: "Menu de módulos",
+    buckets: {} as Record<string, string>,
+    cardTitle: "Transforme a vossa gestão documental",
+    cardBody: "Demonstração com a estrutura documental da vossa operação. Trinta minutos.",
+    cardCta: "Solicitar demo →",
+  },
+  en: {
+    modules: "Modules",
+    integrations: "Integrations",
+    security: "Security",
+    demo: "Book a demo",
+    menu: "Menu",
+    toggleMenu: "Open menu",
+    megaMenu: "Modules menu",
+    buckets: {
+      "Gestão Documental": "Document Management",
+      "Operação & Compliance": "Operations & Compliance",
+      Plataforma: "Platform",
+    } as Record<string, string>,
+    cardTitle: "Transform your document management",
+    cardBody: "A demo built on your operation's document structure. Thirty minutes.",
+    cardCta: "Request a demo →",
+  },
+};
 
 const groupModules = (modules: Module[]) =>
   BUCKET_ORDER.map((title) => ({
@@ -45,6 +81,10 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
   const [modulosOpen, setModulosOpen] = useState(false);
   const [mobileModulosOpen, setMobileModulosOpen] = useState(false);
   const location = pathname.replace(/(.)\/$/, "$1");
+  const lang = langFromPath(location);
+  const t = COPY[lang];
+  const home = localizePath("/", lang);
+  const bucketLabel = (title: string) => t.buckets[title] ?? title;
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -80,8 +120,8 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
     };
   }, [modulosOpen]);
 
-  const isHome = location === "/";
-  const isModulePage = location.startsWith("/modulos/");
+  const isHome = location === home;
+  const isModulePage = location.startsWith(localizePath("/modulos/", lang));
   // Home and module pages both have dark heroes; navbar text is white until scrolled
   const onDark = (isHome || isModulePage) && !scrolled && !modulosOpen;
 
@@ -91,7 +131,7 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
   ) => {
     if (isHome) {
       e.preventDefault();
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      scrollToId(id);
     }
     setMobileMenuOpen(false);
     setModulosOpen(false);
@@ -100,7 +140,7 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
   const goToCta = (e?: React.MouseEvent) => {
     if (isHome) {
       e?.preventDefault();
-      document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" });
+      scrollToId("cta");
     }
     setMobileMenuOpen(false);
     setModulosOpen(false);
@@ -109,14 +149,16 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "py-3" : "py-5"
+      } ${
         scrolled || modulosOpen
-          ? "bg-background/85 backdrop-blur-md py-3"
-          : "bg-transparent py-5"
+          ? "bg-background/85 backdrop-blur-md"
+          : "bg-transparent"
       }`}
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between gap-6 relative">
         {/* LEFT — Logo */}
-        <a href="/" className="shrink-0 flex items-center">
+        <a href={home} className="shrink-0 flex items-center">
           <CentricoLogo
             height={18}
             wordmarkColor={onDark ? "#ffffff" : "#00072c"}
@@ -141,7 +183,7 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
                   : "text-foreground/70 hover:text-foreground"
             }`}
           >
-            Módulos
+            {t.modules}
             <ChevronDown
               size={12}
               strokeWidth={2.5}
@@ -151,35 +193,36 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
             />
           </button>
           <a
-            href={isHome ? "#integracoes" : "/#integracoes"}
+            href={isHome ? "#integracoes" : `${home}#integracoes`}
             onClick={(e) => handleAnchorClick(e, "integracoes")}
             className={`text-[11px] font-display font-semibold uppercase tracking-[0.18em] transition-colors ${
               onDark ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
             }`}
           >
-            Integrações
+            {t.integrations}
           </a>
           <a
-            href={isHome ? "#seguranca" : "/#seguranca"}
+            href={isHome ? "#seguranca" : `${home}#seguranca`}
             onClick={(e) => handleAnchorClick(e, "seguranca")}
             className={`text-[11px] font-display font-semibold uppercase tracking-[0.18em] transition-colors ${
               onDark ? "text-white/80 hover:text-white" : "text-foreground/70 hover:text-foreground"
             }`}
           >
-            Segurança
+            {t.security}
           </a>
         </nav>
 
         {/* RIGHT — CTA + mobile toggle */}
         <div className="flex items-center gap-3 shrink-0">
+          <LanguageSwitcher pathname={location} onDark={onDark} />
           <Button
             asChild
             variant="square"
             size="squareSm"
             className="hidden md:inline-flex"
           >
-            <a href={isHome ? "#cta" : "/#cta"} onClick={goToCta}>
-              Agendar demo
+            <a href={isHome ? "#cta" : `${home}#cta`} onClick={goToCta}>
+              {t.demo}
             </a>
           </Button>
           <Button
@@ -187,9 +230,9 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
             size="squareSm"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden"
-            aria-label="Toggle menu"
+            aria-label={t.toggleMenu}
           >
-            <span className="hidden sm:inline">Menu</span>
+            <span className="hidden sm:inline">{t.menu}</span>
             <span className="sm:hidden inline-flex">
               {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </span>
@@ -203,8 +246,8 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
           ref={dropdownRef}
           id="modulos-mega-menu"
           role="region"
-          aria-label="Menu de módulos"
-          className="hidden lg:block absolute top-full left-0 right-0 bg-background border-y border-border shadow-xl animate-in fade-in slide-in-from-top-1 duration-200 ease-[var(--ease-out)]"
+          aria-label={t.megaMenu}
+          className="hidden lg:block absolute top-full left-0 right-0 bg-background border-y border-border shadow-xl animate-in fade-in duration-200 ease-[var(--ease-out)]"
         >
           <div className="container max-w-7xl mx-auto px-6 md:px-8 py-10">
             <div className="grid grid-cols-12 gap-8">
@@ -212,7 +255,7 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
                 {MODULE_GROUPS.map((group) => (
                   <div key={group.title}>
                     <h4 className="display-eyebrow text-[10px] text-foreground/50 mb-5">
-                      {group.title}
+                      {bucketLabel(group.title)}
                     </h4>
                     <ul className="space-y-4">
                       {group.modules.map((mod) => {
@@ -231,14 +274,14 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
                           <li key={mod.id}>
                             {enabled ? (
                               <a
-                                href={`/modulos/${mod.id}`}
+                                href={localizePath(`/modulos/${mod.id}`, lang)}
                                 className="block -mx-2 px-2 py-1 rounded-md hover:bg-foreground/5 transition-colors"
                               >
                                 {inner}
                               </a>
                             ) : (
                               <a
-                                href={isHome ? "#modulos" : "/#modulos"}
+                                href={isHome ? "#modulos" : `${home}#modulos`}
                                 onClick={(e) => handleAnchorClick(e, "modulos")}
                                 className="block -mx-2 px-2 py-1 rounded-md hover:bg-foreground/5 transition-colors"
                               >
@@ -256,19 +299,18 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
               {/* Highlight card */}
               <div className="col-span-4 bg-primary text-primary-foreground rounded-2xl p-8 flex flex-col">
                 <h3 className="display-title text-[22px] md:text-[26px] leading-[1.05] mb-4 text-white">
-                  Transforme a vossa gestão documental
+                  {t.cardTitle}
                 </h3>
                 <p className="text-[13px] text-white/75 leading-relaxed mb-6">
-                  Demonstração com a estrutura documental da vossa operação.
-                  Trinta minutos.
+                  {t.cardBody}
                 </p>
                 <div className="mt-auto">
                   <Button asChild variant="pillInverse" size="pillSm">
                     <a
-                      href={isHome ? "#cta" : "/#cta"}
+                      href={isHome ? "#cta" : `${home}#cta`}
                       onClick={goToCta}
                     >
-                      Solicitar demo →
+                      {t.cardCta}
                     </a>
                   </Button>
                 </div>
@@ -287,7 +329,7 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
             className="flex items-center justify-between text-sm font-display font-semibold uppercase tracking-[0.18em] py-3 text-foreground/80 hover:text-foreground border-b border-border"
             aria-expanded={mobileModulosOpen}
           >
-            <span>Módulos</span>
+            <span>{t.modules}</span>
             <ChevronDown
               size={14}
               className={`transition-transform duration-200 ${
@@ -300,7 +342,7 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
               {MODULE_GROUPS.map((group) => (
                 <div key={group.title}>
                   <div className="display-eyebrow text-[10px] text-foreground/50 mb-2">
-                    {group.title}
+                    {bucketLabel(group.title)}
                   </div>
                   <ul className="space-y-1">
                     {group.modules.map((mod) => {
@@ -309,14 +351,14 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
                         <li key={mod.id}>
                           {enabled ? (
                             <a
-                              href={`/modulos/${mod.id}`}
+                              href={localizePath(`/modulos/${mod.id}`, lang)}
                               className="block py-1.5 text-[13px] font-display font-semibold uppercase tracking-[0.05em] text-foreground"
                             >
                               {mod.label}
                             </a>
                           ) : (
                             <a
-                              href={isHome ? "#modulos" : "/#modulos"}
+                              href={isHome ? "#modulos" : `${home}#modulos`}
                               onClick={(e) => handleAnchorClick(e, "modulos")}
                               className="block py-1.5 text-[13px] font-display font-semibold uppercase tracking-[0.05em] text-foreground/70"
                             >
@@ -332,22 +374,22 @@ export function Navbar({ pathname = "/", modules, moduleIdsWithContent }: Navbar
             </div>
           )}
           <a
-            href={isHome ? "#integracoes" : "/#integracoes"}
+            href={isHome ? "#integracoes" : `${home}#integracoes`}
             onClick={(e) => handleAnchorClick(e, "integracoes")}
             className="text-sm font-display font-semibold uppercase tracking-[0.18em] py-3 text-foreground/80 hover:text-foreground border-b border-border"
           >
-            Integrações
+            {t.integrations}
           </a>
           <a
-            href={isHome ? "#seguranca" : "/#seguranca"}
+            href={isHome ? "#seguranca" : `${home}#seguranca`}
             onClick={(e) => handleAnchorClick(e, "seguranca")}
             className="text-sm font-display font-semibold uppercase tracking-[0.18em] py-3 text-foreground/80 hover:text-foreground border-b border-border"
           >
-            Segurança
+            {t.security}
           </a>
           <Button asChild variant="square" size="square" className="mt-3 w-full">
-            <a href={isHome ? "#cta" : "/#cta"} onClick={goToCta}>
-              Agendar demo
+            <a href={isHome ? "#cta" : `${home}#cta`} onClick={goToCta}>
+              {t.demo}
             </a>
           </Button>
         </div>

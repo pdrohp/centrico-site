@@ -39,3 +39,9 @@ a apontar para ele, ou adicione um botão "Publicar" no Studio.
   inicial — depois disso, o Studio passa a ser a fonte de verdade.
 - Ícones e áreas são listas fixas (`schemaTypes/iconOptions.ts`), espelhadas em
   `src/lib/icons.ts` e no menu do site (`AREA_TO_BUCKET` em `Navbar.tsx`).
+- **Inglês (/en):** cada módulo tem o separador *English*; os itens e categorias
+  do workflow têm campos "(inglês)"; as Configurações do site têm "Versão em
+  inglês". Campos vazios usam o texto em português. As listas em inglês seguem a
+  ordem das listas em português (os ícones vêm de lá). `npm run seed:en`
+  preenche só os campos em inglês ainda vazios, a partir de
+  `scripts/translations-en.ts`.

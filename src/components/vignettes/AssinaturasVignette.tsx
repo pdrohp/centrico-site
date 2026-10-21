@@ -1,8 +1,16 @@
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLoopActive } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string }) {
+const COPY = {
+  pt: { signature: "Assinatura" },
+  en: { signature: "Signature" },
+};
+
+
+export function AssinaturasVignette({ accent, bg, lang = "pt" }: { accent: string; bg: string; lang?: Lang }) {
+  const t = COPY[lang];
   const shouldReduceMotion = useReducedMotion();
   // Loops only run while the vignette is on screen and the tab is visible.
   const rootRef = useRef<HTMLDivElement>(null);
@@ -52,7 +60,7 @@ export function AssinaturasVignette({ accent, bg }: { accent: string; bg: string
         
         {/* Signature Area */}
         <div className="mt-8 border-t-2 border-dashed border-secondary/60 pt-4 relative">
-          <span className="text-[9px] uppercase tracking-wider text-muted-foreground absolute -top-2 bg-white px-1">Assinatura</span>
+          <span className="text-[9px] uppercase tracking-wider text-muted-foreground absolute -top-2 bg-white px-1">{t.signature}</span>
           
           <div className="h-12 relative flex items-center justify-center">
             {/* Signature Path */}

@@ -2,25 +2,50 @@ import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import type { ModuleContent } from "@/lib/modulesContent";
 import { reveal, MotionRoot, stagger } from "@/lib/motion";
+import { localizePath, type Lang } from "@/lib/i18n";
+
+const COPY = {
+  pt: {
+    eyebrow: "Combina bem com",
+    title: "Módulos que potenciam ainda mais a",
+    titleItalic: "vossa operação",
+    module: "Módulo",
+    explore: (label: string) => `Conhecer ${label}`,
+    soon: "Em breve",
+    soonTitle: "Página detalhada em breve",
+  },
+  en: {
+    eyebrow: "Works well with",
+    title: "Modules that take",
+    titleItalic: "your operation further",
+    module: "Module",
+    explore: (label: string) => `Explore ${label}`,
+    soon: "Coming soon",
+    soonTitle: "Detailed page coming soon",
+  },
+};
 
 export function ModuleRelacionados({
   content,
   moduleIdsWithContent,
+  lang = "pt",
 }: {
   content: ModuleContent;
   moduleIdsWithContent: string[];
+  lang?: Lang;
 }) {
+  const t = COPY[lang];
   const hasModuleContent = (id: string) => moduleIdsWithContent.includes(id);
   return (
     <MotionRoot>
       <section className="py-24 md:py-32 bg-[#ECECEC]">
         <div className="container max-w-6xl mx-auto px-6 md:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
-            <span className="eyebrow-pill mb-6">Combina bem com</span>
+            <span className="eyebrow-pill mb-6">{t.eyebrow}</span>
             <h2 className="display-title text-[#141414] text-[32px] md:text-[48px] mt-6 leading-[1.05]">
-              Módulos que potenciam ainda mais a{" "}
+              {t.title}{" "}
               <span className="font-italic-display text-[1.04em]">
-                vossa operação
+                {t.titleItalic}
               </span>
             </h2>
           </div>
@@ -42,7 +67,7 @@ export function ModuleRelacionados({
                       isBlue ? "text-white/70" : "text-[#141414]/55"
                     }`}
                   >
-                    Módulo
+                    {t.module}
                   </span>
                   <h3
                     className={`display-title text-[26px] md:text-[32px] mb-4 leading-[1.05] ${
@@ -66,8 +91,8 @@ export function ModuleRelacionados({
                         size="squareSm"
                         className="group"
                       >
-                        <a href={`/modulos/${mod.id}`}>
-                          Conhecer {mod.label}
+                        <a href={localizePath(`/modulos/${mod.id}`, lang)}>
+                          {t.explore(mod.label)}
                           <span className="transition-transform duration-300 group-hover:translate-x-1">
                             &nbsp;&rarr;
                           </span>
@@ -79,9 +104,9 @@ export function ModuleRelacionados({
                         size="squareSm"
                         disabled
                         className="opacity-60 cursor-not-allowed"
-                        title="Página detalhada em breve"
+                        title={t.soonTitle}
                       >
-                        Em breve
+                        {t.soon}
                       </Button>
                     )}
                   </div>

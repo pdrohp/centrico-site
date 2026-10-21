@@ -1,14 +1,22 @@
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLoopActive } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }) {
+const COPY = {
+  pt: { steps: ["Solicitação", "Revisão", "Aprovação", "Concluído"], auto: "Automático" },
+  en: { steps: ["Request", "Review", "Approval", "Done"], auto: "Automatic" },
+};
+
+
+export function ProcessosVignette({ accent, bg, lang = "pt" }: { accent: string; bg: string; lang?: Lang }) {
+  const t = COPY[lang];
   const shouldReduceMotion = useReducedMotion();
   // Loops only run while the vignette is on screen and the tab is visible.
   const rootRef = useRef<HTMLDivElement>(null);
   const playing = useLoopActive(rootRef);
 
-  const steps = ["Solicitação", "Revisão", "Aprovação", "Concluído"];
+  const steps = t.steps;
   
   const stepVariants = {
     initial: { borderColor: "var(--border)", backgroundColor: "transparent", color: "var(--muted-foreground)" },
@@ -99,7 +107,7 @@ export function ProcessosVignette({ accent, bg }: { accent: string; bg: string }
                 initial={shouldReduceMotion ? { opacity: 1, y: 0 } : "initial"}
                 animate={!shouldReduceMotion ? (playing ? "animate" : "initial") : undefined}
               >
-                Automático
+                {t.auto}
               </motion.div>
             </div>
             

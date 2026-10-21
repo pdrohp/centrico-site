@@ -1,7 +1,37 @@
 import { Mail, Phone, MapPin, Linkedin, MessageCircle } from "lucide-react";
 import { CentricoLogo } from "./CentricoLogo";
+import { localizePath, type Lang } from "@/lib/i18n";
 
-export function Footer() {
+const COPY = {
+  pt: {
+    tagline: ["Plataforma de gestão documental,", "segura, escalável e whitelabel."],
+    product: "Produto",
+    modules: "Módulos",
+    integrations: "Integrações",
+    security: "Segurança",
+    contacts: "Contactos",
+    location: "São Paulo, SP – Brasil",
+    message: "Mensagem",
+    compliance: "Conformidade RGPD",
+    rights: "© 2026 Céntrico. Todos os direitos reservados.",
+  },
+  en: {
+    tagline: ["A secure, scalable and white-label", "document management platform."],
+    product: "Product",
+    modules: "Modules",
+    integrations: "Integrations",
+    security: "Security",
+    contacts: "Contact",
+    location: "São Paulo, SP – Brazil",
+    message: "Message",
+    compliance: "GDPR compliance",
+    rights: "© 2026 Céntrico. All rights reserved.",
+  },
+};
+
+export function Footer({ lang = "pt" }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const home = localizePath("/", lang);
   return (
     <footer className="bg-[#000627] text-white border-t border-[#ccd0d7] pt-16 pb-16 px-6 md:px-12 lg:px-36">
       <div className="container max-w-6xl mx-auto px-0 md:px-8">
@@ -11,30 +41,30 @@ export function Footer() {
               <CentricoLogo height={20} wordmarkColor="#ffffff" />
             </a>
             <p className="text-[14px] leading-[22.75px] text-white max-w-[284px]">
-              Plataforma de gestão documental,
+              {t.tagline[0]}
               <br />
-              segura, escalável e whitelabel.
+              {t.tagline[1]}
             </p>
           </div>
 
           <div>
             <h4 className="font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-white/70 mb-5">
-              Produto
+              {t.product}
             </h4>
             <ul className="space-y-3 text-[14px] text-white">
               <li>
-                <a href="#modulos" className="hover:text-white/70 transition-colors">
-                  Módulos
+                <a href={`${home}#modulos`} className="hover:text-white/70 transition-colors">
+                  {t.modules}
                 </a>
               </li>
               <li>
-                <a href="#integracoes" className="hover:text-white/70 transition-colors">
-                  Integrações
+                <a href={`${home}#integracoes`} className="hover:text-white/70 transition-colors">
+                  {t.integrations}
                 </a>
               </li>
               <li>
-                <a href="#seguranca" className="hover:text-white/70 transition-colors">
-                  Segurança
+                <a href={`${home}#seguranca`} className="hover:text-white/70 transition-colors">
+                  {t.security}
                 </a>
               </li>
             </ul>
@@ -42,7 +72,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-white/70 mb-5">
-              Contactos
+              {t.contacts}
             </h4>
             <ul className="space-y-3 text-[14px] text-white">
               <li>
@@ -75,7 +105,7 @@ export function Footer() {
               <li>
                 <span className="inline-flex items-center gap-2">
                   <MapPin size={14} className="flex-shrink-0" />
-                  <span>São Paulo, SP – Brasil</span>
+                  <span>{t.location}</span>
                 </span>
               </li>
             </ul>
@@ -97,7 +127,7 @@ export function Footer() {
               </a>
               <a
                 href="#cta"
-                aria-label="Mensagem"
+                aria-label={t.message}
                 className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-[#ccd0d7] bg-white text-[#0e1622] hover:text-[#001ec2] transition-colors"
               >
                 <MessageCircle size={14} />
@@ -108,14 +138,14 @@ export function Footer() {
 
         <div className="pt-8 border-t border-[#ccd0d7] flex flex-col md:flex-row items-center justify-between gap-4 text-[12px] text-white uppercase">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2 justify-center md:justify-start">
-            <span>Conformidade RGPD</span>
+            <span>{t.compliance}</span>
             <span className="text-[#5c6470]">·</span>
             <span>ISO 27001</span>
             <span className="text-[#5c6470]">·</span>
             <span>SOC 2</span>
           </div>
           <p className="text-[12px] normal-case text-white/70">
-            © 2026 Céntrico. Todos os direitos reservados.
+            {t.rights}
           </p>
         </div>
       </div>

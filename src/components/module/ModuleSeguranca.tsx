@@ -2,8 +2,15 @@ import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 import type { ModuleContent } from "@/lib/modulesContent";
 import { reveal, MotionRoot } from "@/lib/motion";
+import type { Lang } from "@/lib/i18n";
 
-export function ModuleSeguranca({ content }: { content: ModuleContent }) {
+const COPY = {
+  pt: { eyebrow: "Segurança e Compliance", title: ["Conforme os", "requisitos regulatórios", "da vossa operação"] },
+  en: { eyebrow: "Security and compliance", title: ["Meets the", "regulatory requirements", "of your operation"] },
+};
+
+export function ModuleSeguranca({ content, lang = "pt" }: { content: ModuleContent; lang?: Lang }) {
+  const t = COPY[lang];
   return (
     <MotionRoot>
       <section className="py-24 md:py-32 bg-[#ECECEC]">
@@ -29,14 +36,14 @@ export function ModuleSeguranca({ content }: { content: ModuleContent }) {
               </div>
               <div className="flex-1">
                 <span className="eyebrow-pill eyebrow-pill--dark mb-6">
-                  Segurança e Compliance
+                  {t.eyebrow}
                 </span>
                 <h2 className="display-title text-white text-[28px] md:text-[40px] mt-6 mb-6 leading-[1.05] max-w-2xl">
-                  Conforme os{" "}
+                  {t.title[0]}{" "}
                   <span className="font-italic-display text-[1.06em]">
-                    requisitos regulatórios
+                    {t.title[1]}
                   </span>{" "}
-                  da vossa operação
+                  {t.title[2]}
                 </h2>
                 <p className="text-base md:text-lg text-white/80 leading-relaxed mb-8 max-w-2xl">
                   {content.complianceNote}
