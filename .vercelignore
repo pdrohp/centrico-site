@@ -1,0 +1,5 @@
+# Sobras do workspace pnpm do Replit. O site instala com npm (package-lock.json);
+# se estes arquivos sobem, a Vercel tenta instalar a função /api com pnpm e
+# falha porque o pnpm-lock.yaml não bate com os overrides do workspace.
+pnpm-lock.yaml
+pnpm-workspace.yaml
