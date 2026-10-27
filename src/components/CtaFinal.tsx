@@ -16,6 +16,8 @@ const COPY = {
     company: "Empresa",
     sending: "A enviar...",
     submit: "Agendar demonstração →",
+    errorTitle: "Não foi possível enviar",
+    errorBody: "Os seus dados continuam no formulário. Tente novamente dentro de alguns minutos.",
   },
   en: {
     toastTitle: "Request received",
@@ -28,6 +30,8 @@ const COPY = {
     company: "Company",
     sending: "Sending...",
     submit: "Book a demo →",
+    errorTitle: "We couldn't send your request",
+    errorBody: "Your details are still in the form. Please try again in a few minutes.",
   },
 };
 
@@ -41,19 +45,45 @@ export function CtaFinal({ headline, subheadline, lang = "pt" }: CtaFinalProps =
   const t = COPY[lang];
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  // Momento em que o formulário apareceu: o servidor descarta envios rápidos demais (bots).
+  const [abertoEm] = useState(() => Date.now());
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // Envia para /api/demonstracao (função da Vercel que grava na base "Leads Centrico"
+  // do Notion). Só confirma quando o servidor responde ok; em erro, os dados ficam no form.
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const params = new URLSearchParams(window.location.search);
+    const utm = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]
+      .filter((k) => params.get(k))
+      .map((k) => `${k.replace("utm_", "")}: ${params.get(k)}`)
+      .join(" | ");
+
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      const form = e.target as HTMLFormElement;
-      form.reset();
-      toast({
-        title: t.toastTitle,
-        description: t.toastBody,
+    try {
+      const res = await fetch("/api/demonstracao", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: data.get("nome"),
+          email: data.get("email"),
+          empresa: data.get("empresa"),
+          idioma: lang,
+          pagina: window.location.pathname,
+          origem: utm,
+          _site: data.get("_site"),
+          _ts: abertoEm,
+        }),
       });
-    }, 1000);
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      toast({ title: t.toastTitle, description: t.toastBody });
+    } catch {
+      toast({ variant: "destructive", title: t.errorTitle, description: t.errorBody });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -91,21 +121,35 @@ export function CtaFinal({ headline, subheadline, lang = "pt" }: CtaFinalProps =
               <Input
                 required
                 type="text"
+                name="nome"
+                autoComplete="name"
+                aria-label={t.name}
                 placeholder={t.name}
                 className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
               />
               <Input
                 required
                 type="email"
+                name="email"
+                autoComplete="email"
+                aria-label={t.email}
                 placeholder={t.email}
                 className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
               />
               <Input
                 required
                 type="text"
+                name="empresa"
+                autoComplete="organization"
+                aria-label={t.company}
                 placeholder={t.company}
                 className="bg-transparent border-white/30 text-white placeholder:text-white/75 h-12 rounded-[8px] px-5 focus-visible:border-white"
               />
+              {/* Anti-spam: campo invisível que só bots preenchem */}
+              <div aria-hidden="true" style={{ position: "absolute", left: "-9999px" }}>
+                <label htmlFor="cta-site">Site</label>
+                <input id="cta-site" name="_site" type="text" tabIndex={-1} autoComplete="off" />
+              </div>
               <Button
                 type="submit"
                 disabled={loading}
