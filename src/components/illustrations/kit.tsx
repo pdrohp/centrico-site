@@ -170,6 +170,24 @@ export function Linha({
   );
 }
 
+/** Barra de progresso com a meta marcada, para contagens e checklists. */
+export function Barra({ pct, meta }: { pct: number; meta?: number }) {
+  return (
+    <div className="relative h-2 w-full rounded-full bg-[#EDEFF4] overflow-hidden">
+      <div
+        className="absolute inset-y-0 left-0 rounded-full"
+        style={{ width: `${pct}%`, background: TINT_INK }}
+      />
+      {meta !== undefined && (
+        <div
+          className="absolute inset-y-0 w-[2px] bg-[#0B1B33]/35"
+          style={{ left: `${meta}%` }}
+        />
+      )}
+    </div>
+  );
+}
+
 /** Visto usado nas pills de confirmação. */
 export function Visto() {
   return (
