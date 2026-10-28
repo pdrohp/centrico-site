@@ -137,17 +137,8 @@ export function Modulos({
                     isMediaLeft ? "lg:order-1" : "lg:order-2"
                   }`}>
                     <div className="w-full max-w-[560px] lg:max-h-full aspect-[4/3] relative rounded-2xl shadow-xl overflow-hidden border border-border/60">
-                      {/* Browser chrome bar */}
-                      <div className="absolute top-0 inset-x-0 h-10 bg-white/90 backdrop-blur border-b border-border/50 flex items-center px-4 gap-2 z-20 rounded-tl-[16px] rounded-tr-[16px]">
-                        <div className="flex gap-1.5">
-                          <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                          <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                          <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                        </div>
-                      </div>
-
                       {/* Media area */}
-                      <div className="absolute inset-0 pt-10 z-10 bg-[#00072c]">
+                      <div className="absolute inset-0 z-10 bg-[#00072c]">
                         {hasIllustration(mod.id) ? (
                           <ModuleIllustration id={mod.id} lang={lang} />
                         ) : mod.video ? (
