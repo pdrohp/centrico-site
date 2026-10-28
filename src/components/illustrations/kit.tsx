@@ -60,8 +60,9 @@ export function Vista({
           width: LARGURA,
           minHeight: ALTURA,
           // Divisão de comprimento por comprimento dá um número puro, que é o que
-          // o scale aceita. O 92cq… deixa uma margem de respiração à volta.
-          transform: `scale(min(calc(92cqw / ${LARGURA}px), calc(92cqh / ${ALTURA}px)))`,
+          // o scale aceita. O 78cq… deixa a pilha respirar dentro do quadro em
+          // vez de encostar às margens.
+          transform: `scale(min(calc(78cqw / ${LARGURA}px), calc(78cqh / ${ALTURA}px)))`,
         }}
       >
         {children}
