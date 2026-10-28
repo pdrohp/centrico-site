@@ -13,6 +13,7 @@ const COPY = {
     location: "São Paulo, SP – Brasil",
     message: "Mensagem",
     compliance: "Conformidade RGPD",
+    privacy: "Política de Privacidade",
     rights: "© 2026 Céntrico. Todos os direitos reservados.",
   },
   en: {
@@ -25,6 +26,7 @@ const COPY = {
     location: "São Paulo, SP – Brazil",
     message: "Message",
     compliance: "GDPR compliance",
+    privacy: "Privacy Policy",
     rights: "© 2026 Céntrico. All rights reserved.",
   },
 };
@@ -143,6 +145,13 @@ export function Footer({ lang = "pt" }: { lang?: Lang }) {
             <span>ISO 27001</span>
             <span className="text-[#5c6470]">·</span>
             <span>SOC 2</span>
+            <span className="text-[#5c6470]">·</span>
+            <a
+              href={localizePath("/privacidade", lang)}
+              className="hover:text-white/70 transition-colors"
+            >
+              {t.privacy}
+            </a>
           </div>
           <p className="text-[12px] normal-case text-white/70">
             {t.rights}

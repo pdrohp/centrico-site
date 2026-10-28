@@ -1,0 +1,241 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { getSiteContent } from "@/lib/content";
+import type { Lang } from "@/lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+// MODELO GENÉRICO, não revisto por advogado. Antes de ir para produção é
+// preciso substituir os dados do responsável pelo tratamento (denominação
+// social, NIF/CNPJ, morada e, se aplicável, encarregado de proteção de dados)
+// e confirmar os prazos de conservação com quem gere os sistemas.
+const CONTACT_EMAIL = "contato@centrico.com.br";
+const UPDATED = "2026-10-28";
+
+const COPY = {
+  pt: {
+    title: "Política de Privacidade — Céntrico",
+    description:
+      "Como a Céntrico recolhe, utiliza e protege os dados pessoais de quem visita o site.",
+    eyebrow: "Legal",
+    heading: "Política de Privacidade",
+    updated: "Última atualização:",
+    updatedLabel: "28 de outubro de 2026",
+    intro:
+      "Esta política explica que dados pessoais recolhemos através deste site, para que os usamos e que direitos lhe assistem. Aplica-se apenas ao site da Céntrico — os dados tratados dentro da plataforma por conta dos nossos clientes regem-se pelo contrato celebrado com cada um deles.",
+    cookiesButton: "Alterar as minhas preferências de cookies",
+    sections: [
+      {
+        heading: "1. Quem trata os seus dados",
+        body: [
+          "A Céntrico é a responsável pelo tratamento dos dados pessoais recolhidos neste site. Para qualquer questão relacionada com privacidade, incluindo o exercício dos seus direitos, pode contactar-nos através do endereço indicado no fim desta página.",
+        ],
+      },
+      {
+        heading: "2. Que dados recolhemos",
+        list: [
+          "Dados que nos fornece: nome, empresa, email, telefone e a mensagem que escrever quando pede uma demonstração ou fala connosco.",
+          "Dados técnicos: endereço IP, tipo de dispositivo e navegador, páginas visitadas e data e hora do acesso — recolhidos pelo servidor que aloja o site.",
+          "Cookies e tecnologias semelhantes, nos termos descritos no ponto 5.",
+        ],
+      },
+      {
+        heading: "3. Para que usamos os dados e com que fundamento",
+        list: [
+          "Responder a pedidos de contacto e de demonstração, e dar seguimento à relação comercial — diligências pré-contratuais a seu pedido.",
+          "Manter o site seguro e funcional, prevenir abusos e corrigir avarias — interesse legítimo.",
+          "Medir a utilização do site e comunicações de marketing, quando existam — apenas com o seu consentimento, que pode retirar a qualquer momento.",
+        ],
+      },
+      {
+        heading: "4. Com quem partilhamos",
+        body: [
+          "Não vendemos dados pessoais. Partilhamos apenas o necessário com prestadores que nos apoiam na operação do site e do negócio — alojamento, email, ferramentas de gestão comercial e de apoio ao cliente — que tratam os dados por nossa conta e segundo as nossas instruções. Quando um destes prestadores está fora do Espaço Económico Europeu, a transferência assenta nas garantias previstas na lei, como as cláusulas contratuais-tipo da Comissão Europeia.",
+        ],
+      },
+      {
+        heading: "5. Cookies",
+        body: [
+          "Usamos cookies estritamente necessários para o site funcionar. Quaisquer outros — de medição de utilização ou de marketing — só são instalados depois de os aceitar no aviso que aparece na primeira visita. Pode rever a sua escolha a qualquer momento pelo botão abaixo ou apagando os cookies no seu navegador.",
+        ],
+      },
+      {
+        heading: "6. Durante quanto tempo guardamos",
+        body: [
+          "Guardamos os dados apenas durante o tempo necessário para as finalidades acima: os pedidos de contacto enquanto durar a relação comercial e pelo período em que possam ser necessários para efeitos de prova, e os registos técnicos durante um período curto, limitado à segurança do site. Findos esses prazos, os dados são apagados ou anonimizados.",
+        ],
+      },
+      {
+        heading: "7. Os seus direitos",
+        body: [
+          "Pode pedir-nos o acesso aos seus dados, a sua retificação ou apagamento, a limitação ou a oposição ao tratamento, e a portabilidade. Quando o tratamento assenta no consentimento, pode retirá-lo a qualquer momento, sem que isso afete o que foi feito antes. Respondemos a estes pedidos no prazo previsto na lei.",
+          "Se entender que os seus dados não estão a ser tratados corretamente, pode apresentar reclamação à autoridade de controlo competente — em Portugal, a CNPD; no Brasil, a ANPD.",
+        ],
+      },
+      {
+        heading: "8. Segurança",
+        body: [
+          "Adotamos medidas técnicas e organizativas para proteger os dados contra acesso não autorizado, perda ou divulgação indevida, incluindo cifragem em trânsito, controlo de acessos e registo de atividade.",
+        ],
+      },
+      {
+        heading: "9. Alterações a esta política",
+        body: [
+          "Podemos atualizar esta política sempre que a lei ou a forma como trabalhamos o justifique. A versão em vigor é sempre a que estiver publicada nesta página, com a data de atualização indicada no topo.",
+        ],
+      },
+      {
+        heading: "10. Contactos",
+        body: [
+          "Para qualquer questão sobre esta política ou sobre os seus dados pessoais, escreva-nos para:",
+        ],
+      },
+    ],
+  },
+  en: {
+    title: "Privacy Policy — Céntrico",
+    description:
+      "How Céntrico collects, uses and protects the personal data of people who visit this website.",
+    eyebrow: "Legal",
+    heading: "Privacy Policy",
+    updated: "Last updated:",
+    updatedLabel: "28 October 2026",
+    intro:
+      "This policy explains what personal data we collect through this website, what we use it for and what rights you have. It covers the Céntrico website only — data processed inside the platform on behalf of our customers is governed by the agreement signed with each of them.",
+    cookiesButton: "Change my cookie preferences",
+    sections: [
+      {
+        heading: "1. Who processes your data",
+        body: [
+          "Céntrico is the controller of the personal data collected through this website. For any privacy matter, including exercising your rights, you can reach us at the address given at the end of this page.",
+        ],
+      },
+      {
+        heading: "2. What we collect",
+        list: [
+          "Data you give us: name, company, email, phone number and whatever you write when you request a demo or get in touch.",
+          "Technical data: IP address, device and browser type, pages visited and the date and time of access — collected by the server hosting the site.",
+          "Cookies and similar technologies, as described in section 5.",
+        ],
+      },
+      {
+        heading: "3. Why we use it and on what basis",
+        list: [
+          "To answer contact and demo requests and take the commercial relationship forward — steps taken at your request before entering into a contract.",
+          "To keep the site secure and working, prevent abuse and fix faults — legitimate interest.",
+          "To measure how the site is used and to send marketing messages, where applicable — only with your consent, which you can withdraw at any time.",
+        ],
+      },
+      {
+        heading: "4. Who we share it with",
+        body: [
+          "We do not sell personal data. We share only what is necessary with providers who support the running of the site and the business — hosting, email, sales and customer support tools — which process the data on our behalf and on our instructions. Where such a provider is outside the European Economic Area, the transfer relies on the safeguards set out in law, such as the European Commission's standard contractual clauses.",
+        ],
+      },
+      {
+        heading: "5. Cookies",
+        body: [
+          "We use strictly necessary cookies to make the site work. Any others — measurement or marketing — are only set after you accept them in the notice shown on your first visit. You can review your choice at any time using the button below, or by clearing cookies in your browser.",
+        ],
+      },
+      {
+        heading: "6. How long we keep it",
+        body: [
+          "We keep data only for as long as the purposes above require: contact requests for the duration of the commercial relationship and for as long as they may be needed as evidence, and technical logs for a short period limited to site security. After that, data is deleted or anonymised.",
+        ],
+      },
+      {
+        heading: "7. Your rights",
+        body: [
+          "You can ask us for access to your data, for it to be corrected or erased, for processing to be restricted or objected to, and for portability. Where processing is based on consent, you can withdraw it at any time without affecting what was done beforehand. We answer these requests within the period set by law.",
+          "If you believe your data is not being handled properly, you can lodge a complaint with the competent supervisory authority — in Portugal, the CNPD; in Brazil, the ANPD.",
+        ],
+      },
+      {
+        heading: "8. Security",
+        body: [
+          "We apply technical and organisational measures to protect data against unauthorised access, loss or improper disclosure, including encryption in transit, access control and activity logging.",
+        ],
+      },
+      {
+        heading: "9. Changes to this policy",
+        body: [
+          "We may update this policy whenever the law or the way we work calls for it. The version in force is always the one published on this page, with the update date shown at the top.",
+        ],
+      },
+      {
+        heading: "10. Contact",
+        body: ["For any question about this policy or about your personal data, write to us at:"],
+      },
+    ],
+  },
+};
+
+const { lang } = Astro.props;
+const t = COPY[lang];
+const site = await getSiteContent(lang);
+---
+
+<Layout lang={lang} title={t.title} description={t.description}>
+  <Navbar
+    client:load
+    pathname={Astro.url.pathname}
+    modules={site.modules}
+    moduleIdsWithContent={site.moduleIdsWithContent}
+  />
+  <main class="flex-1 px-6 md:px-12 lg:px-36 pt-40 pb-24">
+    <div class="container max-w-3xl mx-auto px-0">
+      <p class="font-display uppercase tracking-[0.18em] text-[10px] text-muted-foreground">
+        {t.eyebrow}
+      </p>
+      <h1 class="mt-3 text-3xl md:text-4xl font-semibold">{t.heading}</h1>
+      <p class="mt-3 text-[13px] text-muted-foreground">
+        {t.updated} <time datetime={UPDATED}>{t.updatedLabel}</time>
+      </p>
+      <p class="mt-8 text-[15px] leading-[26px] text-muted-foreground">{t.intro}</p>
+
+      {
+        t.sections.map((section) => (
+          <section class="mt-12">
+            <h2 class="font-display text-lg md:text-xl font-semibold">{section.heading}</h2>
+            {section.body?.map((paragraph) => (
+              <p class="mt-4 text-[15px] leading-[26px] text-muted-foreground">{paragraph}</p>
+            ))}
+            {section.list && (
+              <ul class="mt-4 space-y-3 text-[15px] leading-[26px] text-muted-foreground">
+                {section.list.map((item) => (
+                  <li class="pl-5 relative">
+                    <span class="absolute left-0 top-[11px] w-1.5 h-1.5 rounded-full bg-[#001ec2]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))
+      }
+
+      <p class="mt-4 text-[15px] leading-[26px]">
+        <a href={`mailto:${CONTACT_EMAIL}`} class="underline underline-offset-4">{CONTACT_EMAIL}</a>
+      </p>
+
+      {/*
+        O banner de cookies (TermsFeed) escuta cliques em #open_preferences_center
+        e abre aí o painel de preferências — o id é que faz a ligação, não há
+        JavaScript nosso envolvido.
+      */}
+      <button
+        type="button"
+        id="open_preferences_center"
+        class="mt-10 inline-flex items-center rounded-full border border-[#ccd0d7] px-5 py-2.5 text-[13px] hover:border-[#001ec2] hover:text-[#001ec2] transition-colors"
+      >
+        {t.cookiesButton}
+      </button>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

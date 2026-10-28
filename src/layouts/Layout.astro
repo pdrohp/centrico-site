@@ -58,16 +58,22 @@ const { title = settings.title, description = settings.description } = Astro.pro
     <script is:inline src="https://www.termsfeed.com/public/cookie-consent/4.2.0/cookie-consent.js" charset="UTF-8"></script>
     <script is:inline>
       document.addEventListener("DOMContentLoaded", function () {
+        var isEn = document.documentElement.lang.startsWith("en");
         cookieconsent.run({
           notice_banner_type: "simple",
           consent_type: "express",
           palette: "light",
-          language: document.documentElement.lang.startsWith("en") ? "en" : "pt",
+          language: isEn ? "en" : "pt",
           page_load_consent_levels: ["strictly-necessary"],
           notice_banner_reject_button_hide: false,
           preferences_center_close_button_hide: false,
           page_refresh_confirmation_buttons: false,
           website_name: "Céntrico",
+          // O banner só mostra o link se for um URL http(s) absoluto — um
+          // caminho relativo é rejeitado em silêncio.
+          notice_banner_insert_legal_urls: true,
+          website_privacy_policy_url:
+            location.origin + (isEn ? "/en/privacidade" : "/privacidade"),
         });
       });
     </script>
