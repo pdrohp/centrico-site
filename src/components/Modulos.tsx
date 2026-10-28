@@ -4,6 +4,7 @@ import type { Module } from "@/lib/data";
 import { Button } from "./ui/button";
 import { reveal, MotionRoot } from "@/lib/motion";
 import { areaLabel, localizePath, type Lang } from "@/lib/i18n";
+import { ModuleIllustration, hasIllustration } from "./illustrations";
 
 const COPY = {
   pt: {
@@ -147,7 +148,9 @@ export function Modulos({
 
                       {/* Media area */}
                       <div className="absolute inset-0 pt-10 z-10 bg-[#00072c]">
-                        {mod.video ? (
+                        {hasIllustration(mod.id) ? (
+                          <ModuleIllustration id={mod.id} lang={lang} />
+                        ) : mod.video ? (
                           <video
                             src={mod.video}
                             autoPlay
