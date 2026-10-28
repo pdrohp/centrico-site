@@ -1,12 +1,6 @@
 import type { CSSProperties } from "react";
 import { Button } from "../ui/button";
-import { GedVignette } from "../vignettes/GedVignette";
-import { AssinaturasVignette } from "../vignettes/AssinaturasVignette";
-import { ProcessosVignette } from "../vignettes/ProcessosVignette";
-import { AcessosVignette } from "../vignettes/AcessosVignette";
-import { AuditoriaVignette } from "../vignettes/AuditoriaVignette";
-import { IntegracoesVignette } from "../vignettes/IntegracoesVignette";
-import { RhVignette } from "../vignettes/RhVignette";
+import { ModuleIllustration, hasIllustration } from "../illustrations";
 import type { ModuleContent } from "@/lib/modulesContent";
 import { areaLabel, localizePath, type Lang } from "@/lib/i18n";
 
@@ -14,7 +8,7 @@ const COPY = {
   pt: {
     cta: "Agendar demonstração",
     back: "← Voltar aos módulos",
-    unavailable: "Vignette indisponível",
+    unavailable: "Ilustração indisponível",
   },
   en: {
     cta: "Book a demo",
@@ -23,22 +17,10 @@ const COPY = {
   },
 };
 
-const vignetteComponents: Record<string, React.ElementType> = {
-  ged: GedVignette,
-  ass: AssinaturasVignette,
-  proc: ProcessosVignette,
-  ctrl: AcessosVignette,
-  audit: AuditoriaVignette,
-  integ: IntegracoesVignette,
-  rh: RhVignette,
-};
-
 type ModuleData = {
   id: string;
   label: string;
   area: string;
-  accent: string;
-  bg: string;
   headline: string;
 };
 
@@ -52,7 +34,6 @@ export function ModuleHero({
   lang?: Lang;
 }) {
   const t = COPY[lang];
-  const Vignette = vignetteComponents[module.id];
 
   return (
     <section className="relative pt-32 pb-20 md:pt-36 md:pb-28 overflow-hidden bg-[#00072c] text-white">
@@ -132,23 +113,14 @@ export function ModuleHero({
             style={{ "--reveal-delay": "120ms" } as CSSProperties}
             className="reveal-up flex items-center justify-center"
           >
-            <div className="w-full max-w-[560px] aspect-[4/3] relative rounded-[12px] shadow-2xl overflow-hidden border border-white/10 bg-white">
-              <div className="absolute top-0 inset-x-0 h-10 bg-white/95 backdrop-blur border-b border-[#141414]/10 flex items-center px-4 gap-2 z-20">
-                <div className="flex gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                  <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
-                  <div className="w-2 h-2 rounded-full bg-[#C9D0DA]" />
+            <div className="w-full max-w-[560px] aspect-[4/3] relative rounded-[12px] shadow-2xl overflow-hidden border border-white/10 bg-[#00072c]">
+              {hasIllustration(module.id) ? (
+                <ModuleIllustration id={module.id} lang={lang} />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-white/40 text-sm">
+                  {t.unavailable}
                 </div>
-              </div>
-              <div className="absolute inset-0 pt-10 z-10 bg-white">
-                {Vignette ? (
-                  <Vignette accent={module.accent} bg={module.bg} lang={lang} />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-                    {t.unavailable}
-                  </div>
-                )}
-              </div>
+              )}
             </div>
           </div>
         </div>
